@@ -6,5 +6,5 @@ export default {
 </script>
 
 <template>
-  <span>hello harvester</span>
+  <span>Hello harvester!</span>
 </template>
