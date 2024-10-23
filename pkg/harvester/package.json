@@ -1,12 +1,12 @@
 {
   "name": "harvester",
-  "description": "Provides the Virtualization Management feature in Rancher Manager",
+  "description": "Rancher UI Extension for Harvester",
   "version": "1.4.0",
   "private": false,
   "rancher": {
     "annotations": {
       "catalog.cattle.io/rancher-version": ">= v2.10.0",
-      "catalog.cattle.io/display-name": "Virtualization Manager"
+      "catalog.cattle.io/display-name": "Harvester"
     }
   },
   "scripts": {
