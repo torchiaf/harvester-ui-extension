@@ -1,3 +1,11 @@
+const CATTLE_REGEX = /cattle\.io\//;
+const VM_MAINTENANCE_MODE_STRATEGY = /harvesterhci\.io\/maintain-mode-strategy/;
+
+export const LABELS_TO_IGNORE_REGEX = [
+  CATTLE_REGEX,
+  VM_MAINTENANCE_MODE_STRATEGY
+];
+
 export const HCI = {
   CLOUD_INIT:                     'harvesterhci.io/cloud-init-template',
   CURRENT_IP:                     'rke2.io/internal-ip',
