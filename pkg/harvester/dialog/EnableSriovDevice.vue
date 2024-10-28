@@ -76,7 +76,7 @@ export default {
 
     <template #body>
       <LabeledInput
-        v-model.number="numVFs"
+        v-model:value.number="numVFs"
         type="number"
         min="1"
         required
