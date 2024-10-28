@@ -470,7 +470,7 @@ export default {
           </div>
           <div class="col span-6">
             <LabeledInput
-              v-model.number="miimon"
+              v-model:value.number="miimon"
               :label="t('harvester.vlanConfig.uplink.bondOptions.miimon.label')"
               :mode="mode"
               type="number"
@@ -485,7 +485,7 @@ export default {
         <div class="row mt-10">
           <div class="col span-6">
             <LabeledInput
-              v-model.number="mtu"
+              v-model:value.number="mtu"
               :label="t('harvester.vlanConfig.uplink.linkAttributes.mtu.label')"
               :mode="mode"
               type="number"
