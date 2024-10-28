@@ -58,16 +58,14 @@ export default {
 <template>
   <div class="row">
     <div class="col span-12">
-      <template>
-        <ArrayList
-          v-model:value="parseDefaultValue.ntpServers"
-          :title="t('harvester.host.ntp.label')"
-          :protip="t('harvester.host.ntp.tips')"
-          :value-placeholder="t('harvester.host.ntp.placeholder')"
-          :mode="mode"
-          @update:value="update"
-        />
-      </template>
+      <ArrayList
+        v-model:value="parseDefaultValue.ntpServers"
+        :title="t('harvester.host.ntp.label')"
+        :protip="t('harvester.host.ntp.tips')"
+        :value-placeholder="t('harvester.host.ntp.placeholder')"
+        :mode="mode"
+        @update:value="update"
+      />
     </div>
   </div>
 </template>

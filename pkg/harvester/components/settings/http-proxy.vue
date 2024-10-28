@@ -59,28 +59,26 @@ export default {
 
     <div class="row" @update:value="update">
       <div class="col span-12">
-        <template>
-          <LabeledInput
-            v-model:value="parseDefaultValue.httpProxy"
-            class="mb-20"
-            :mode="mode"
-            label="http-proxy"
-          />
+        <LabeledInput
+          v-model:value="parseDefaultValue.httpProxy"
+          class="mb-20"
+          :mode="mode"
+          label="http-proxy"
+        />
 
-          <LabeledInput
-            v-model:value="parseDefaultValue.httpsProxy"
-            class="mb-20"
-            :mode="mode"
-            label="https-proxy"
-          />
+        <LabeledInput
+          v-model:value="parseDefaultValue.httpsProxy"
+          class="mb-20"
+          :mode="mode"
+          label="https-proxy"
+        />
 
-          <LabeledInput
-            v-model:value="parseDefaultValue.noProxy"
-            class="mb-20"
-            :mode="mode"
-            label="no-proxy"
-          />
-        </template>
+        <LabeledInput
+          v-model:value="parseDefaultValue.noProxy"
+          class="mb-20"
+          :mode="mode"
+          label="no-proxy"
+        />
       </div>
     </div>
   </div>
