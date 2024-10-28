@@ -20,6 +20,8 @@ export default {
   name:       'HarvesterListCloudTemplate',
   components: { ResourceTable, Loading },
 
+  inheritAttrs: false,
+
   async fetch() {
     const inStore = this.$store.getters['currentProduct'].inStore;
 
