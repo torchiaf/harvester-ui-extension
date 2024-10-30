@@ -35,7 +35,7 @@ export default {
 
     const schema = this.$store.getters[`${ inStore }/schemaFor`](HCI.BACKUP);
 
-    if (!schema?.collectionMethods.find(x => x.toLowerCase() === 'post')) {
+    if (!schema?.collectionMethods.find((x) => x.toLowerCase() === 'post')) {
       this.$store.dispatch('type-map/configureType', { match: HCI.VM_SNAPSHOT, isCreatable: false });
     }
 
@@ -90,7 +90,7 @@ export default {
     },
 
     getRawRows() {
-      return this.rows.filter(r => r.spec?.type === BACKUP_TYPE.SNAPSHOT);
+      return this.rows.filter((r) => r.spec?.type === BACKUP_TYPE.SNAPSHOT);
     },
 
     schema() {
@@ -102,7 +102,7 @@ export default {
     },
 
     filteredRows() {
-      return this.snapshots.filter(r => r.spec?.type !== BACKUP_TYPE.BACKUP);
+      return this.snapshots.filter((r) => r.spec?.type !== BACKUP_TYPE.BACKUP);
     },
   },
 
@@ -141,7 +141,6 @@ export default {
       :sort-generation-fn="sortGenerationFn"
       key-field="_key"
       default-sort-by="age"
-      
     >
       <template #more-header-middle>
         <FilterVMSchedule

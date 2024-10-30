@@ -21,7 +21,7 @@ import { Banner } from '@components/Banner';
 
 export default {
   emits: ['update:value'],
-  
+
   components: {
     ContainerResourceLimit, CruResource, Labels, LabeledSelect, NameNsDescription, ProjectMembershipEditor, ResourceQuota, Tabbed, Tab, Banner
   },
@@ -114,7 +114,7 @@ export default {
 
       const cur = this.value.status?.podSecurityPolicyTemplateId;
 
-      if ( cur && !out.find(x => x.value === cur) ) {
+      if ( cur && !out.find((x) => x.value === cur) ) {
         out.unshift({ label: this.t('project.psp.current', { value: cur }), value: cur });
       }
 
@@ -219,7 +219,6 @@ export default {
   >
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :name-editable="true"
       :mode="mode"
       :namespaced="false"
@@ -228,6 +227,7 @@ export default {
       name-key="spec.displayName"
       :normalize-name="false"
       :rules="{ name: fvGetAndReportPathRules('spec.displayName'), namespace: [], description: [] }"
+      @update:value="$emit('update:value', $event)"
     />
     <div class="row mb-20">
       <div class="col span-3">

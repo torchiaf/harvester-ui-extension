@@ -25,7 +25,7 @@ export default class HciVmTemplateVersion extends HarvesterResource {
     const schema = this.$getters['schemaFor'](HCI.VM);
     let canCreateVM = true;
 
-    if ( schema && !schema?.collectionMethods.find(x => ['post'].includes(x.toLowerCase())) ) {
+    if ( schema && !schema?.collectionMethods.find((x) => ['post'].includes(x.toLowerCase())) ) {
       canCreateVM = false;
     }
 
@@ -200,7 +200,7 @@ export default class HciVmTemplateVersion extends HarvesterResource {
   }
 
   get currentTemplate() {
-    return find(this.templates, T => T.id === this.templateId);
+    return find(this.templates, (T) => T.id === this.templateId);
   }
 
   async setDefaultVersion(moreQuery = {}) {
@@ -212,7 +212,7 @@ export default class HciVmTemplateVersion extends HarvesterResource {
 
   get defaultVersion() {
     const templates = this.$rootGetters['harvester/all'](HCI.VM_TEMPLATE);
-    const template = templates.find(T => this.templateId === T.id);
+    const template = templates.find((T) => this.templateId === T.id);
 
     return template?.status?.defaultVersion;
   }

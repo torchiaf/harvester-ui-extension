@@ -5,7 +5,7 @@ import { removeAt } from '@shell/utils/array';
 
 export default {
   emits: ['update:value'],
-  
+
   props: {
     value: {
       type:    Array,
@@ -103,7 +103,9 @@ export default {
   <div>
     <div v-if="rows.length">
       <div
-        v-for="(row, idx) in rows" :key="idx">
+        v-for="(row, idx) in rows"
+        :key="idx"
+      >
         <div
           class="pool-headers"
           :class="{
@@ -196,19 +198,37 @@ export default {
               @input="queueUpdate"
             />
           </div>
-          <div v-if="showRemove" class="remove">
-            <button type="button" class="btn role-link" @click="remove(idx)">
+          <div
+            v-if="showRemove"
+            class="remove"
+          >
+            <button
+              type="button"
+              class="btn role-link"
+              @click="remove(idx)"
+            >
               <t k="generic.remove" />
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="showAdd" class="footer">
-      <button type="button" class="btn role-tertiary add" @click="addCIDR()">
+    <div
+      v-if="showAdd"
+      class="footer"
+    >
+      <button
+        type="button"
+        class="btn role-tertiary add"
+        @click="addCIDR()"
+      >
         <t k="harvester.ipPool.cidr.addLabel" />
       </button>
-      <button type="button" class="btn role-tertiary add" @click="addRange()">
+      <button
+        type="button"
+        class="btn role-tertiary add"
+        @click="addRange()"
+      >
         <t k="harvester.ipPool.range.addLabel" />
       </button>
     </div>

@@ -14,7 +14,7 @@ import { LVM_DRIVER } from '../../../../models/harvester/storage.k8s.io.storagec
 import { DATA_ENGINE_V2 } from '../../../../edit/harvesterhci.io.storage/index.vue';
 
 export default {
-  name:       'HarvesterEditVolume',
+  name: 'HarvesterEditVolume',
 
   emits: ['update'],
 
@@ -82,7 +82,7 @@ export default {
     pvcsResource() {
       const allPVCs = this.$store.getters['harvester/all'](PVC) || [];
 
-      return allPVCs.find(P => P.id === `${ this.namespace }/${ this.value.volumeName }`);
+      return allPVCs.find((P) => P.id === `${ this.namespace }/${ this.value.volumeName }`);
     },
 
     isDisabled() {
@@ -94,7 +94,7 @@ export default {
     },
 
     storageClassOptions() {
-      return this.storageClasses.filter(s => !s.parameters?.backingImage).map((s) => {
+      return this.storageClasses.filter((s) => !s.parameters?.backingImage).map((s) => {
         const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
 
         return {
@@ -113,7 +113,7 @@ export default {
     'value.storageClassName': {
       immediate: true,
       handler(neu) {
-        const storageClass = this.storageClasses.find(sc => sc.name === neu);
+        const storageClass = this.storageClasses.find((sc) => sc.name === neu);
         const provisioner = storageClass?.provisioner;
         const engine = storageClass?.parameters?.dataEngine;
 
@@ -158,7 +158,10 @@ export default {
 
 <template>
   <div>
-    <Loading mode="relative" :loading="loading" />
+    <Loading
+      mode="relative"
+      :loading="loading"
+    />
     <div class="row mb-20">
       <div
         class="col span-6"
@@ -249,7 +252,11 @@ export default {
         data-testid="input-hev-bus"
         class="col span-6"
       >
-        <InputOrDisplay :name="t('harvester.virtualMachine.volume.bus')" :value="value.bus" :mode="mode">
+        <InputOrDisplay
+          :name="t('harvester.virtualMachine.volume.bus')"
+          :value="value.bus"
+          :mode="mode"
+        >
           <LabeledSelect
             v-model:value="value.bus"
             :label="t('harvester.virtualMachine.volume.bus')"
@@ -271,7 +278,10 @@ export default {
       </div>
     </div>
     <div class="row mb-20">
-      <div v-if="value.volumeBackups && isView" class="col span-3">
+      <div
+        v-if="value.volumeBackups && isView"
+        class="col span-3"
+      >
         <LabelValue
           :name="t('harvester.virtualMachine.volume.readyToUse')"
           :value="readyToUse"

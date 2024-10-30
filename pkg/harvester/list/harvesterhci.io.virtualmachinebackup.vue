@@ -38,7 +38,7 @@ export default {
     this.rows = hash.backups;
     this.settings = hash.settings;
     if (this.$store.getters[`${ inStore }/schemaFor`](HCI.SETTING)) {
-      const backupTargetResource = hash.settings.find( O => O.id === 'backup-target');
+      const backupTargetResource = hash.settings.find( (O) => O.id === 'backup-target');
       const isEmpty = this.getBackupTargetValueIsEmpty(backupTargetResource);
 
       if (backupTargetResource && !isEmpty) {
@@ -161,16 +161,16 @@ export default {
     },
 
     hasBackupProgresses() {
-      return !!this.backups.find(r => r.status?.progress !== undefined);
+      return !!this.backups.find((r) => r.status?.progress !== undefined);
     },
     filteredRows() {
-      return this.backups.filter(r => r.spec?.type !== BACKUP_TYPE.SNAPSHOT);
+      return this.backups.filter((r) => r.spec?.type !== BACKUP_TYPE.SNAPSHOT);
     },
     getRawRows() {
-      return this.rows.filter(r => r.spec?.type === BACKUP_TYPE.BACKUP);
+      return this.rows.filter((r) => r.spec?.type === BACKUP_TYPE.BACKUP);
     },
     backupTargetResource() {
-      return this.settings.find(O => O.id === 'backup-target');
+      return this.settings.find((O) => O.id === 'backup-target');
     },
 
     isEmptyValue() {

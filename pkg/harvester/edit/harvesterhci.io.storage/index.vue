@@ -13,7 +13,9 @@ import Loading from '@shell/components/Loading';
 
 import { _CREATE, _VIEW } from '@shell/config/query-params';
 import { mapFeature, UNSUPPORTED_STORAGE_DRIVERS } from '@shell/store/features';
-import { STORAGE_CLASS, LONGHORN, LONGHORN_DRIVER, SECRET, NAMESPACE } from '@shell/config/types';
+import {
+  STORAGE_CLASS, LONGHORN, LONGHORN_DRIVER, SECRET, NAMESPACE
+} from '@shell/config/types';
 import { allHash } from '@shell/utils/promise';
 import { clone } from '@shell/utils/object';
 import { CSI_DRIVER } from '../../types';
@@ -84,7 +86,7 @@ export default {
       }
     ];
 
-    const allowedTopologies = clone(this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).filter(t => t.key !== LVM_TOPOLOGY_LABEL);
+    const allowedTopologies = clone(this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).filter((t) => t.key !== LVM_TOPOLOGY_LABEL);
 
     this.value['parameters'] = this.value.parameters || {};
     this.value['provisioner'] = this.value.provisioner || LONGHORN_DRIVER;
@@ -200,7 +202,7 @@ export default {
       let parameters = {};
 
       if (provisioner === LVM_DRIVER) {
-        const matchLabelExpressions = (this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).filter(t => t.key !== LVM_TOPOLOGY_LABEL);
+        const matchLabelExpressions = (this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).filter((t) => t.key !== LVM_TOPOLOGY_LABEL);
 
         if (matchLabelExpressions.length > 0) {
           this.value['allowedTopologies'] = [{ matchLabelExpressions }];
@@ -246,8 +248,8 @@ export default {
     },
 
     formatAllowedTopoloties() {
-      const neu = this.allowedTopologies.filter(t => t.key !== LVM_TOPOLOGY_LABEL);
-      const lvmMatchExpression = (this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).filter(t => t.key === LVM_TOPOLOGY_LABEL);
+      const neu = this.allowedTopologies.filter((t) => t.key !== LVM_TOPOLOGY_LABEL);
+      const lvmMatchExpression = (this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).filter((t) => t.key === LVM_TOPOLOGY_LABEL);
 
       if (!neu || neu.length === 0) {
         if (lvmMatchExpression.length > 0) {
@@ -259,7 +261,7 @@ export default {
         return;
       }
 
-      const matchLabelExpressions = neu.filter(R => !!R.key.trim() && (R.values.length > 0 && !R.values.find(V => !V.trim())));
+      const matchLabelExpressions = neu.filter((R) => !!R.key.trim() && (R.values.length > 0 && !R.values.find((V) => !V.trim())));
 
       if (matchLabelExpressions.length > 0) {
         this.value.allowedTopologies = [{ matchLabelExpressions: [...matchLabelExpressions, ...lvmMatchExpression] }];
@@ -287,9 +289,9 @@ export default {
     <NameNsDescription
       :namespaced="false"
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
       :register-before-hook="registerBeforeHook"
+      @update:value="$emit('update:value', $event)"
     />
     <LabeledSelect
       v-model:value="provisioner"
@@ -302,7 +304,11 @@ export default {
       class="mb-20"
     />
     <Tabbed :side-tabs="true">
-      <Tab name="parameters" :label="t('storageClass.parameters.label')" :weight="2">
+      <Tab
+        name="parameters"
+        :label="t('storageClass.parameters.label')"
+        :weight="2"
+      >
         <component
           :is="getComponent(provisioner)"
           :key="provisioner"
@@ -311,7 +317,10 @@ export default {
           :real-mode="realMode"
         />
       </Tab>
-      <Tab name="customize" :label="t('storageClass.customize.label')">
+      <Tab
+        name="customize"
+        :label="t('storageClass.customize.label')"
+      >
         <div class="row mt-20">
           <div class="col span-6">
             <RadioGroup

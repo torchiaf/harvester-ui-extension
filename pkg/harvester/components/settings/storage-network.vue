@@ -107,7 +107,7 @@ export default {
 
   methods: {
     update() {
-      const exclude = this.exclude.filter(ip => ip);
+      const exclude = this.exclude.filter((ip) => ip);
 
       if (Array.isArray(exclude) && exclude.length > 0) {
         this.parsedDefaultValue.exclude = exclude;
@@ -172,7 +172,10 @@ export default {
     @update:value="update"
   >
     <Banner color="warning">
-      <t k="harvester.setting.storageNetwork.warning" :raw="true" />
+      <t
+        k="harvester.setting.storageNetwork.warning"
+        :raw="true"
+      />
     </Banner>
 
     <RadioGroup
@@ -210,8 +213,15 @@ export default {
         :placeholder="t('harvester.setting.storageNetwork.range.placeholder')"
         label-key="harvester.setting.storageNetwork.range.label"
       />
-      <Tip class="mb-20" icon="icon icon-info">
-        <t k="harvester.setting.storageNetwork.tip" :raw="true" :url="storageNetworkExampleLink" />
+      <Tip
+        class="mb-20"
+        icon="icon icon-info"
+      >
+        <t
+          k="harvester.setting.storageNetwork.tip"
+          :raw="true"
+          :url="storageNetworkExampleLink"
+        />
       </Tip>
 
       <ArrayList

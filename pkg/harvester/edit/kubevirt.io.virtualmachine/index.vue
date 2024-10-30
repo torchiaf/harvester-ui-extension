@@ -142,7 +142,7 @@ export default {
     versionOptions() {
       const defaultVersion = this.curTemplateResource?.defaultVersion;
 
-      return this.versions.filter( O => O.templateId === this.templateId).map( (T) => {
+      return this.versions.filter( (O) => O.templateId === this.templateId).map( (T) => {
         const version = T.version;
 
         const label = defaultVersion === version ? `${ version } (${ this.t('generic.default') })` : version;
@@ -157,7 +157,7 @@ export default {
     },
 
     curTemplateResource() {
-      return this.templates.find( O => O.id === this.templateId);
+      return this.templates.find( (O) => O.id === this.templateId);
     },
 
     nameLabel() {
@@ -190,7 +190,7 @@ export default {
 
     enableCpuPinningCheckbox() {
       if (this.mode === 'create') {
-        return this.nodes.some(node => node.isCPUManagerEnabled); // any one of nodes has label cpuManager=true
+        return this.nodes.some((node) => node.isCPUManagerEnabled); // any one of nodes has label cpuManager=true
       }
 
       return true;
@@ -202,7 +202,7 @@ export default {
       }
 
       if (this.mode === 'create') {
-        return this.nodes.every(node => !node.isCPUManagerEnabled); // no node enabled CPU manager
+        return this.nodes.every((node) => !node.isCPUManagerEnabled); // no node enabled CPU manager
       }
 
       return false;
@@ -218,7 +218,7 @@ export default {
         if (id !== old && !this.templateVersionId) {
           const templates = await this.$store.dispatch('harvester/findAll', { type: HCI.VM_TEMPLATE });
 
-          this.templateVersionId = templates.find( O => O.id === id)?.spec?.defaultVersionId;
+          this.templateVersionId = templates.find( (O) => O.id === id)?.spec?.defaultVersionId;
         }
       },
       immediate: false
@@ -230,7 +230,7 @@ export default {
           return;
         }
         const versions = await this.$store.dispatch('harvester/findAll', { type: HCI.VM_VERSION });
-        const curVersion = versions.find( V => V.id === id);
+        const curVersion = versions.find( (V) => V.id === id);
         const cloneVersionVM = clone(curVersion.spec.vm);
 
         delete cloneVersionVM.spec?.template?.spec?.accessCredentials;
@@ -458,7 +458,7 @@ export default {
     hasAvailableVersion(templateId) {
       let hasAvailableVersion = false;
 
-      this.versions.filter( O => O.templateId === templateId).find( (T) => {
+      this.versions.filter( (O) => O.templateId === templateId).find( (T) => {
         if (T.isReady) {
           hasAvailableVersion = true;
         }
@@ -483,7 +483,7 @@ export default {
     id="vm"
     :done-route="doneRoute"
     :resource="value"
-    :cancelEvent="true"
+    :cancel-event="true"
     :mode="mode"
     :can-yaml="isSingle ? true : false"
     :errors="errors"
@@ -503,13 +503,13 @@ export default {
 
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
       :has-extra="!isSingle"
       :name-label="nameLabel"
       :namespaced="true"
       :name-placeholder="isSingle ? 'nameNsDescription.name.placeholder' : 'harvester.virtualMachine.instance.multiple.nameNsDescription'"
       :extra-columns="isSingle ? [] :['type']"
+      @update:value="$emit('update:value', $event)"
     >
       <template #type>
         <LabeledInput
@@ -653,16 +653,44 @@ export default {
         />
       </Tab>
 
-      <Tab v-if="enabledSriovgpu" :label="t('harvester.tab.vGpuDevices')" name="vGpuDevices" :weight="-6">
-        <VGpuDevices :mode="mode" :value="spec.template.spec" :vm="value" />
+      <Tab
+        v-if="enabledSriovgpu"
+        :label="t('harvester.tab.vGpuDevices')"
+        name="vGpuDevices"
+        :weight="-6"
+      >
+        <VGpuDevices
+          :mode="mode"
+          :value="spec.template.spec"
+          :vm="value"
+        />
       </Tab>
 
-      <Tab v-if="enabledPCI" :label="t('harvester.tab.usbDevices')" name="usbDevices" :weight="-7">
-        <UsbDevices :mode="mode" :value="spec.template.spec" :vm="value" />
+      <Tab
+        v-if="enabledPCI"
+        :label="t('harvester.tab.usbDevices')"
+        name="usbDevices"
+        :weight="-7"
+      >
+        <UsbDevices
+          :mode="mode"
+          :value="spec.template.spec"
+          :vm="value"
+        />
       </Tab>
 
-      <Tab v-if="isEdit" :label="t('harvester.tab.accessCredentials')" name="accessCredentials" :weight="-8">
-        <AccessCredentials v-model:value="accessCredentials" :mode="mode" :resourceType="value" :is-qemu-installed="isQemuInstalled" />
+      <Tab
+        v-if="isEdit"
+        :label="t('harvester.tab.accessCredentials')"
+        name="accessCredentials"
+        :weight="-8"
+      >
+        <AccessCredentials
+          v-model:value="accessCredentials"
+          :mode="mode"
+          :resource-type="value"
+          :is-qemu-installed="isQemuInstalled"
+        />
       </Tab>
 
       <Tab
@@ -739,11 +767,24 @@ export default {
         </div>
 
         <div class="row mb-20">
-          <a v-if="showAdvanced" v-t="'harvester.generic.showMore'" role="button" @click="toggleAdvanced" />
-          <a v-else v-t="'harvester.generic.showMore'" role="button" @click="toggleAdvanced" />
+          <a
+            v-if="showAdvanced"
+            v-t="'harvester.generic.showMore'"
+            role="button"
+            @click="toggleAdvanced"
+          />
+          <a
+            v-else
+            v-t="'harvester.generic.showMore'"
+            role="button"
+            @click="toggleAdvanced"
+          />
         </div>
 
-        <div v-if="showAdvanced" class="mb-20">
+        <div
+          v-if="showAdvanced"
+          class="mb-20"
+        >
           <div class="row mb-20">
             <div class="col span-6">
               <LabeledInput

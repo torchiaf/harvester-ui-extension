@@ -97,7 +97,10 @@ export default {
       color="error"
       :label="t('harvester.addons.nvidiaDriverToolkit.parsingSpecError', null, { raw: true })"
     />
-    <Tabbed v-else :side-tabs="true">
+    <Tabbed
+      v-else
+      :side-tabs="true"
+    >
       <Tab
         name="basic"
         :label="t('harvester.addons.nvidiaDriverToolkit.titles.basic')"
@@ -113,7 +116,10 @@ export default {
           @update:value="toggleEnable"
         />
         <div v-if="value.spec.enabled">
-          <div v-if="valuesContentJson.image" class="row mb-15">
+          <div
+            v-if="valuesContentJson.image"
+            class="row mb-15"
+          >
             <div class="col span-6">
               <LabeledInput
                 v-model:value="valuesContentJson.image.repo"

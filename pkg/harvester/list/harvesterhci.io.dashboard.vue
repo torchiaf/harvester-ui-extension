@@ -181,7 +181,7 @@ export default {
 
     const addons = this.$store.getters[`${ inStore }/all`](HCI.ADD_ONS);
 
-    this.monitoring = addons.find(addon => addon.id === MONITORING_ID);
+    this.monitoring = addons.find((addon) => addon.id === MONITORING_ID);
     this.enabledMonitoringAddon = this.monitoring?.spec?.enabled;
   },
 
@@ -241,7 +241,7 @@ export default {
     accessibleResources() {
       const inStore = this.$store.getters['currentProduct'].inStore;
 
-      return RESOURCES.filter(resource => this.$store.getters[`${ inStore }/schemaFor`](resource.type));
+      return RESOURCES.filter((resource) => this.$store.getters[`${ inStore }/schemaFor`](resource.type));
     },
 
     totalCountGaugeInput() {
@@ -370,7 +370,7 @@ export default {
     },
 
     storageStats() {
-      const storageOverProvisioningPercentageSetting = this.longhornSettings.find(s => s.id === 'longhorn-system/storage-over-provisioning-percentage');
+      const storageOverProvisioningPercentageSetting = this.longhornSettings.find((s) => s.id === 'longhorn-system/storage-over-provisioning-percentage');
       const stats = this.longhornNodes.reduce((total, node) => {
         const disks = node?.spec?.disks || {};
         const diskStatus = node?.status?.diskStatus || {};
@@ -412,19 +412,19 @@ export default {
     },
 
     vmEvents() {
-      return this.events.filter( E => ['VirtualMachineInstance', 'VirtualMachine'].includes(E.involvedObject.kind));
+      return this.events.filter( (E) => ['VirtualMachineInstance', 'VirtualMachine'].includes(E.involvedObject.kind));
     },
 
     volumeEvents() {
-      return this.events.filter( E => ['PersistentVolumeClaim'].includes(E.involvedObject.kind));
+      return this.events.filter( (E) => ['PersistentVolumeClaim'].includes(E.involvedObject.kind));
     },
 
     hostEvents() {
-      return this.events.filter( E => ['Node'].includes(E.involvedObject.kind));
+      return this.events.filter( (E) => ['Node'].includes(E.involvedObject.kind));
     },
 
     imageEvents() {
-      return this.events.filter( E => ['VirtualMachineImage'].includes(E.involvedObject.kind));
+      return this.events.filter( (E) => ['VirtualMachineImage'].includes(E.involvedObject.kind));
     },
 
     hasMetricsTabs() {
@@ -435,7 +435,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const pods = this.$store.getters[`${ inStore }/all`](POD) || [];
 
-      return pods.filter(p => p?.metadata?.name !== 'removing');
+      return pods.filter((p) => p?.metadata?.name !== 'removing');
     },
 
     cpuReserved() {
@@ -458,14 +458,14 @@ export default {
     },
 
     availableNodes() {
-      return (this.metricNodes || []).map(node => node.id);
+      return (this.metricNodes || []).map((node) => node.id);
     },
 
     metricAggregations() {
       const nodes = this.nodes;
-      const someNonWorkerRoles = this.nodes.some(node => node.hasARole && !node.isWorker);
+      const someNonWorkerRoles = this.nodes.some((node) => node.hasARole && !node.isWorker);
       const metrics = this.nodeMetrics.filter((nodeMetrics) => {
-        const node = nodes.find(nd => nd.id === nodeMetrics.id);
+        const node = nodes.find((nd) => nd.id === nodeMetrics.id);
 
         return node && (!someNonWorkerRoles || node.isWorker);
       });
@@ -630,7 +630,9 @@ export default {
 
     <div class="resource-gauges">
       <ResourceSummary
-         v-for="(resource, i) in totalCountGaugeInput" :key="i" :spoofed-counts="resource.isSpoofed ? resource : null"
+        v-for="(resource, i) in totalCountGaugeInput"
+        :key="i"
+        :spoofed-counts="resource.isSpoofed ? resource : null"
         :resource="resource.resource"
       />
     </div>

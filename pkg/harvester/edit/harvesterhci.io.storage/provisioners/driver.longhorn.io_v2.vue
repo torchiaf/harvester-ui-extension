@@ -78,7 +78,7 @@ export default {
       const allSecrets = this.$store.getters[`${ inStore }/all`](SECRET);
 
       // only show non-system secret to user to select
-      return allSecrets.filter(secret => secret.isSystem === false);
+      return allSecrets.filter((secret) => secret.isSystem === false);
     },
 
     longhornNodes() {
@@ -124,7 +124,7 @@ export default {
     },
 
     secretOptions() {
-      return this.secrets.map(secret => secret.id);
+      return this.secrets.map((secret) => secret.id);
     },
 
     volumeEncryptionOptions() {
@@ -282,7 +282,10 @@ export default {
           :mode="mode"
         >
           <template #no-options="{ searching }">
-            <span v-if="!searching" class="text-muted">
+            <span
+              v-if="!searching"
+              class="text-muted"
+            >
               {{ t('harvester.storage.parameters.nodeSelector.no-options', null, true) }}
             </span>
           </template>
@@ -298,7 +301,10 @@ export default {
           :mode="mode"
         >
           <template #no-options="{ searching }">
-            <span v-if="!searching" class="text-muted">
+            <span
+              v-if="!searching"
+              class="text-muted"
+            >
               {{ t('harvester.storage.parameters.diskSelector.no-options', null, true) }}
             </span>
           </template>
@@ -325,7 +331,10 @@ export default {
         :disabled="true"
       />
     </div>
-    <div v-if="value.parameters.encrypted === 'true'" class="row mt-20">
+    <div
+      v-if="value.parameters.encrypted === 'true'"
+      class="row mt-20"
+    >
       <div class="col span-6">
         <LabeledSelect
           v-model:value="secret"

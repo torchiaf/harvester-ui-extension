@@ -66,7 +66,9 @@ export default {
 <template>
   <div>
     <div
-      v-for="(port, index) in parsed" :key="index">
+      v-for="(port, index) in parsed"
+      :key="index"
+    >
       <CopyToClipboardText :text="port.label" />
     </div>
   </div>

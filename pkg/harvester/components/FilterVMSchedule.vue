@@ -16,14 +16,12 @@ export default {
   },
 
   data() {
-    return {
-      selected: '',
-    };
+    return { selected: '' };
   },
 
   computed: {
     scheduleOptions() {
-      const options = this.rows.map(r => r.sourceSchedule).filter(r => r);
+      const options = this.rows.map((r) => r.sourceSchedule).filter((r) => r);
 
       return Array.from(new Set(options));
     },
@@ -46,7 +44,7 @@ export default {
 
         return;
       }
-      const filteredRows = this.rows.filter(row => row.sourceSchedule === this.selected);
+      const filteredRows = this.rows.filter((row) => row.sourceSchedule === this.selected);
 
       this.$emit('change-rows', filteredRows, this.selected);
     }
@@ -67,8 +65,14 @@ export default {
 <template>
   <div class="vm-schedule-filter">
     <template>
-      <span v-if="selected" class="banner-item bg-warning">
-        {{ t('harvester.tableHeaders.vmSchedule') }}{{ selected ? ` = ${selected}`: '' }}<i class="icon icon-close ml-5" @click="remove" />
+      <span
+        v-if="selected"
+        class="banner-item bg-warning"
+      >
+        {{ t('harvester.tableHeaders.vmSchedule') }}{{ selected ? ` = ${selected}`: '' }}<i
+          class="icon icon-close ml-5"
+          @click="remove"
+        />
       </span>
     </template>
 
@@ -77,7 +81,10 @@ export default {
       placement="bottom-end"
       offset="1"
     >
-      <button ref="actionDropDown" class="btn bg-primary mr-10">
+      <button
+        ref="actionDropDown"
+        class="btn bg-primary mr-10"
+      >
         <slot name="title">
           {{ t('harvester.fields.filterSchedule') }}
         </slot>

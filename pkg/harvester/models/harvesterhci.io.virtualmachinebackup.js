@@ -59,7 +59,7 @@ export default class HciVmBackup extends HarvesterResource {
     const schema = this.$getters['schemaFor'](HCI.VM);
     let canCreateVM = true;
 
-    if ( schema && !schema?.collectionMethods.find(x => ['post'].includes(x.toLowerCase())) ) {
+    if ( schema && !schema?.collectionMethods.find((x) => ['post'].includes(x.toLowerCase())) ) {
       canCreateVM = false;
     }
 
@@ -158,7 +158,7 @@ export default class HciVmBackup extends HarvesterResource {
   get attachVmExisting() {
     const vmList = this.$rootGetters['harvester/all'](HCI.VM);
 
-    return !!vmList.find( V => V.metadata.name === this.attachVM);
+    return !!vmList.find( (V) => V.metadata.name === this.attachVM);
   }
 
   remove() {

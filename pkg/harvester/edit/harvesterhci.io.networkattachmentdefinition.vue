@@ -17,7 +17,7 @@ const MANUAL = 'manual';
 
 export default {
   emits: ['update:value'],
-  
+
   components: {
     Tab,
     Tabbed,
@@ -191,11 +191,20 @@ export default {
     <NameNsDescription
       ref="nd"
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
+      @update:value="$emit('update:value', $event)"
     />
-    <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true">
-      <Tab name="basics" :label="t('harvester.network.tabs.basics')" :weight="99" class="bordered-table">
+    <Tabbed
+      v-bind="$attrs"
+      class="mt-15"
+      :side-tabs="true"
+    >
+      <Tab
+        name="basics"
+        :label="t('harvester.network.tabs.basics')"
+        :weight="99"
+        class="bordered-table"
+      >
         <LabeledSelect
           v-model:value="type"
           class="mb-20"

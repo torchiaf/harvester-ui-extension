@@ -10,7 +10,7 @@ import Priority from './Priority';
 
 export default {
   emits: ['update:value'],
-  
+
   components: {
     LabeledSelect,
     LabeledInput,
@@ -47,7 +47,7 @@ export default {
       return [{
         label: this.t('generic.none'),
         value: '',
-      }, ...networks.map(n => ({
+      }, ...networks.map((n) => ({
         label: n.id,
         value: n.id,
       }))];

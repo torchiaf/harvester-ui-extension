@@ -68,7 +68,7 @@ export default {
     },
 
     filteredRows() {
-      return this.rows.filter(R => R.spec?.type !== BACKUP_TYPE.SNAPSHOT);
+      return this.rows.filter((R) => R.spec?.type !== BACKUP_TYPE.SNAPSHOT);
     },
 
     typeDisplay() {
@@ -91,7 +91,7 @@ export default {
       :schema="schema"
       :resource="resource"
       :type-display="typeDisplay"
-      :parentNameOverride="'Virtual Machine schedule'"
+      :parent-name-override="'Virtual Machine schedule'"
       :create-button-label="t('harvester.schedule.createButtonText')"
     />
     <ResourceTable

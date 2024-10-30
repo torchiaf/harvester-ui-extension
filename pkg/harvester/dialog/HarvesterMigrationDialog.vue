@@ -13,7 +13,7 @@ import { HCI } from '../types';
 
 export default {
   emits: ['close'],
-  
+
   components: {
     AsyncButton, Banner, Card, LabeledSelect
   },
@@ -65,7 +65,7 @@ export default {
     vmi() {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const vmiResources = this.$store.getters[`${ inStore }/all`](HCI.VMI);
-      const resource = vmiResources.find(VMI => VMI.id === this.actionResource?.id) || null;
+      const resource = vmiResources.find((VMI) => VMI.id === this.actionResource?.id) || null;
 
       return resource;
     },
@@ -150,7 +150,11 @@ export default {
     </template>
 
     <template #body>
-      <Banner v-if="actionResource?.isCpuPinning" color="warning" :label="cpuPinningAlertMessage" />
+      <Banner
+        v-if="actionResource?.isCpuPinning"
+        color="warning"
+        :label="cpuPinningAlertMessage"
+      />
       <LabeledSelect
         v-model:value="nodeName"
         :label="t('harvester.modal.migration.fields.nodeName.label')"
@@ -159,9 +163,15 @@ export default {
       />
     </template>
 
-    <template #actions class="actions">
+    <template
+      #actions
+      class="actions"
+    >
       <div class="buttons">
-        <button class="btn role-secondary mr-10" @click="close">
+        <button
+          class="btn role-secondary mr-10"
+          @click="close"
+        >
           {{ t('generic.cancel') }}
         </button>
 
@@ -171,7 +181,12 @@ export default {
           @click="apply"
         />
       </div>
-      <Banner v-for="(err, i) in errors" :key="i" color="error" :label="err" />
+      <Banner
+        v-for="(err, i) in errors"
+        :key="i"
+        color="error"
+        :label="err"
+      />
     </template>
   </Card>
 </template>

@@ -47,7 +47,7 @@ export default {
     },
 
     names() {
-      return this.resources.map(obj => obj.nameDisplay).slice(0, 5);
+      return this.resources.map((obj) => obj.nameDisplay).slice(0, 5);
     },
 
     resourceNames() {
@@ -131,7 +131,10 @@ export default {
 </script>
 
 <template>
-  <Card class="prompt-related" :show-highlight-border="false">
+  <Card
+    class="prompt-related"
+    :show-highlight-border="false"
+  >
     <template #title>
       <h4 class="text-default-text">
         {{ t('promptRemove.title') }}
@@ -152,19 +155,34 @@ export default {
         <div class="mb-10">
           <CopyToClipboardText :text="nameToMatch" />
         </div>
-        <input id="confirm" v-model="confirmName" type="text" />
+        <input
+          id="confirm"
+          v-model="confirmName"
+          type="text"
+        />
         <div class="text-info mt-20">
           {{ protip }}
         </div>
-        <Banner v-for="(error, i) in errors" :key="i"/>
+        <Banner
+          v-for="(error, i) in errors"
+          :key="i"
+        />
       </div>
     </template>
 
     <template #actions>
-      <button class="btn role-secondary mr-10" @click="close">
+      <button
+        class="btn role-secondary mr-10"
+        @click="close"
+      >
         {{ t('generic.cancel') }}
       </button>
-      <AsyncButton mode="delete" class="btn bg-error ml-10" :disabled="deleteDisabled" @click="remove" />
+      <AsyncButton
+        mode="delete"
+        class="btn bg-error ml-10"
+        :disabled="deleteDisabled"
+        @click="remove"
+      />
     </template>
   </Card>
 </template>

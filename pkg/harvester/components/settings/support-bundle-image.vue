@@ -29,6 +29,7 @@ export default {
 
   data() {
     let parseDefaultValue = {};
+
     try {
       parseDefaultValue = JSON.parse(this.value.value);
     } catch (error) {
@@ -63,6 +64,7 @@ export default {
   methods: {
     update() {
       const value = JSON.stringify(this.parseDefaultValue);
+
       this.value['value'] = value;
     },
 
@@ -99,7 +101,10 @@ export default {
 </script>
 
 <template>
-  <div class="row" @input="update">
+  <div
+    class="row"
+    @input="update"
+  >
     <div class="col span-12">
       <LabeledInput
         v-model:value="parseDefaultValue.repository"

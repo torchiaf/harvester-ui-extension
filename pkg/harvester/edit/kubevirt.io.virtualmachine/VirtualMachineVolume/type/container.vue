@@ -6,7 +6,7 @@ import { VOLUME_TYPE, InterfaceOption } from '../../../../config/harvester-map';
 import { Banner } from '@components/Banner';
 
 export default {
-  name:       'HarvesterEditContainer',
+  name: 'HarvesterEditContainer',
 
   emits: ['update'],
 

@@ -152,7 +152,7 @@ export default {
     },
 
     rows() {
-      const matchVMIs = this.allVMIs.filter(VMI => !this.allVMs.find(VM => VM.id === VMI.id));
+      const matchVMIs = this.allVMIs.filter((VMI) => !this.allVMs.find((VM) => VM.id === VMI.id));
 
       return [...this.allVMs, ...matchVMIs];
     },
@@ -161,7 +161,7 @@ export default {
      * We want to show the progress bar only for Backup's restore; snapshot's restore is immediate.
      */
     hasBackUpRestoreInProgress() {
-      return !!this.rows.find(r => r.restoreResource && !r.restoreResource.fromSnapshot && !r.restoreResource.isComplete);
+      return !!this.rows.find((r) => r.restoreResource && !r.restoreResource.fromSnapshot && !r.restoreResource.isComplete);
     }
   },
 
@@ -201,11 +201,18 @@ export default {
       :schema="schema"
       :groupable="true"
       key-field="_key"
-      
     >
-      <template #cell:state="scope" class="state-col">
+      <template
+        #cell:state="scope"
+        class="state-col"
+      >
         <div class="state">
-          <HarvesterVmState class="vmstate" :row="scope.row" :all-node-network="allNodeNetworks" :all-cluster-network="allClusterNetworks" />
+          <HarvesterVmState
+            class="vmstate"
+            :row="scope.row"
+            :all-node-network="allNodeNetworks"
+            :all-cluster-network="allClusterNetworks"
+          />
         </div>
       </template>
 
@@ -226,7 +233,10 @@ export default {
           <span v-else>
             {{ scope.row.metadata.name }}
           </span>
-          <ConsoleBar :resourceType="scope.row" class="console mr-10 ml-10" />
+          <ConsoleBar
+            :resource-type="scope.row"
+            class="console mr-10 ml-10"
+          />
         </div>
       </template>
     </ResourceTable>

@@ -1,6 +1,8 @@
 <script>
 import { allHash } from '@shell/utils/promise';
-import { CSI_DRIVER, LONGHORN, LONGHORN_DRIVER, LONGHORN_VERSION_V1, LONGHORN_VERSION_V2 } from '@shell/config/types';
+import {
+  CSI_DRIVER, LONGHORN, LONGHORN_DRIVER, LONGHORN_VERSION_V1, LONGHORN_VERSION_V2
+} from '@shell/config/types';
 import { LabeledInput } from '@components/Form/LabeledInput';
 import LabelValue from '@shell/components/LabelValue';
 import { BadgeState } from '@components/BadgeState';
@@ -123,7 +125,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const lvmVolumeGroups = this.$store.getters[`${ inStore }/all`](HCI.LVM_VOLUME_GROUP) || [];
 
-      const out = lvmVolumeGroups.filter(group => group.spec.nodeName === this.node.name).map(g => g.spec.vgName);
+      const out = lvmVolumeGroups.filter((group) => group.spec.nodeName === this.node.name).map((g) => g.spec.vgName);
 
       out.unshift({
         label: this.t('harvester.host.disk.lvmVolumeGroup.create'),
@@ -134,7 +136,7 @@ export default {
     },
 
     targetDisk() {
-      return this.disks.find(disk => disk.name === this.value.name);
+      return this.disks.find((disk) => disk.name === this.value.name);
     },
 
     schedulableTooltipMessage() {
@@ -329,7 +331,10 @@ export default {
 </script>
 
 <template>
-  <div class="disk" @update:value="update">
+  <div
+    class="disk"
+    @update:value="update"
+  >
     <div class="mt-10" />
     <Banner
       v-if="mountedMessage && isProvisioned"
@@ -395,7 +400,10 @@ export default {
           </div>
         </div>
       </div>
-      <div v-if="!value.isNew" class="row mt-30">
+      <div
+        v-if="!value.isNew"
+        class="row mt-30"
+      >
         <div class="col flex span-12">
           <LabelValue
             :name="t('harvester.host.disk.storageAvailable.label')"
@@ -422,7 +430,7 @@ export default {
         />
       </div>
     </div>
- 
+
     <div class="row mt-10">
       <div :class="`col span-${ value.isNew ? '6': '12' }`">
         <LabeledSelect
@@ -437,7 +445,10 @@ export default {
           @keydown.native.enter.prevent="()=>{}"
         />
       </div>
-      <div v-if="(value.isNew && isLonghornV1 && !isFormatted) || isCorrupted" class="col span-6">
+      <div
+        v-if="(value.isNew && isLonghornV1 && !isFormatted) || isCorrupted"
+        class="col span-6"
+      >
         <RadioGroup
           v-model:value="value.forceFormatted"
           :mode="mode"
@@ -459,7 +470,10 @@ export default {
           </template>
         </RadioGroup>
       </div>
-      <div v-if="value.isNew && isLvm" class="col span-6">
+      <div
+        v-if="value.isNew && isLvm"
+        class="col span-6"
+      >
         <LabeledSelect
           v-model:value="value.lvmVolumeGroup"
           :mode="mode"

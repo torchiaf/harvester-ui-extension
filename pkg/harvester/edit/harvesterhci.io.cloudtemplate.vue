@@ -83,13 +83,17 @@ export default {
   >
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
       :namespaced="true"
+      @update:value="$emit('update:value', $event)"
     />
 
     <Tabbed :side-tabs="true">
-      <Tab name="basics" :label="t('harvester.host.tabs.basics')" :weight="1">
+      <Tab
+        name="basics"
+        :label="t('harvester.host.tabs.basics')"
+        :weight="1"
+      >
         <div class="mb-20">
           <LabeledSelect
             v-model:value="type"

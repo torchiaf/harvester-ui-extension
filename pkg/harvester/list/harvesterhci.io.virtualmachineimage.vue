@@ -70,10 +70,13 @@ export default {
       :schema="schema"
       :sort-generation-fn="sortGenerationFn"
       key-field="_key"
-      
     >
       <template #more-header-middle>
-        <FilterLabel ref="filterLabel" :rows="rows" @changeRows="changeRows" />
+        <FilterLabel
+          ref="filterLabel"
+          :rows="rows"
+          @changeRows="changeRows"
+        />
       </template>
       <template #col:name="{row}">
         <td>
@@ -83,7 +86,10 @@ export default {
               :to="row.detailLocation"
             >
               {{ row.nameDisplay }}
-              <i v-if="row.isEncrypted" class="icon icon-lock" />
+              <i
+                v-if="row.isEncrypted"
+                class="icon icon-lock"
+              />
             </router-link>
             <span v-else>
               {{ row.nameDisplay }}

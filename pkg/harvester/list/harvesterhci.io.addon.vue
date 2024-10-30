@@ -66,7 +66,10 @@ export default {
     >
       <template #cell:name="scope">
         <div class="cell-name">
-          <LinkDetail v-model:value="scope.row.displayName" :row="scope.row" />
+          <LinkDetail
+            v-model:value="scope.row.displayName"
+            :row="scope.row"
+          />
 
           <a
             v-if="scope.row.metadata.name === 'rancher-vcluster' && scope.row.spec.enabled"

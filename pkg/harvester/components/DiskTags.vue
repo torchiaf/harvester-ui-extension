@@ -102,7 +102,7 @@ export default {
     },
 
     onRemoveTag(tag) {
-      this.tags = this.tags.filter(v => v !== tag);
+      this.tags = this.tags.filter((v) => v !== tag);
       this.$emit('update:value', this.tags);
     },
   }
@@ -124,7 +124,9 @@ export default {
     </div>
     <div class="mt-10">
       <Tag
-         v-for="(tag, i) in value" :key="i" class="tag"
+        v-for="(tag, i) in value"
+        :key="i"
+        class="tag"
       >
         <span>
           {{ tag }}

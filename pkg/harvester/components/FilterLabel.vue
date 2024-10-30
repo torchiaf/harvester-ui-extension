@@ -46,7 +46,7 @@ export default {
       const valueOptions = [];
 
       this.rows.map((row) => {
-        const isExistValue = valueOptions.find(value => value.label === row.labels[key]);
+        const isExistValue = valueOptions.find((value) => value.label === row.labels[key]);
 
         if (Object.keys(row.labels).includes(key) && key && row.labels[key] && !isExistValue) {
           valueOptions.push({
@@ -77,7 +77,7 @@ export default {
 
     filterRows() {
       const rows = this.rows.filter((row) => {
-        const hasSearch = this.searchLabels.find(search => search.key);
+        const hasSearch = this.searchLabels.find((search) => search.key);
 
         if (!hasSearch) {
           return this.rows;
@@ -119,20 +119,33 @@ export default {
 
 <template>
   <div class="filter">
-    <template v-for="(label, index) in searchLabels" :key="index">
-      <span v-if="label.key" :key="`${label.key}${index}`" class="banner-item bg-warning">
-        {{ label.key }}{{ label.value ? "=" : '' }}{{ label.value }}<i class="icon icon-close" @click="remove(label)" />
+    <template
+      v-for="(label, index) in searchLabels"
+      :key="index"
+    >
+      <span
+        v-if="label.key"
+        :key="`${label.key}${index}`"
+        class="banner-item bg-warning"
+      >
+        {{ label.key }}{{ label.value ? "=" : '' }}{{ label.value }}<i
+          class="icon icon-close"
+          @click="remove(label)"
+        />
       </span>
     </template>
 
     <v-dropdown
-      popperClass="filter-label"
+      popper-class="filter-label"
       trigger="click"
       placement="bottom-end"
       :distance="20"
     >
       <slot name="header">
-        <button ref="actionDropDown" class="btn bg-primary mr-10">
+        <button
+          ref="actionDropDown"
+          class="btn bg-primary mr-10"
+        >
           <slot name="title">
             {{ t('harvester.fields.filterLabels') }}
           </slot>
@@ -184,7 +197,11 @@ export default {
                     :options="calcValueOptions(scope.row.value.key)"
                     @update:value="filterRows"
                   />
-                  <LabeledInput v-else v-model:value="scope.row.value.value" @update:value="filterRows" />
+                  <LabeledInput
+                    v-else
+                    v-model:value="scope.row.value.value"
+                    @update:value="filterRows"
+                  />
                 </div>
               </template>
 
