@@ -97,12 +97,10 @@ export default {
         };
       });
 
-      // if (!(this.disableCreate || this.mode === _VIEW) && this.isCreatable) {
       out.unshift({
         label: this.t('harvester.virtualMachine.createSSHKey'),
         value: _NEW,
       });
-      // }
 
       return out;
     },
@@ -318,16 +316,16 @@ export default {
             :mode="mode"
           />
         </div>
-        <div
-          v-if="value.spec.events.enabled"
-          class="col span-6"
-        >
-          <LabeledInput
-            v-model:value="value.spec.events.pollingInterval"
-            :label="t('harvester.seeder.inventory.pollingInterval.label')"
-            :mode="mode"
-          />
-        </div>
+      </div>
+      <div
+        v-if="value.spec.events.enabled"
+        class="col span-6 mt-20"
+      >
+        <LabeledInput
+          v-model:value="value.spec.events.pollingInterval"
+          :label="t('harvester.seeder.inventory.pollingInterval.label')"
+          :mode="mode"
+        />
       </div>
 
       <ModalWithCard
@@ -344,7 +342,7 @@ export default {
 
         <template #content>
           <NameNsDescription
-            :value="value"
+            :value="secret"
             @update:value="$emit('update:value', $event)"
             :namespaced="true"
             mode="create"
