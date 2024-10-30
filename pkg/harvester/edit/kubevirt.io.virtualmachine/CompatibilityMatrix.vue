@@ -91,7 +91,7 @@ export default {
         {{ deviceCRD.metadata.name }}
       </div>
       <div
-         v-for="(nodeName, i) in allNodeNames" :key="i" class="compat-cell"
+         v-for="(nodeName, k) in allNodeNames" :key="k" class="compat-cell"
         :class="{'has-device': nodeHasDevice(nodeName, deviceCRD)}"
       />
     </div>

@@ -1,7 +1,9 @@
 <script>
 import ResourceTable from '@shell/components/ResourceTable';
 import { STATE, AGE, NAME, NAMESPACE } from '@shell/config/table-headers';
-import { PVC, PV, NODE, POD } from '@shell/config/types';
+import {
+  PVC, PV, NODE, POD, STORAGE_CLASS
+} from '@shell/config/types';
 
 import { allHash } from '@shell/utils/promise';
 import Loading from '@shell/components/Loading';
@@ -79,6 +81,7 @@ export default {
       images:  this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.IMAGE }),
       restore: this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.RESTORE }),
       backups: this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.BACKUP }),
+      storage: this.$store.dispatch(`${ inStore }/findAll`, { type: STORAGE_CLASS }),
     };
 
     if (this.$store.getters[`${ inStore }/schemaFor`](HCI.RESOURCE_QUOTA)) {

@@ -1,6 +1,6 @@
 import { _CLONE } from '@shell/config/query-params';
 import pick from 'lodash/pick';
-import { PV, LONGHORN } from '@shell/config/types';
+import { PV, LONGHORN, STORAGE_CLASS } from '@shell/config/types';
 import { DESCRIPTION } from '@shell/config/labels-annotations';
 import { HCI as HCI_ANNOTATIONS } from '@pkg/harvester/config/labels-annotations';
 import { findBy } from '@shell/utils/array';
@@ -10,7 +10,10 @@ import { HCI, VOLUME_SNAPSHOT } from '../../types';
 import HarvesterResource from '../harvester';
 import { PRODUCT_NAME as HARVESTER_PRODUCT } from '../../config/harvester';
 
-const DEGRADED_ERROR = 'replica scheduling failed';
+import { LONGHORN_DRIVER } from '@shell/config/types';
+import { DATA_ENGINE_V2 } from '../../edit/harvesterhci.io.storage/index.vue';
+
+const DEGRADED_ERRORS = ['replica scheduling failed', 'precheck new replica failed'];
 
 export default class HciPv extends HarvesterResource {
   applyDefaults(_, realMode) {
@@ -27,31 +30,43 @@ export default class HciPv extends HarvesterResource {
   }
 
   get availableActions() {
-    const out = super._availableActions;
-    const clone = out.find(action => action.action === 'goToClone');
+    let out = super._availableActions;
 
-    if (clone) {
-      clone.action = 'goToCloneVolume';
+    // Longhorn V2 provisioner do not support volume clone feature yet
+    if (this.storageClass.longhornVersion === DATA_ENGINE_V2) {
+      out = out.filter(action => action.action !== 'goToClone');
+    } else {
+      const clone = out.find(action => action.action === 'goToClone');
+
+      if (clone) {
+        clone.action = 'goToCloneVolume';
+      }
+    }
+
+    if (this.storageClass.provisioner !== LONGHORN_DRIVER || this.storageClass.longhornVersion !== DATA_ENGINE_V2) {
+      out = [
+        {
+          action:  'exportImage',
+          enabled: this.hasAction('export') && !this.isEncrypted,
+          icon:    'icon icon-copy',
+          label:   this.t('harvester.action.exportImage')
+        },
+        {
+          action:  'snapshot',
+          enabled: this.hasAction('snapshot'),
+          icon:    'icon icon-backup',
+          label:   this.t('harvester.action.snapshot'),
+        },
+        ...out
+      ];
     }
 
     return [
-      {
-        action:  'exportImage',
-        enabled: this.hasAction('export') && !this.isEncrypted,
-        icon:    'icon icon-copy',
-        label:   this.t('harvester.action.exportImage')
-      },
       {
         action:  'cancelExpand',
         enabled: this.hasAction('cancelExpand'),
         icon:    'icon icon-backup',
         label:   this.t('harvester.action.cancelExpand')
-      },
-      {
-        action:  'snapshot',
-        enabled: this.hasAction('snapshot'),
-        icon:    'icon icon-backup',
-        label:   this.t('harvester.action.snapshot'),
       },
       ...out
     ];
@@ -91,13 +106,19 @@ export default class HciPv extends HarvesterResource {
     this.metadata.annotations = pick(this.metadata.annotations, keys);
   }
 
+  get storageClass() {
+    const inStore = this.$rootGetters['currentProduct'].inStore;
+
+    return this.$rootGetters[`${ inStore }/all`](STORAGE_CLASS).find(sc => sc.name === this.spec.storageClassName);
+  }
+
   get canUpdate() {
     return this.hasLink('update');
   }
 
   get stateDisplay() {
     const volumeError = this.relatedPV?.metadata?.annotations?.[HCI_ANNOTATIONS.VOLUME_ERROR];
-    const degradedVolume = volumeError === DEGRADED_ERROR;
+    const degradedVolume = DEGRADED_ERRORS.includes(volumeError);
     const status = this?.status?.phase === 'Bound' && !volumeError && this.isLonghornVolumeReady ? 'Ready' : 'Not Ready';
 
     const conditions = this?.status?.conditions || [];
@@ -116,7 +137,7 @@ export default class HciPv extends HarvesterResource {
   // state is similar with stateDisplay, the reason we keep this property is the status of In-use should not be displayed on vm detail page
   get state() {
     const volumeError = this.relatedPV?.metadata?.annotations?.[HCI_ANNOTATIONS.VOLUME_ERROR];
-    const degradedVolume = volumeError === DEGRADED_ERROR;
+    const degradedVolume = DEGRADED_ERRORS.includes(volumeError);
     let status = this?.status?.phase === 'Bound' && !volumeError ? 'Ready' : 'Not Ready';
 
     const conditions = this?.status?.conditions || [];

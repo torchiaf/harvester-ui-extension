@@ -125,7 +125,7 @@ export default {
 
         <div class="vm-list mb-5">
           <BadgeState
-             v-for="(vm, i) in unhealthyVM.vms" :key="i" color="bg-error mb-5 mr-5"
+             v-for="(vm, k) in unhealthyVM.vms" :key="k" color="bg-error mb-5 mr-5"
             :label="vm"
           />
         </div>
