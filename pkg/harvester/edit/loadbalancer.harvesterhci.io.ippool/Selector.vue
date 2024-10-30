@@ -84,7 +84,7 @@ export default {
       </div>
       <div class="col span-6">
         <LabeledInput
-          v-model.number="selector.priority"
+          v-model:value.number="selector.priority"
           :label="t('harvester.ipPool.priority.label')"
           :mode="mode"
           type="number"

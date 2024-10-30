@@ -288,7 +288,7 @@ export default {
         </div>
         <div class="col span-6">
           <LabeledInput
-            v-model.number="value.spec.baseboardSpec.connection.port"
+            v-model:value.number="value.spec.baseboardSpec.connection.port"
             :label="t('harvester.seeder.inventory.port.label')"
             :placeholder="t('harvester.seeder.inventory.port.placeholder')"
             :mode="mode"

@@ -152,7 +152,7 @@ export default {
         <div class="row">
           <div class="col span-6">
             <LabeledInput
-              v-model.number="spec.ksmtunedParameters.boost"
+              v-model:value.number="spec.ksmtunedParameters.boost"
               required
               type="number"
               :label="t('harvester.host.ksmtuned.parameters.boost')"
@@ -164,7 +164,7 @@ export default {
 
           <div class="col span-6">
             <LabeledInput
-              v-model.number="spec.ksmtunedParameters.decay"
+              v-model:value.number="spec.ksmtunedParameters.decay"
               required
               type="number"
               :label="t('harvester.host.ksmtuned.parameters.decay')"
@@ -178,7 +178,7 @@ export default {
         <div class="row">
           <div class="col span-6">
             <LabeledInput
-              v-model.number="spec.ksmtunedParameters.minPages"
+              v-model:value.number="spec.ksmtunedParameters.minPages"
               required
               type="number"
               :label="t('harvester.host.ksmtuned.parameters.minPages')"
@@ -190,7 +190,7 @@ export default {
 
           <div class="col span-6">
             <LabeledInput
-              v-model.number="spec.ksmtunedParameters.maxPages"
+              v-model:value.number="spec.ksmtunedParameters.maxPages"
               required
               type="number"
               :label="t('harvester.host.ksmtuned.parameters.maxPages')"
@@ -204,7 +204,7 @@ export default {
         <div class="row">
           <div class="col span-6">
             <LabeledInput
-              v-model.number="spec.ksmtunedParameters.sleepMsec"
+              v-model:value.number="spec.ksmtunedParameters.sleepMsec"
               required
               type="number"
               :label="t('harvester.host.ksmtuned.parameters.sleepMsec')"
