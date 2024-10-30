@@ -78,7 +78,7 @@ export default class ScheduleVmBackup extends HarvesterResource {
   }
 
   get stateDescription() {
-    const suspendedCondition = (this.status?.conditions || []).find(c => c.type === 'BackupSuspend');
+    const suspendedCondition = (this.status?.conditions || []).find((c) => c.type === 'BackupSuspend');
 
     return ucFirst(suspendedCondition?.message) || super.stateDescription;
   }

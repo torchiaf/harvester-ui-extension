@@ -99,7 +99,7 @@ export default {
     templateId: {
       async handler(neu) {
         const templates = await this.$store.dispatch('harvester/findAll', { type: HCI.VM_TEMPLATE });
-        let templateValue = templates.find( V => V.id === neu) || null;
+        let templateValue = templates.find( (V) => V.id === neu) || null;
         let templateSpec = templateValue?.spec;
 
         if (!templateValue) {
@@ -131,7 +131,7 @@ export default {
         // Set the default version according to annotation:[HCI_ANNOTATIONS.TEMPLATE_VERSION_CUSTOM_NAME]
         const versions = await this.$store.dispatch('harvester/findAll', { type: HCI.VM_VERSION, opt: { force: true } });
 
-        const version = versions.find( V => V?.metadata?.annotations?.[HCI_ANNOTATIONS.TEMPLATE_VERSION_CUSTOM_NAME] === this.customName);
+        const version = versions.find( (V) => V?.metadata?.annotations?.[HCI_ANNOTATIONS.TEMPLATE_VERSION_CUSTOM_NAME] === this.customName);
 
         if (version) {
           try {
@@ -159,7 +159,7 @@ export default {
       this.parseVM();
 
       const templates = await this.$store.dispatch('harvester/findAll', { type: HCI.VM_TEMPLATE });
-      const template = templates.find( O => O.metadata.name === this.templateValue.metadata.name);
+      const template = templates.find( (O) => O.metadata.name === this.templateValue.metadata.name);
 
       try {
         if (!this.templateId) {
@@ -223,10 +223,10 @@ export default {
   >
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="realTemplateMode"
       name-label="harvester.vmTemplate.nameNsDescription.name"
       :namespaced="true"
+      @update:value="$emit('update:value', $event)"
     />
 
     <Checkbox
@@ -238,9 +238,20 @@ export default {
       :mode="mode"
     />
 
-    <Tabbed :side-tabs="true" @changed="onTabChanged">
-      <Tab name="Basics" :label="t('harvester.vmTemplate.tabs.basics')">
-        <CpuMemory :cpu="cpu" :memory="memory" :disabled="isConfig" @updateCpuMemory="updateCpuMemory" />
+    <Tabbed
+      :side-tabs="true"
+      @changed="onTabChanged"
+    >
+      <Tab
+        name="Basics"
+        :label="t('harvester.vmTemplate.tabs.basics')"
+      >
+        <CpuMemory
+          :cpu="cpu"
+          :memory="memory"
+          :disabled="isConfig"
+          @updateCpuMemory="updateCpuMemory"
+        />
 
         <div class="mb-20">
           <SSHKey
@@ -254,12 +265,28 @@ export default {
         </div>
       </Tab>
 
-      <Tab name="Volume" :label="t('harvester.tab.volume')" :weight="-1">
-        <Volume v-model:value="diskRows" :mode="mode" :namespace="value.metadata.namespace" :existing-volume-disabled="true" />
+      <Tab
+        name="Volume"
+        :label="t('harvester.tab.volume')"
+        :weight="-1"
+      >
+        <Volume
+          v-model:value="diskRows"
+          :mode="mode"
+          :namespace="value.metadata.namespace"
+          :existing-volume-disabled="true"
+        />
       </Tab>
 
-      <Tab name="Network" :label="t('harvester.tab.network')" :weight="-2">
-        <Network v-model:value="networkRows" :mode="mode" />
+      <Tab
+        name="Network"
+        :label="t('harvester.tab.network')"
+        :weight="-2"
+      >
+        <Network
+          v-model:value="networkRows"
+          :mode="mode"
+        />
       </Tab>
 
       <Tab
@@ -276,7 +303,11 @@ export default {
         </template>
       </Tab>
 
-      <Tab :label="t('harvester.tab.vmScheduling')" name="vmScheduling" :weight="-4">
+      <Tab
+        :label="t('harvester.tab.vmScheduling')"
+        name="vmScheduling"
+        :weight="-4"
+      >
         <template #default>
           <PodAffinity
             :mode="mode"
@@ -318,7 +349,11 @@ export default {
         </Labels>
       </Tab>
 
-      <Tab name="advanced" :label="t('harvester.tab.advanced')" :weight="-99">
+      <Tab
+        name="advanced"
+        :label="t('harvester.tab.advanced')"
+        :weight="-99"
+      >
         <div class="row mb-20">
           <div class="col span-6">
             <LabeledSelect
@@ -371,8 +406,18 @@ export default {
         </div>
 
         <div class="row mb-20">
-          <a v-if="showAdvanced" v-t="'harvester.generic.showMore'" role="button" @click="toggleAdvanced" />
-          <a v-else v-t="'harvester.generic.showMore'" role="button" @click="toggleAdvanced" />
+          <a
+            v-if="showAdvanced"
+            v-t="'harvester.generic.showMore'"
+            role="button"
+            @click="toggleAdvanced"
+          />
+          <a
+            v-else
+            v-t="'harvester.generic.showMore'"
+            role="button"
+            @click="toggleAdvanced"
+          />
         </div>
 
         <div v-if="showAdvanced">

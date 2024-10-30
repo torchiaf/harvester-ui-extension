@@ -37,7 +37,7 @@ export default class HciUpgrade extends HarvesterResource {
 
   get stateDisplay() {
     const conditions = this?.status?.conditions || [];
-    const completedCondition = conditions.find( cond => cond.type === 'Completed');
+    const completedCondition = conditions.find( (cond) => cond.type === 'Completed');
     const status = completedCondition?.status;
 
     if (status === 'True') {
@@ -100,7 +100,7 @@ export default class HciUpgrade extends HarvesterResource {
 
   get createRepo() {
     const conditions = this?.status?.conditions || [];
-    const repoCondition = conditions.find( cond => cond.type === 'RepoReady');
+    const repoCondition = conditions.find( (cond) => cond.type === 'RepoReady');
     const isReady = repoCondition?.status === 'True';
 
     return {
@@ -111,7 +111,7 @@ export default class HciUpgrade extends HarvesterResource {
 
   get overallMessage() {
     const conditions = this?.status?.conditions || [];
-    const completedCondition = conditions.find( cond => cond.type === 'Completed');
+    const completedCondition = conditions.find( (cond) => cond.type === 'Completed');
     const hasError = completedCondition?.status === 'False';
     const message = completedCondition?.message || completedCondition?.reason;
 
@@ -120,7 +120,7 @@ export default class HciUpgrade extends HarvesterResource {
 
   get upgradeImageMessage() {
     const conditions = this?.status?.conditions || [];
-    const imageReady = conditions.find( cond => cond.type === 'ImageReady');
+    const imageReady = conditions.find( (cond) => cond.type === 'ImageReady');
     const success = imageReady?.status === 'True';
     const message = imageReady?.message || imageReady?.reason;
 
@@ -152,7 +152,7 @@ export default class HciUpgrade extends HarvesterResource {
     }
 
     for (const node of this.nodes) {
-      const hasNode = message.find( O => O.name === node.id);
+      const hasNode = message.find( (O) => O.name === node.id);
 
       if (!hasNode) {
         message.push({
@@ -175,7 +175,7 @@ export default class HciUpgrade extends HarvesterResource {
 
     out = Math.floor(out / this.nodeUpgradeMessage.length);
     const conditions = this?.status?.conditions || [];
-    const nodeUpgradedCondition = conditions.find( cond => cond.type === 'NodesUpgraded');
+    const nodeUpgradedCondition = conditions.find( (cond) => cond.type === 'NodesUpgraded');
 
     if (out === 100 && !nodeUpgradedCondition) {
       out = 99;

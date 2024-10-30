@@ -84,8 +84,8 @@ export default class SRIOVDevice extends SteveModel {
     if (!!schema) {
       const vGpuDevices = this.$rootGetters[`${ inStore }/all`](HCI.VGPU_DEVICE) || [];
       const vGpuDevicesEnabled = vGpuDevices
-        .filter(f => f.labels[HCI_ANNOTATIONS.PARENT_SRIOV_GPU] === this.id && f.spec?.enabled)
-        .map(m => m.id);
+        .filter((f) => f.labels[HCI_ANNOTATIONS.PARENT_SRIOV_GPU] === this.id && f.spec?.enabled)
+        .map((m) => m.id);
 
       if (vGpuDevicesEnabled.length > 0) {
         this.$dispatch('growl/error', {
@@ -115,7 +115,7 @@ export default class SRIOVDevice extends SteveModel {
     const inStore = this.$rootGetters['currentProduct'].inStore;
     const nodeName = this.spec?.nodeName;
     const nodes = this.$rootGetters[`${ inStore }/all`](NODE);
-    const node = nodes.find(N => N.id === nodeName);
+    const node = nodes.find((N) => N.id === nodeName);
 
     return node?.nameDisplay || '';
   }

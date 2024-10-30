@@ -4,7 +4,6 @@ import { HARVESTER_NAME, HARVESTER_NAME as VIRTUAL } from '@shell/config/feature
 import { SETTING } from '@shell/config/settings';
 
 export default class HciCluster extends ProvCluster {
-
   get stateObj() {
     return this._stateObj;
   }
@@ -167,12 +166,12 @@ export default class HciCluster extends ProvCluster {
 
   async goToCluster() {
     this.currentRouter().push({
-          name:   `${ VIRTUAL }-c-cluster-resource`,
-          params: {
-            cluster:  this.status.clusterName,
-            product:  VIRTUAL,
-            resource: HCI.DASHBOARD // Go directly to dashboard to avoid blip of components on screen
-          }
-        });
+      name:   `${ VIRTUAL }-c-cluster-resource`,
+      params: {
+        cluster:  this.status.clusterName,
+        product:  VIRTUAL,
+        resource: HCI.DASHBOARD // Go directly to dashboard to avoid blip of components on screen
+      }
+    });
   }
 }

@@ -43,7 +43,7 @@ export default {
     ...mapGetters(['currentCluster']),
 
     latestUpgrade() {
-      return this.upgrade?.find(u => u.isLatestUpgrade);
+      return this.upgrade?.find((u) => u.isLatestUpgrade);
     },
 
     isUpgradeInProgress() {
@@ -55,7 +55,7 @@ export default {
     versionOptions() {
       const versions = this.$store.getters['harvester/all'](HCI.VERSION);
 
-      return versions.map(V => V.metadata.name);
+      return versions.map((V) => V.metadata.name);
     },
 
     currentVersion() {
@@ -79,7 +79,7 @@ export default {
         let upgradeMessage = [];
         const list = neu || [];
 
-        const currentResource = list.find( O => !!O.isLatestUpgrade);
+        const currentResource = list.find( (O) => !!O.isLatestUpgrade);
 
         upgradeMessage = currentResource ? currentResource.upgradeMessage : [];
 

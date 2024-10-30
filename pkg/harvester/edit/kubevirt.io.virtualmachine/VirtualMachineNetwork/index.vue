@@ -109,7 +109,7 @@ export default {
 
       while (hasUsed) {
         name = `nic-${ this.nameIdx }`;
-        hasUsed = this.rows.find( O => O.name === name);
+        hasUsed = this.rows.find( (O) => O.name === name);
         this.nameIdx++;
       }
 
@@ -125,8 +125,16 @@ export default {
 
 <template>
   <div>
-    <InfoBox v-for="(row, i) in rows" :key="i">
-      <button v-if="!isView" type="button" class="role-link remove-vol" @click="remove(row)">
+    <InfoBox
+      v-for="(row, i) in rows"
+      :key="i"
+    >
+      <button
+        v-if="!isView"
+        type="button"
+        class="role-link remove-vol"
+        @click="remove(row)"
+      >
         <i class="icon icon-x" />
       </button>
 
@@ -142,7 +150,12 @@ export default {
       />
     </InfoBox>
 
-    <button v-if="!isView" type="button" class="btn btn-sm bg-primary" @click="add">
+    <button
+      v-if="!isView"
+      type="button"
+      class="btn btn-sm bg-primary"
+      @click="add"
+    >
       {{ t('harvester.virtualMachine.network.addNetwork') }}
     </button>
   </div>

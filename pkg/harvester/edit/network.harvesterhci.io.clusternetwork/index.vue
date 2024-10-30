@@ -70,9 +70,9 @@ export default {
   >
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
       :namespaced="false"
+      @update:value="$emit('update:value', $event)"
     />
     <ResourceTabs
       v-model:value="value"

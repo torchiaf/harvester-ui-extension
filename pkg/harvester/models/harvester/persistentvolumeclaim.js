@@ -1,6 +1,6 @@
 import { _CLONE } from '@shell/config/query-params';
 import pick from 'lodash/pick';
-import { PV, LONGHORN, STORAGE_CLASS } from '@shell/config/types';
+import { PV, LONGHORN, STORAGE_CLASS, LONGHORN_DRIVER } from '@shell/config/types';
 import { DESCRIPTION } from '@shell/config/labels-annotations';
 import { HCI as HCI_ANNOTATIONS } from '@pkg/harvester/config/labels-annotations';
 import { findBy } from '@shell/utils/array';
@@ -10,7 +10,6 @@ import { HCI, VOLUME_SNAPSHOT } from '../../types';
 import HarvesterResource from '../harvester';
 import { PRODUCT_NAME as HARVESTER_PRODUCT } from '../../config/harvester';
 
-import { LONGHORN_DRIVER } from '@shell/config/types';
 import { DATA_ENGINE_V2 } from '../../edit/harvesterhci.io.storage/index.vue';
 
 const DEGRADED_ERRORS = ['replica scheduling failed', 'precheck new replica failed'];
@@ -23,10 +22,12 @@ export default class HciPv extends HarvesterResource {
     const storageClassName =
       realMode === _CLONE ? this.spec.storageClassName : '';
 
-    this['spec'] = {accessModes,
+    this['spec'] = {
+      accessModes,
       storageClassName,
       volumeName: '',
-      resources:  { requests: { storage } }};
+      resources:  { requests: { storage } }
+    };
   }
 
   get availableActions() {
@@ -34,9 +35,9 @@ export default class HciPv extends HarvesterResource {
 
     // Longhorn V2 provisioner do not support volume clone feature yet
     if (this.storageClass.longhornVersion === DATA_ENGINE_V2) {
-      out = out.filter(action => action.action !== 'goToClone');
+      out = out.filter((action) => action.action !== 'goToClone');
     } else {
-      const clone = out.find(action => action.action === 'goToClone');
+      const clone = out.find((action) => action.action === 'goToClone');
 
       if (clone) {
         clone.action = 'goToCloneVolume';
@@ -109,7 +110,7 @@ export default class HciPv extends HarvesterResource {
   get storageClass() {
     const inStore = this.$rootGetters['currentProduct'].inStore;
 
-    return this.$rootGetters[`${ inStore }/all`](STORAGE_CLASS).find(sc => sc.name === this.spec.storageClassName);
+    return this.$rootGetters[`${ inStore }/all`](STORAGE_CLASS).find((sc) => sc.name === this.spec.storageClassName);
   }
 
   get canUpdate() {
@@ -203,7 +204,7 @@ export default class HciPv extends HarvesterResource {
       const attachVolumes = vm.spec.template?.spec?.volumes || [];
 
       if (vm.namespace === this.namespace && attachVolumes.length > 0) {
-        return attachVolumes.find(vol => vol.persistentVolumeClaim?.claimName === this.name);
+        return attachVolumes.find((vol) => vol.persistentVolumeClaim?.claimName === this.name);
       }
 
       return null;
@@ -241,13 +242,13 @@ export default class HciPv extends HarvesterResource {
   get longhornVolume() {
     const inStore = this.$rootGetters['currentProduct'].inStore;
 
-    return this.$rootGetters[`${ inStore }/all`](LONGHORN.VOLUMES).find(v => v.metadata?.name === this.spec?.volumeName);
+    return this.$rootGetters[`${ inStore }/all`](LONGHORN.VOLUMES).find((v) => v.metadata?.name === this.spec?.volumeName);
   }
 
   get longhornEngine() {
     const inStore = this.$rootGetters['currentProduct'].inStore;
 
-    return this.$rootGetters[`${ inStore }/all`](LONGHORN.ENGINES).find(v => v.spec?.volumeName === this.spec?.volumeName);
+    return this.$rootGetters[`${ inStore }/all`](LONGHORN.ENGINES).find((v) => v.spec?.volumeName === this.spec?.volumeName);
   }
 
   // https://github.com/longhorn/longhorn-manager/blob/master/api/model.go#L1151
@@ -255,7 +256,7 @@ export default class HciPv extends HarvesterResource {
     let ready = true;
     const longhornVolume = this.longhornVolume || {};
 
-    const scheduledCondition = (longhornVolume?.status?.conditions || []).find(c => c.type === 'Scheduled' || c.type === 'scheduled') || {};
+    const scheduledCondition = (longhornVolume?.status?.conditions || []).find((c) => c.type === 'Scheduled' || c.type === 'scheduled') || {};
 
     if ((longhornVolume?.spec?.nodeID === '' && longhornVolume?.status?.state !== 'detached') ||
           (longhornVolume?.status?.state === 'detached' && scheduledCondition.status !== 'True') ||
@@ -282,7 +283,7 @@ export default class HciPv extends HarvesterResource {
 
   get originalSnapshot() {
     if (this.spec?.dataSource) {
-      return this.$rootGetters['harvester/all'](VOLUME_SNAPSHOT).find(V => V.metadata?.name === this.spec.dataSource.name);
+      return this.$rootGetters['harvester/all'](VOLUME_SNAPSHOT).find((V) => V.metadata?.name === this.spec.dataSource.name);
     } else {
       return null;
     }
@@ -299,7 +300,7 @@ export default class HciPv extends HarvesterResource {
   }
 
   get relatedPV() {
-    return this.$rootGetters['harvester/all'](PV).find(pv => pv.metadata?.name === this.spec?.volumeName);
+    return this.$rootGetters['harvester/all'](PV).find((pv) => pv.metadata?.name === this.spec?.volumeName);
   }
 
   get resourceExternalLink() {

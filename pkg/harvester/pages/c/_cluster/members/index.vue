@@ -3,9 +3,9 @@ import Members from '@pkg/components/Members';
 import { MANAGEMENT } from '@shell/config/types';
 import { PRODUCT_NAME as HARVESTER_PRODUCT } from '../../../../config/harvester';
 export default {
-  components: { Members },
+  components:   { Members },
   inheritAttrs: false,
-  computed:   {
+  computed:     {
     createLocationOverride() {
       return {
         name:   `${ HARVESTER_PRODUCT }-c-cluster-resource-create`,
@@ -20,4 +20,9 @@ export default {
 };
 </script>
 
-<template><Members :create-location-override="createLocationOverride" v-bind="$attrs" /></template>
+<template>
+  <Members
+    :create-location-override="createLocationOverride"
+    v-bind="$attrs"
+  />
+</template>

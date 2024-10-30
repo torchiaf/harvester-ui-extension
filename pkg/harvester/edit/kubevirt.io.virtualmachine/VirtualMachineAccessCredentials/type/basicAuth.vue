@@ -3,10 +3,10 @@ import Password from '@shell/components/form/Password';
 import AccessCredentialsUsers from '../AccessCredentialsUsers';
 
 export default {
-  name:       'HarvesterEditVolume',
+  name: 'HarvesterEditVolume',
 
   emits: ['update', 'update:newUser'],
-  
+
   components: { Password, AccessCredentialsUsers },
 
   props: {
@@ -64,11 +64,14 @@ export default {
 </script>
 
 <template>
-  <div class="row" @update:value="update">
+  <div
+    class="row"
+    @update:value="update"
+  >
     <div class="col span-6">
       <AccessCredentialsUsers
         v-model:value="value.username"
-        :resourceType="resourceType"
+        :resource-type="resourceType"
         :user-options="userOptions"
         :multiple="false"
         :mode="mode"

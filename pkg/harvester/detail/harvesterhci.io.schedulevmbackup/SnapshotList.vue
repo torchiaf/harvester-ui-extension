@@ -56,10 +56,10 @@ export default {
     },
 
     filteredRows() {
-      let r = this.rows.filter(row => row.spec?.type === BACKUP_TYPE.SNAPSHOT);
+      let r = this.rows.filter((row) => row.spec?.type === BACKUP_TYPE.SNAPSHOT);
 
       if (this.id) {
-        r = r.filter(row => row.metadata.annotations?.[HCI_ANNOTATIONS.SVM_BACKUP_ID] === this.id);
+        r = r.filter((row) => row.metadata.annotations?.[HCI_ANNOTATIONS.SVM_BACKUP_ID] === this.id);
       }
 
       return r;

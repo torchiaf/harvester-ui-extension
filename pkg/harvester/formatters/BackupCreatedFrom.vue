@@ -18,7 +18,7 @@ export default {
       if (!this.value) {
         return '';
       } else {
-        return this.scheduleList.find(s => s.id === this.value);
+        return this.scheduleList.find((s) => s.id === this.value);
       }
     },
     to() {
@@ -29,13 +29,19 @@ export default {
 </script>
 
 <template>
-  <router-link v-if="to" :to="to">
+  <router-link
+    v-if="to"
+    :to="to"
+  >
     {{ value }}
   </router-link>
   <span v-else-if="value">
     {{ value }}
   </span>
-  <span v-else class="text-muted">
+  <span
+    v-else
+    class="text-muted"
+  >
     &mdash;
   </span>
 </template>

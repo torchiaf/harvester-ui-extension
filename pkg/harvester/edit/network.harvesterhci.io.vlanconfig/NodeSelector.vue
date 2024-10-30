@@ -11,7 +11,7 @@ import { HCI } from '../../types';
 
 export default {
   emits: ['updateMatchingNICs', 'updateMatchingNodes'],
-  
+
   components: {
     RadioGroup,
     LabeledSelect,

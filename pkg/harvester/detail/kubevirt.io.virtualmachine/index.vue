@@ -139,7 +139,7 @@ export default {
 
         const involvedName = e?.involvedObject?.name;
 
-        const matchPVC = pvcName.find(name => name === involvedName);
+        const matchPVC = pvcName.find((name) => name === involvedName);
 
         return (involvedName === name || involvedName === podName || matchPVC) && e.firstTimestamp >= creationTimestamp;
       }).sort((a, b) => {
@@ -182,12 +182,31 @@ export default {
 
 <template>
   <div>
-    <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true" @changed="onTabChanged">
-      <Tab name="basics" :label="t('harvester.virtualMachine.detail.tabs.basics')" class="bordered-table" :weight="7">
-        <OverviewBasics :value="value" :vmi="vmi" mode="view" />
+    <Tabbed
+      v-bind="$attrs"
+      class="mt-15"
+      :side-tabs="true"
+      @changed="onTabChanged"
+    >
+      <Tab
+        name="basics"
+        :label="t('harvester.virtualMachine.detail.tabs.basics')"
+        class="bordered-table"
+        :weight="7"
+      >
+        <OverviewBasics
+          :value="value"
+          :vmi="vmi"
+          mode="view"
+        />
       </Tab>
 
-      <Tab name="disks" :label="t('harvester.tab.volume')" class="bordered-table" :weight="6">
+      <Tab
+        name="disks"
+        :label="t('harvester.tab.volume')"
+        class="bordered-table"
+        :weight="6"
+      >
         <Volume
           v-model:value="diskRows"
           mode="view"
@@ -197,15 +216,33 @@ export default {
         />
       </Tab>
 
-      <Tab name="networks" :label="t('harvester.virtualMachine.detail.tabs.networks')" class="bordered-table" :weight="5">
-        <Network v-model:value="networkRows" mode="view" />
+      <Tab
+        name="networks"
+        :label="t('harvester.virtualMachine.detail.tabs.networks')"
+        class="bordered-table"
+        :weight="5"
+      >
+        <Network
+          v-model:value="networkRows"
+          mode="view"
+        />
       </Tab>
 
-      <Tab name="keypairs" :label="t('harvester.virtualMachine.detail.tabs.keypairs')" class="bordered-table" :weight="4">
+      <Tab
+        name="keypairs"
+        :label="t('harvester.virtualMachine.detail.tabs.keypairs')"
+        class="bordered-table"
+        :weight="4"
+      >
         <OverviewKeypairs :value="value" />
       </Tab>
 
-      <Tab v-if="hasResourceQuotaSchema" name="quotas" :label="t('harvester.tab.quotas')" :weight="3">
+      <Tab
+        v-if="hasResourceQuotaSchema"
+        name="quotas"
+        :label="t('harvester.tab.quotas')"
+        :weight="3"
+      >
         <LabelValue
           :name="t('harvester.snapshot.totalSnapshotSize')"
           :value="totalSnapshotSize"
@@ -229,13 +266,27 @@ export default {
         </template>
       </Tab>
 
-      <Tab name="nodeScheduling" :label="t('workload.container.titles.nodeScheduling')" :weight="2.4">
+      <Tab
+        name="nodeScheduling"
+        :label="t('workload.container.titles.nodeScheduling')"
+        :weight="2.4"
+      >
         <template #default="{active}">
-          <NodeScheduling v-if="spec" :key="active" :mode="mode" :value="spec.template.spec" :nodes="nodesIdOptions" />
+          <NodeScheduling
+            v-if="spec"
+            :key="active"
+            :mode="mode"
+            :value="spec.template.spec"
+            :nodes="nodesIdOptions"
+          />
         </template>
       </Tab>
 
-      <Tab :label="t('harvester.tab.vmScheduling')" name="vmScheduling" :weight="2.3">
+      <Tab
+        :label="t('harvester.tab.vmScheduling')"
+        name="vmScheduling"
+        :weight="2.3"
+      >
         <template #default="{active}">
           <PodAffinity
             v-if="spec"
@@ -250,11 +301,25 @@ export default {
         </template>
       </Tab>
 
-      <Tab :label="t('harvester.tab.accessCredentials')" class="bordered-table" name="accessCredentials" :weight="2.2">
-        <AccessCredentials mode="view" :value="accessCredentials" :resourceType="value" />
+      <Tab
+        :label="t('harvester.tab.accessCredentials')"
+        class="bordered-table"
+        name="accessCredentials"
+        :weight="2.2"
+      >
+        <AccessCredentials
+          mode="view"
+          :value="accessCredentials"
+          :resource-type="value"
+        />
       </Tab>
 
-      <Tab name="cloudConfig" :label="t('harvester.virtualMachine.detail.tabs.cloudConfig')" class="bordered-table" :weight="2">
+      <Tab
+        name="cloudConfig"
+        :label="t('harvester.virtualMachine.detail.tabs.cloudConfig')"
+        class="bordered-table"
+        :weight="2"
+      >
         <CloudConfig
           ref="yamlEditor"
           mode="view"
@@ -263,12 +328,25 @@ export default {
         />
       </Tab>
 
-      <Tab name="event" :label="t('harvester.virtualMachine.detail.tabs.events')" :weight="1">
-        <Events :resource="vmi" :events="events" />
+      <Tab
+        name="event"
+        :label="t('harvester.virtualMachine.detail.tabs.events')"
+        :weight="1"
+      >
+        <Events
+          :resource="vmi"
+          :events="events"
+        />
       </Tab>
 
-      <Tab name="migration" :label="t('harvester.virtualMachine.detail.tabs.migration')">
-        <Migration :value="value" :vmi-resource="vmi" />
+      <Tab
+        name="migration"
+        :label="t('harvester.virtualMachine.detail.tabs.migration')"
+      >
+        <Migration
+          :value="value"
+          :vmi-resource="vmi"
+        />
       </Tab>
 
       <Tab

@@ -34,7 +34,7 @@ export default {
 
     await allHash(hash);
 
-    const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find(s => s.isDefault);
+    const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find((s) => s.isDefault);
 
     this['storageClassName'] = defaultStorage?.metadata?.name || 'longhorn';
   },
@@ -58,7 +58,7 @@ export default {
     },
 
     namespaces() {
-      const choices = this.$store.getters['harvester/all'](NAMESPACE).filter( N => !N.isSystem);
+      const choices = this.$store.getters['harvester/all'](NAMESPACE).filter( (N) => !N.isSystem);
 
       const out = sortBy(
         choices.map((obj) => {
@@ -81,7 +81,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const storages = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS);
 
-      const out = storages.filter(s => !s.parameters?.backingImage).map((s) => {
+      const out = storages.filter((s) => !s.parameters?.backingImage).map((s) => {
         const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
 
         return {
@@ -169,7 +169,10 @@ export default {
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button class="btn role-secondary mr-10" @click="close">
+          <button
+            class="btn role-secondary mr-10"
+            @click="close"
+          >
             {{ t('generic.cancel') }}
           </button>
 
@@ -180,7 +183,10 @@ export default {
           />
         </div>
 
-        <Banner v-for="(err, i) in errors" :key="i"/>
+        <Banner
+          v-for="(err, i) in errors"
+          :key="i"
+        />
       </div>
     </template>
   </Card>

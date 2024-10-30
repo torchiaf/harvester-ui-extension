@@ -92,9 +92,9 @@ export default class VirtVm extends HarvesterResource {
 
     // VM attached with Longhorn V2 volume doesn't support clone feature
     if (this.longhornV2Volumes.length > 0) {
-      out = out.filter(action => action.action !== 'goToClone');
+      out = out.filter((action) => action.action !== 'goToClone');
     } else {
-      const clone = out.find(action => action.action === 'goToClone');
+      const clone = out.find((action) => action.action === 'goToClone');
 
       if (clone) {
         clone.action = 'goToCloneVM';
@@ -465,7 +465,7 @@ export default class VirtVm extends HarvesterResource {
   get networksName() {
     const interfaces = this.spec.template.spec.domain.devices?.interfaces || [];
 
-    return interfaces.map(I => I.name);
+    return interfaces.map((I) => I.name);
   }
 
   get isOff() {
@@ -507,7 +507,7 @@ export default class VirtVm extends HarvesterResource {
         if (
           this.status?.printableStatus === 'ErrorUnschedulable' &&
             conditions.find(
-              C => C.message && C.message.includes(IgnoreMessages)
+              (C) => C.message && C.message.includes(IgnoreMessages)
             )
         ) {
           return true;
@@ -518,7 +518,7 @@ export default class VirtVm extends HarvesterResource {
       default:
         changeRequests = new Set(
           (this.status?.stateChangeRequests || []).map(
-            chRequest => chRequest?.action
+            (chRequest) => chRequest?.action
           )
         );
 
@@ -558,7 +558,7 @@ export default class VirtVm extends HarvesterResource {
 
   get isPaused() {
     const conditions = this.vmi?.status?.conditions || [];
-    const isPause = conditions.filter(cond => cond.type === PAUSED).length > 0;
+    const isPause = conditions.filter((cond) => cond.type === PAUSED).length > 0;
 
     return isPause ? {
       status:  PAUSED,
@@ -584,7 +584,7 @@ export default class VirtVm extends HarvesterResource {
     const inStore = this.productInStore;
     const allResQuotas = this.$rootGetters[`${ inStore }/all`](HCI.RESOURCE_QUOTA);
 
-    return allResQuotas.find( RQ => RQ.namespace === this.metadata.namespace);
+    return allResQuotas.find( (RQ) => RQ.namespace === this.metadata.namespace);
   }
 
   get snapshotSizeQuota() {
@@ -596,29 +596,29 @@ export default class VirtVm extends HarvesterResource {
 
     const vmis = this.$rootGetters[`${ inStore }/all`](HCI.VMI);
 
-    return vmis.find(VMI => VMI.id === this.id);
+    return vmis.find((VMI) => VMI.id === this.id);
   }
 
   get volumes() {
     const pvcs = this.$rootGetters[`${ this.productInStore }/all`](PVC);
 
-    const volumeClaimNames = this.spec.template.spec.volumes?.map(v => v.persistentVolumeClaim?.claimName).filter(v => !!v) || [];
+    const volumeClaimNames = this.spec.template.spec.volumes?.map((v) => v.persistentVolumeClaim?.claimName).filter((v) => !!v) || [];
 
-    return pvcs.filter(pvc => volumeClaimNames.includes(pvc.metadata.name));
+    return pvcs.filter((pvc) => volumeClaimNames.includes(pvc.metadata.name));
   }
 
   get lvmVolumes() {
-    return this.volumes.filter(volume => volume.storageClass.provisioner === LVM_DRIVER);
+    return this.volumes.filter((volume) => volume.storageClass.provisioner === LVM_DRIVER);
   }
 
   get longhornV2Volumes() {
-    return this.volumes.filter(volume => volume.storageClass.isLonghornV2);
+    return this.volumes.filter((volume) => volume.storageClass.isLonghornV2);
   }
 
   get encryptedVolumeType() {
-    if (this.volumes.every(vol => vol.isEncrypted)) {
+    if (this.volumes.every((vol) => vol.isEncrypted)) {
       return 'all';
-    } else if (this.volumes.some(vol => vol.isEncrypted)) {
+    } else if (this.volumes.some((vol) => vol.isEncrypted)) {
       return 'partial';
     } else {
       return 'none';
@@ -709,7 +709,7 @@ export default class VirtVm extends HarvesterResource {
 
   get isUnschedulable() {
     if (this.isBeingStopped || this.isStarting) {
-      const condition = this.status?.conditions?.find(c => c.reason === UNSCHEDULABLE);
+      const condition = this.status?.conditions?.find((c) => c.reason === UNSCHEDULABLE);
 
       if (!!condition) {
         return {
@@ -765,14 +765,14 @@ export default class VirtVm extends HarvesterResource {
 
     const allRestore = this.$rootGetters[`${ inStore }/all`](HCI.RESTORE);
 
-    const res = allRestore.find(O => O.id === id);
+    const res = allRestore.find((O) => O.id === id);
 
     if (res) {
       const allBackups = this.$rootGetters[`${ inStore }/all`](HCI.BACKUP);
 
       res.fromSnapshot = !!allBackups
-        .filter(b => b.spec?.type !== BACKUP_TYPE.BACKUP)
-        .find(s => s.id === `${ res.spec?.virtualMachineBackupNamespace }/${ res.spec?.virtualMachineBackupName }`);
+        .filter((b) => b.spec?.type !== BACKUP_TYPE.BACKUP)
+        .find((s) => s.id === `${ res.spec?.virtualMachineBackupNamespace }/${ res.spec?.virtualMachineBackupName }`);
     }
 
     return res;
@@ -981,7 +981,7 @@ export default class VirtVm extends HarvesterResource {
       .map((O) => {
         return O?.persistentVolumeClaim?.claimName;
       })
-      .filter(name => !!name);
+      .filter((name) => !!name);
   }
 
   get rootImageId() {
@@ -998,7 +998,7 @@ export default class VirtVm extends HarvesterResource {
 
     if (!isNoExistingVolume) {
       const existingVolume = pvcs.find(
-        P => P.id === `${ this.metadata.namespace }/${ firstVolumeName }`
+        (P) => P.id === `${ this.metadata.namespace }/${ firstVolumeName }`
       );
 
       if (existingVolume) {
@@ -1063,7 +1063,7 @@ export default class VirtVm extends HarvesterResource {
 
   get attachNetwork() {
     const networks = this.spec?.template?.spec?.networks || [];
-    const hasMultus = networks.find(N => N.multus);
+    const hasMultus = networks.find((N) => N.multus);
 
     return !!hasMultus;
   }
@@ -1090,11 +1090,11 @@ export default class VirtVm extends HarvesterResource {
 
     return (
       ignoreConditions.find(
-        condition => condition.name === state?.name &&
+        (condition) => condition.name === state?.name &&
           condition.error === state?.error &&
           condition.vmState
       ) ||
-      IgnoreMessages.find(M => super.stateDescription?.includes(M)) ||
+      IgnoreMessages.find((M) => super.stateDescription?.includes(M)) ||
       this.isOff
     );
   }
@@ -1112,7 +1112,7 @@ export default class VirtVm extends HarvesterResource {
 
   get isQemuInstalled() {
     const conditions = this.vmi?.status?.conditions || [];
-    const qemu = conditions.find(cond => cond.type === AGENT_CONNECTED);
+    const qemu = conditions.find((cond) => cond.type === AGENT_CONNECTED);
 
     return qemu?.status === 'True';
   }

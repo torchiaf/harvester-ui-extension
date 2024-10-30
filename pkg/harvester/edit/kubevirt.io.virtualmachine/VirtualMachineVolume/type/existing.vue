@@ -13,7 +13,7 @@ import { HCI } from '../../../../types';
 import { VOLUME_TYPE, InterfaceOption } from '../../../../config/harvester-map';
 
 export default {
-  name:       'HarvesterEditExisting',
+  name: 'HarvesterEditExisting',
 
   emits: ['update'],
 
@@ -79,7 +79,7 @@ export default {
     },
 
     image() {
-      const imageResource = this.$store.getters['harvester/all'](HCI.IMAGE).find(I => I.id === this.pvcResource?.metadata?.annotations?.[HCI_ANNOTATIONS.IMAGE_ID]);
+      const imageResource = this.$store.getters['harvester/all'](HCI.IMAGE).find((I) => I.id === this.pvcResource?.metadata?.annotations?.[HCI_ANNOTATIONS.IMAGE_ID]);
 
       if (!imageResource) {
         return;
@@ -89,7 +89,7 @@ export default {
     },
 
     pvcResource() {
-      return this.allPVCs.find( P => P.metadata.name === this.value.volumeName );
+      return this.allPVCs.find( (P) => P.metadata.name === this.value.volumeName );
     },
 
     volumeOption() {
@@ -130,7 +130,7 @@ export default {
 
   watch: {
     'value.volumeName'(neu) {
-      const pvcResource = this.allPVCs.find( P => P.metadata.name === neu);
+      const pvcResource = this.allPVCs.find( (P) => P.metadata.name === neu);
 
       if (!pvcResource) {
         return;

@@ -56,7 +56,7 @@ export default class HciSecret extends Secret {
   get isSystem() {
     const inStore = this.$rootGetters['currentProduct'].inStore;
 
-    const systemNs = this.$rootGetters[`${ inStore }/all`](NAMESPACE).filter(ns => ns.isSystem === true).map(ns => ns.metadata.name);
+    const systemNs = this.$rootGetters[`${ inStore }/all`](NAMESPACE).filter((ns) => ns.isSystem === true).map((ns) => ns.metadata.name);
 
     return systemNs.includes(this.metadata.namespace);
   }

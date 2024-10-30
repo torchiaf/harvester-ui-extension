@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     row() {
-      return this.rows.find(r => r.id === this.value);
+      return this.rows.find((r) => r.id === this.value);
     },
     cpuManagerStatus() {
       if (this.row?.isCPUManagerEnableInProgress) {
@@ -28,10 +28,16 @@ export default {
 </script>
 
 <template>
-  <span v-if="row?.isCPUManagerEnableInProgress" v-clean-tooltip="cpuManagerStatus">
+  <span
+    v-if="row?.isCPUManagerEnableInProgress"
+    v-clean-tooltip="cpuManagerStatus"
+  >
     <i class="icon icon-spinner icon-spin" />
   </span>
-  <span v-else-if="row?.isCPUManagerEnabled" v-clean-tooltip="cpuManagerStatus">
+  <span
+    v-else-if="row?.isCPUManagerEnabled"
+    v-clean-tooltip="cpuManagerStatus"
+  >
     <i class="icon icon-checkmark" />
   </span>
   <span

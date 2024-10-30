@@ -88,7 +88,7 @@ export default {
     },
 
     imagesOption() {
-      return this.images.filter(c => c.isReady).sort((a, b) => a.creationTimestamp > b.creationTimestamp ? -1 : 1).map( (I) => {
+      return this.images.filter((c) => c.isReady).sort((a, b) => a.creationTimestamp > b.creationTimestamp ? -1 : 1).map( (I) => {
         return {
           label: `${ I.metadata.namespace }/${ I.spec.displayName }`,
           value: I.id
@@ -97,7 +97,7 @@ export default {
     },
 
     imageName() {
-      const image = this.imagesOption.find(I => I.value === this.value.image);
+      const image = this.imagesOption.find((I) => I.value === this.value.image);
 
       return image ? image.label : '-';
     },
@@ -163,7 +163,7 @@ export default {
     },
 
     onImageChange() {
-      const imageResource = this.$store.getters['harvester/all'](HCI.IMAGE)?.find( I => this.value.image === I.id);
+      const imageResource = this.$store.getters['harvester/all'](HCI.IMAGE)?.find( (I) => this.value.image === I.id);
       const isIsoImage = /iso$/i.test(imageResource?.imageSuffix);
       const imageSize = Math.max(imageResource?.status?.size, imageResource?.status?.virtualSize);
 
@@ -212,7 +212,11 @@ export default {
         data-testid="input-hevi-name"
         class="col span-6"
       >
-        <InputOrDisplay :name="t('harvester.fields.name')" :value="value.name" :mode="mode">
+        <InputOrDisplay
+          :name="t('harvester.fields.name')"
+          :value="value.name"
+          :mode="mode"
+        >
           <LabeledInput
             v-model:value="value.name"
             :label="t('harvester.fields.name')"
@@ -321,7 +325,10 @@ export default {
       </div>
     </div>
     <div class="row mb-20">
-      <div v-if="value.volumeBackups && isView" class="col span-3">
+      <div
+        v-if="value.volumeBackups && isView"
+        class="col span-3"
+      >
         <LabelValue
           :name="t('harvester.virtualMachine.volume.readyToUse')"
           :value="readyToUse"

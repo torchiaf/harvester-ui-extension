@@ -16,7 +16,7 @@ import { _CREATE, _EDIT, _VIEW, _CONFIG } from '@shell/config/query-params';
 
 export default {
   emits: ['update:value'],
-  
+
   components: {
     ActionMenu,
     CruResource,
@@ -54,7 +54,7 @@ export default {
     const defaultReceiverValues = {};
     const receiverSchema = this.$store.getters['harvester/schemaFor'](MONITORING.SPOOFED.ALERTMANAGERCONFIG_RECEIVER_SPEC);
     const routeSchema = this.$store.getters['harvester/schemaFor'](MONITORING.SPOOFED.ALERTMANAGERCONFIG_ROUTE_SPEC);
-    const receiverOptions = (this.value?.spec?.receivers || []).map(receiver => receiver.name);
+    const receiverOptions = (this.value?.spec?.receivers || []).map((receiver) => receiver.name);
 
     return {
       actionMenuTargetElement:  null,
@@ -195,9 +195,9 @@ export default {
   >
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
       :namespaced="isNamespaced"
+      @update:value="$emit('update:value', $event)"
     />
 
     <Tabbed>

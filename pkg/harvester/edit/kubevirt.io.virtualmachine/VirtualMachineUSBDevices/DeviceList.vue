@@ -108,7 +108,7 @@ export default {
       });
     },
     groupIsAllEnabled(rows = []) {
-      return !rows.find(device => !device.passthroughClaim);
+      return !rows.find((device) => !device.passthroughClaim);
     },
 
     changeRows(filterRows) {
@@ -142,11 +142,25 @@ export default {
     :rows-per-page="10"
   >
     <template #group-by="{group}">
-      <div :ref="group.key" v-trim-whitespace class="group-tab">
-        <button v-if="groupIsAllEnabled(group.rows)" type="button" class="btn btn-sm role-secondary mr-5" @click="e=>{disableGroup(group.rows); e.target.blur()}">
+      <div
+        :ref="group.key"
+        v-trim-whitespace
+        class="group-tab"
+      >
+        <button
+          v-if="groupIsAllEnabled(group.rows)"
+          type="button"
+          class="btn btn-sm role-secondary mr-5"
+          @click="e=>{disableGroup(group.rows); e.target.blur()}"
+        >
           {{ t('harvester.usb.disableGroup') }}
         </button>
-        <button v-else type="button" class="btn btn-sm role-secondary mr-5" @click="e=>{enableGroup(group.rows); e.target.blur()}">
+        <button
+          v-else
+          type="button"
+          class="btn btn-sm role-secondary mr-5"
+          @click="e=>{enableGroup(group.rows); e.target.blur()}"
+        >
           {{ t('harvester.usb.enableGroup') }}
         </button>
         <span v-clean-html="group.key" />
@@ -154,7 +168,10 @@ export default {
     </template>
     <template #cell:claimed="{row}">
       <span v-if="row.status.enabled">{{ row.claimedBy }}</span>
-      <span v-else class="text-muted">&mdash;</span>
+      <span
+        v-else
+        class="text-muted"
+      >&mdash;</span>
     </template>
   </ResourceTable>
 </template>

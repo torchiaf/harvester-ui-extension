@@ -12,8 +12,8 @@ import { allHash } from '@shell/utils/promise';
 import { STORAGE_CLASS } from '@shell/config/types';
 
 export default {
-  name:       'HarvesterRestoreSnapshotDialog',
-  
+  name: 'HarvesterRestoreSnapshotDialog',
+
   emits: ['close'],
 
   components: {
@@ -45,7 +45,7 @@ export default {
     await allHash(hash);
 
     if (this.showStorageClass) {
-      const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find(s => s.isDefault);
+      const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find((s) => s.isDefault);
 
       const currentStorageName = this.resources[0].metadata?.annotations[HCI_ANNOTATIONS.STORAGE_CLASS];
 
@@ -66,7 +66,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const storages = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS);
 
-      const out = storages.filter(s => !s.parameters?.backingImage).filter((s) => {
+      const out = storages.filter((s) => !s.parameters?.backingImage).filter((s) => {
         return s.provisioner === this.actionResource.metadata?.annotations[HCI_ANNOTATIONS.STORAGE_PROVISIONER];
       }).map((s) => {
         const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
@@ -127,7 +127,6 @@ export default {
 </script>
 <template>
   <Card :show-highlight-border="false">
-
     <template #title>
       {{ t('harvester.modal.restoreSnapshot.title') }}
     </template>
@@ -151,7 +150,10 @@ export default {
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button class="btn role-secondary mr-10" @click="close">
+          <button
+            class="btn role-secondary mr-10"
+            @click="close"
+          >
             {{ t('generic.cancel') }}
           </button>
           <AsyncButton
@@ -160,7 +162,10 @@ export default {
             @click="save"
           />
         </div>
-        <Banner v-for="(err, i) in errors" :key="i"/>
+        <Banner
+          v-for="(err, i) in errors"
+          :key="i"
+        />
       </div>
     </template>
   </Card>

@@ -7,7 +7,7 @@ import Select from '@shell/components/form/Select';
 
 export default {
   emits: ['update:value'],
-  
+
   components: { Select },
   props:      {
     value: {
@@ -129,7 +129,9 @@ export default {
         />
       </div>
       <div
-        v-for="(row, idx) in rows" :key="idx" class="listener-row"
+        v-for="(row, idx) in rows"
+        :key="idx"
+        class="listener-row"
       >
         <div class="port-name">
           <span v-if="isView">
@@ -182,15 +184,29 @@ export default {
             @input="queueUpdate"
           />
         </div>
-        <div v-if="showRemove" class="remove">
-          <button type="button" class="btn role-link" @click="remove(idx)">
+        <div
+          v-if="showRemove"
+          class="remove"
+        >
+          <button
+            type="button"
+            class="btn role-link"
+            @click="remove(idx)"
+          >
             <t k="generic.remove" />
           </button>
         </div>
       </div>
     </div>
-    <div v-if="showAdd" class="footer">
-      <button type="button" class="btn role-tertiary add" @click="add()">
+    <div
+      v-if="showAdd"
+      class="footer"
+    >
+      <button
+        type="button"
+        class="btn role-tertiary add"
+        @click="add()"
+      >
         <t k="generic.add" />
       </button>
     </div>

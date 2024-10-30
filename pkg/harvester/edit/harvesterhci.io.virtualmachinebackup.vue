@@ -98,7 +98,7 @@ export default {
 
       const backupList = this.$store.getters['harvester/all'](HCI.BACKUP);
 
-      return backupList.find( O => O.name === name);
+      return backupList.find( (O) => O.name === name);
     },
 
     disableExisting() {
@@ -108,7 +108,7 @@ export default {
     backupNamespace() {
       const backupList = this.$store.getters['harvester/all'](HCI.BACKUP);
 
-      return backupList.find( B => B.metadata.name === this.backupName)?.metadata?.namespace;
+      return backupList.find( (B) => B.metadata.name === this.backupName)?.metadata?.namespace;
     },
 
     namespaces() {
@@ -265,7 +265,13 @@ export default {
       />
     </div>
 
-    <Footer mode="create" class="footer" :errors="errors" @save="saveRestore" @done="cancelAction" />
+    <Footer
+      mode="create"
+      class="footer"
+      :errors="errors"
+      @save="saveRestore"
+      @done="cancelAction"
+    />
   </div>
 </template>
 

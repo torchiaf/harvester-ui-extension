@@ -87,7 +87,9 @@ export default {
 
       <template #popper>
         <p
-          v-for="(message, index) in warningMessage" :key="index">
+          v-for="(message, index) in warningMessage"
+          :key="index"
+        >
           {{ index + 1 }}. {{ message }}
         </p>
       </template>

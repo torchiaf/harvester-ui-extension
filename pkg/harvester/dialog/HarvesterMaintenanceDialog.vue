@@ -10,7 +10,7 @@ import { ucFirst } from '@shell/utils/string';
 
 export default {
   emits: ['close'],
-  
+
   components: {
     Card,
     Checkbox,
@@ -110,13 +110,29 @@ export default {
         />
       </div>
 
-      <Banner color="warning" :label="t('harvester.host.enableMaintenance.protip')" />
+      <Banner
+        color="warning"
+        :label="t('harvester.host.enableMaintenance.protip')"
+      />
 
-      <Banner v-for="(err, i) in errors" :key="i" color="error" :label="ucFirst(err)" />
+      <Banner
+        v-for="(err, i) in errors"
+        :key="i"
+        color="error"
+        :label="ucFirst(err)"
+      />
 
-      <Banner v-if="!force" class="mt-0" color="warning" :labelKey="'harvester.host.enableMaintenance.shutDownVMs'" />
+      <Banner
+        v-if="!force"
+        class="mt-0"
+        color="warning"
+        :label-key="'harvester.host.enableMaintenance.shutDownVMs'"
+      />
 
-      <div v-for="(unhealthyVM, i) in unhealthyVMs" :key="i">
+      <div
+        v-for="(unhealthyVM, i) in unhealthyVMs"
+        :key="i"
+      >
         <Banner color="error mt-0 mb-5">
           <p>
             {{ ucFirst(unhealthyVM.message) }}
@@ -125,7 +141,9 @@ export default {
 
         <div class="vm-list mb-5">
           <BadgeState
-             v-for="(vm, k) in unhealthyVM.vms" :key="k" color="bg-error mb-5 mr-5"
+            v-for="(vm, k) in unhealthyVM.vms"
+            :key="k"
+            color="bg-error mb-5 mr-5"
             :label="vm"
           />
         </div>
@@ -135,7 +153,10 @@ export default {
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button class="btn role-secondary mr-10" @click="close">
+          <button
+            class="btn role-secondary mr-10"
+            @click="close"
+          >
             {{ t('generic.cancel') }}
           </button>
 

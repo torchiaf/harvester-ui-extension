@@ -25,7 +25,7 @@ const OBSCURE_NAMESPACE_PREFIX = [
 export default class HciNamespace extends namespace {
   get _availableActions() {
     const out = super._availableActions;
-    const remove = out.findIndex(a => a.action === 'promptRemove');
+    const remove = out.findIndex((a) => a.action === 'promptRemove');
 
     const promptRemove = {
       action:     'promptRemove',
@@ -76,7 +76,7 @@ export default class HciNamespace extends namespace {
     const inStore = this.$rootGetters['currentProduct'].inStore;
     const allResQuotas = this.$rootGetters[`${ inStore }/all`](HCI.RESOURCE_QUOTA);
 
-    return allResQuotas.find( RQ => RQ.metadata.namespace === this.id);
+    return allResQuotas.find( (RQ) => RQ.metadata.namespace === this.id);
   }
 
   get snapshotSizeQuota() {
@@ -111,7 +111,7 @@ export default class HciNamespace extends namespace {
     }
 
     const isSettingSystemNamespace = this.$rootGetters['systemNamespaces'].includes(this.metadata.name);
-    const isObscurePrefix = !!OBSCURE_NAMESPACE_PREFIX.some(prefix => this.metadata.name.startsWith(prefix));
+    const isObscurePrefix = !!OBSCURE_NAMESPACE_PREFIX.some((prefix) => this.metadata.name.startsWith(prefix));
 
     return isSettingSystemNamespace || isObscurePrefix;
   }

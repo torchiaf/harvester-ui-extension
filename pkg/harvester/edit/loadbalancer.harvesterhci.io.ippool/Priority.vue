@@ -8,7 +8,7 @@ import PriorityRow from './PriorityRow';
 
 export default {
   emits: ['update:value'],
-  
+
   components: { PriorityRow },
 
   props: {
@@ -122,7 +122,9 @@ export default {
         />
       </div>
       <div
-        v-for="(row, idx) in rows" :key="idx">
+        v-for="(row, idx) in rows"
+        :key="idx"
+      >
         <PriorityRow
           :row="row"
           :mode="mode"
@@ -133,8 +135,15 @@ export default {
         />
       </div>
     </div>
-    <div v-if="showAdd" class="footer">
-      <button type="button" class="btn role-tertiary add" @click="add()">
+    <div
+      v-if="showAdd"
+      class="footer"
+    >
+      <button
+        type="button"
+        class="btn role-tertiary add"
+        @click="add()"
+      >
         <t k="harvester.ipPool.scope.addLabel" />
       </button>
     </div>

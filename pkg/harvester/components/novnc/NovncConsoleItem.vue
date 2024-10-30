@@ -51,21 +51,38 @@ export default {
 
 <template>
   <ul class="list-unstyled dropdown combination-keys__container">
-    <li v-for="(item, key) in items" :key="key">
+    <li
+      v-for="(item, key) in items"
+      :key="key"
+    >
       <v-dropdown
         v-if="!!item.keys"
         placement="right-start"
         trigger="click"
         :container="false"
       >
-        <span :class="{ open: getOpenStatus(key, pos) }" class="p-10 hand" @click="addKeys({ key, pos })">{{ item.label }}</span>
+        <span
+          :class="{ open: getOpenStatus(key, pos) }"
+          class="p-10 hand"
+          @click="addKeys({ key, pos })"
+        >{{ item.label }}</span>
 
         <template #popper>
-          <novnc-console-item :items="item.keys" :path="path" :pos="pos+1" @update="addKeys" @send-keys="sendKeys" />
+          <novnc-console-item
+            :items="item.keys"
+            :path="path"
+            :pos="pos+1"
+            @update="addKeys"
+            @send-keys="sendKeys"
+          />
         </template>
       </v-dropdown>
 
-      <span v-else class="p-10 hand" @click="keysDown(key, pos)">{{ item.label }}</span>
+      <span
+        v-else
+        class="p-10 hand"
+        @click="keysDown(key, pos)"
+      >{{ item.label }}</span>
     </li>
   </ul>
 </template>

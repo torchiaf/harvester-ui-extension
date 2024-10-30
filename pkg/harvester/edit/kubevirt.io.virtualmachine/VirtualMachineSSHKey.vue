@@ -16,7 +16,7 @@ const _NEW = '_NEW';
 
 export default {
   emits: ['update:sshKey'],
-  
+
   components: {
     LabeledInput,
     ModalWithCard,
@@ -83,7 +83,7 @@ export default {
     },
 
     isCreatable() {
-      if ( this.schema && !this.schema?.collectionMethods.find(x => ['blocked-post', 'post'].includes(x.toLowerCase())) ) {
+      if ( this.schema && !this.schema?.collectionMethods.find((x) => ['blocked-post', 'post'].includes(x.toLowerCase())) ) {
         return false;
       }
 
@@ -151,7 +151,7 @@ export default {
 
       const namespaces = await this.$store.dispatch('harvester/findAll', { type: NAMESPACE });
 
-      const exists = namespaces?.find(n => n.name === this.namespace);
+      const exists = namespaces?.find((n) => n.name === this.namespace);
 
       if (!exists) {
         const ns = await this.$store.dispatch('harvester/createNamespace', { name: this.namespace }, { root: true });

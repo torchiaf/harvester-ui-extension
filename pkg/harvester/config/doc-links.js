@@ -1,5 +1,5 @@
-const pkgJson = require('../package.json');
 import semver from 'semver';
+const pkgJson = require('../package.json');
 
 const docVersion = `v${ semver.major(pkgJson.version) }.${ semver.minor(pkgJson.version) }`;
 

@@ -35,7 +35,7 @@ export default {
 
     const snapShotSchema = this.$store.getters[`${ inStore }/schemaFor`](VOLUME_SNAPSHOT);
 
-    if (!snapShotSchema?.collectionMethods.find(x => x.toLowerCase() === 'post')) {
+    if (!snapShotSchema?.collectionMethods.find((x) => x.toLowerCase() === 'post')) {
       this.$store.dispatch('type-map/configureType', { match: HCI.SNAPSHOT, isCreatable: false });
     }
   },
@@ -73,6 +73,5 @@ export default {
     :schema="schema"
     :rows="filteredRows"
     key-field="_key"
-    
   />
 </template>

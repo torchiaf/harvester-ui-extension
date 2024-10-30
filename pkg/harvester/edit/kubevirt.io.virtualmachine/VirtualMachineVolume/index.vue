@@ -1,5 +1,5 @@
 <script>
-import { Sortable } from "sortablejs-vue3";
+import { Sortable } from 'sortablejs-vue3';
 import InfoBox from '@shell/components/InfoBox';
 import { Banner } from '@components/Banner';
 import BadgeStateFormatter from '@shell/components/formatter/BadgeStateFormatter';
@@ -20,7 +20,7 @@ import { HCI } from '../../../types';
 
 export default {
   emits: ['update:value'],
-  
+
   components: {
     Banner, BadgeStateFormatter, Sortable, InfoBox, LabeledInput, UnitInput, LabeledSelect, ModalWithCard
   },
@@ -146,7 +146,7 @@ export default {
               query: { mode: _EDIT }
             };
 
-            V.pvc = this.pvcs.find(pvc => pvc.metadata.name === V.realName);
+            V.pvc = this.pvcs.find((pvc) => pvc.metadata.name === V.realName);
           }
 
           return V;
@@ -189,7 +189,7 @@ export default {
 
       while (hasName) {
         name = `disk-${ this.nameIdx }`;
-        hasName = this.rows.find(O => O.name === name);
+        hasName = this.rows.find((O) => O.name === name);
         this.nameIdx++;
       }
 
@@ -255,7 +255,7 @@ export default {
     },
 
     getImageDisplayName(id) {
-      return this.$store.getters['harvester/all'](HCI.IMAGE).find(image => image.id === id)?.spec?.displayName;
+      return this.$store.getters['harvester/all'](HCI.IMAGE).find((image) => image.id === id)?.spec?.displayName;
     },
 
     isLonghornV2(volume) {
@@ -275,8 +275,8 @@ export default {
     <Sortable
       :list="rows"
       :options="{disabled: isView}"
-      @end="update"
       item-key="id"
+      @end="update"
     >
       <template #item="{element: volume, index: i}">
         <div :key="volume.name">

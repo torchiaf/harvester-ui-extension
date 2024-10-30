@@ -64,7 +64,7 @@ export default {
     }
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.close();
   },
 
@@ -247,7 +247,10 @@ export default {
 
 <template>
   <div class="harvester-shell-container">
-    <div ref="xterm" class="shell-body" />
+    <div
+      ref="xterm"
+      class="shell-body"
+    />
     <resize-observer @notify="fit" />
   </div>
 </template>

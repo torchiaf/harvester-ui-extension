@@ -19,7 +19,7 @@ const registryAddresses = [
 
 export default {
   emits: ['input'],
-  
+
   components: {
     ResourceTabs,
     DetailText,
@@ -161,10 +161,10 @@ export default {
 <template>
   <ResourceTabs
     :value="value"
-    @update:value="$emit('input', $event)"
     :need-events="false"
     :need-related="false"
     :mode="mode"
+    @update:value="$emit('input', $event)"
   >
     <Tab
       name="data"
@@ -258,7 +258,9 @@ export default {
 
       <div v-else>
         <div
-          v-for="(row,idx) in parsedRows" :key="idx" class="entry"
+          v-for="(row,idx) in parsedRows"
+          :key="idx"
+          class="entry"
         >
           <DetailText
             :value="row.value"
