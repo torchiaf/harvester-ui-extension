@@ -4,13 +4,14 @@ import UnitInput from '@shell/components/form/UnitInput';
 import InputOrDisplay from '@shell/components/InputOrDisplay';
 import { LabeledInput } from '@components/Form/LabeledInput';
 import LabeledSelect from '@shell/components/form/LabeledSelect';
-import { Banner } from '@components/Banner';
 import { PVC, STORAGE_CLASS } from '@shell/config/types';
 import { formatSi, parseSi } from '@shell/utils/units';
 import { VOLUME_TYPE, InterfaceOption } from '../../../../config/harvester-map';
 import { _VIEW } from '@shell/config/query-params';
 import LabelValue from '@shell/components/LabelValue';
 import { ucFirst } from '@shell/utils/string';
+import { LVM_DRIVER } from '../../../../models/harvester/storage.k8s.io.storageclass';
+import { DATA_ENGINE_V2 } from '../../../../edit/harvesterhci.io.storage/index.vue';
 
 export default {
   name:       'HarvesterEditVolume',
@@ -18,7 +19,7 @@ export default {
   emits: ['update'],
 
   components: {
-    InputOrDisplay, Loading, LabeledInput, LabeledSelect, UnitInput, LabelValue, Banner
+    InputOrDisplay, Loading, LabeledInput, LabeledSelect, UnitInput, LabelValue
   },
 
   props: {
@@ -88,10 +89,12 @@ export default {
       return !this.value.newCreateId && this.isEdit && this.isVirtualType;
     },
 
-    storageClassOptions() {
-      const storages = this.$store.getters[`harvester/all`](STORAGE_CLASS) || [];
+    storageClasses() {
+      return this.$store.getters[`harvester/all`](STORAGE_CLASS) || [];
+    },
 
-      const out = storages.filter(s => !s.parameters?.backingImage).map((s) => {
+    storageClassOptions() {
+      return this.storageClasses.filter(s => !s.parameters?.backingImage).map((s) => {
         const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
 
         return {
@@ -99,12 +102,25 @@ export default {
           value: s.name,
         };
       }) || [];
-
-      return out;
     },
+
+    isLonghornV2() {
+      return this.value.pvc?.storageClass?.isLonghornV2;
+    }
   },
 
   watch: {
+    'value.storageClassName': {
+      immediate: true,
+      handler(neu) {
+        const storageClass = this.storageClasses.find(sc => sc.name === neu);
+        const provisioner = storageClass?.provisioner;
+        const engine = storageClass?.parameters?.dataEngine;
+
+        this.value.accessMode = provisioner === LVM_DRIVER || engine === DATA_ENGINE_V2 ? 'ReadWriteOnce' : 'ReadWriteMany';
+      }
+    },
+
     'value.type'(neu) {
       if (neu === 'cd-rom') {
         this.value['bus'] = 'sata';
@@ -222,6 +238,7 @@ export default {
             :mode="mode"
             :required="validateRequired"
             :label="t('harvester.fields.size')"
+            :disabled="isLonghornV2"
             @update:value="update"
           />
         </InputOrDisplay>
@@ -261,11 +278,5 @@ export default {
         />
       </div>
     </div>
-    <Banner
-      v-if="value.volumeBackups && value.volumeBackups.error && value.volumeBackups.error.message"
-      color="error"
-      class="mb-20"
-      :label="value.volumeBackups.error.message"
-    />
   </div>
 </template>

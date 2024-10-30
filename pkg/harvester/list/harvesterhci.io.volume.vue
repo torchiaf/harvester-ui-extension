@@ -1,7 +1,9 @@
 <script>
 import Loading from '@shell/components/Loading';
 import ResourceTable from '@shell/components/ResourceTable';
-import { PV, PVC, SCHEMA, LONGHORN } from '@shell/config/types';
+import {
+  PV, PVC, SCHEMA, LONGHORN, STORAGE_CLASS
+} from '@shell/config/types';
 import { STATE, AGE, NAME, NAMESPACE } from '@shell/config/table-headers';
 import HarvesterVolumeState from '../formatters/HarvesterVolumeState';
 
@@ -32,6 +34,7 @@ export default {
       pvcs: this.$store.dispatch(`${ inStore }/findAll`, { type: PVC }),
       pvs:  this.$store.dispatch(`${ inStore }/findAll`, { type: PV }),
       vms:  this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VM }),
+      scs:  this.$store.dispatch(`${ inStore }/findAll`, { type: STORAGE_CLASS }),
     };
 
     const volumeSnapshotSchema = this.$store.getters[`${ inStore }/schemaFor`](VOLUME_SNAPSHOT);

@@ -63,6 +63,7 @@ export default {
     stringify,
 
     close() {
+      this.isOpen = false;
       this.$store.commit('harvester-common/toggleBundleModal', false);
       this.backUpName = '';
     },
@@ -109,10 +110,12 @@ export default {
     <app-modal
       v-if="isOpen"
       name="bundle-modal"
+      custom-class="bundleModal"
       :click-to-close="false"
       :width="550"
       :height="390"
       class="remove-modal support-modal"
+      @close="close"
     >
       <div class="p-20">
         <h2>

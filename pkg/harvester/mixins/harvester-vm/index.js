@@ -24,6 +24,8 @@ import { HCI } from '../../types';
 import { parseVolumeClaimTemplates } from '../../utils/vm';
 import impl, { QGA_JSON, USB_TABLET } from './impl';
 
+const LONGHORN_V2_DATA_ENGINE = 'longhorn-system/v2-data-engine';
+
 export const MANAGEMENT_NETWORK = 'management Network';
 
 export const OS = [{
@@ -98,6 +100,7 @@ export default {
       vms:               this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VM }),
       secrets:           this.$store.dispatch(`${ inStore }/findAll`, { type: SECRET }),
       addons:            this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.ADD_ONS }),
+      longhornV2Engine:  this.$store.dispatch(`${ inStore }/find`, { type: LONGHORN.SETTINGS, id: LONGHORN_V2_DATA_ENGINE }),
     };
 
     if (this.$store.getters[`${ inStore }/schemaFor`](NODE)) {
@@ -239,7 +242,7 @@ export default {
     defaultStorageClass() {
       const defaultStorage = this.$store.getters[`${ this.inStore }/all`](STORAGE_CLASS).find( O => O.isDefault);
 
-      return defaultStorage?.metadata?.name || 'longhorn';
+      return defaultStorage;
     },
 
     storageClassSetting() {
@@ -444,7 +447,7 @@ export default {
           id:               randomStr(5),
           source:           SOURCE_TYPE.IMAGE,
           name:             'disk-0',
-          accessMode:       'ReadWriteMany',
+          accessMode:       'ReadWriteMany', // root disk only support LHv1 volume, should be RWX
           bus,
           volumeName:       '',
           size,
@@ -1391,14 +1394,6 @@ export default {
       } else {
         delete this.spec.template.spec.domain['firmware'];
         delete this.spec.template.spec.domain.features['smm'];
-      }
-    },
-
-    setCpuPinning(value) {
-      if (value) {
-        set(this.spec.template.spec.domain.cpu, 'dedicatedCpuPlacement', true);
-      } else {
-        delete this.spec.template.spec.domain.cpu['dedicatedCpuPlacement'];
       }
     },
 

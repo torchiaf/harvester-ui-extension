@@ -6,7 +6,6 @@ import { AGE, ROLE, STATE, PRINCIPAL } from '@shell/config/table-headers';
 import Banner from '@components/Banner/Banner.vue';
 import Tabbed from '@shell/components/Tabbed/index.vue';
 import Tab from '@shell/components/Tabbed/Tab.vue';
-import SortableTable from '@shell/components/SortableTable';
 import { mapGetters } from 'vuex';
 import { allHash } from '@shell/utils/promise';
 
@@ -19,7 +18,6 @@ export default {
     ResourceTable,
     Tabbed,
     Tab,
-    SortableTable
   },
 
   props: {

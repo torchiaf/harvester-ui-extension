@@ -16,6 +16,7 @@ import { STORAGE_CLASS } from '@shell/config/types';
 import { VM_IMAGE_FILE_FORMAT } from '../validators/vm-image';
 import { OS } from '../mixins/harvester-vm';
 import { HCI } from '../types';
+import { LVM_DRIVER } from '../models/harvester/storage.k8s.io.storageclass';
 
 const ENCRYPT = 'encrypt';
 const DECRYPT = 'decrypt';
@@ -138,16 +139,16 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const storages = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS);
 
-      const out = storages.filter(s => !s.parameters?.backingImage).map((s) => {
-        const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
+      return storages
+        .filter(s => !s.parameters?.backingImage && s.provisioner !== LVM_DRIVER) // Lvm storage is not supported.
+        .map((s) => {
+          const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
 
-        return {
-          label,
-          value: s.name,
-        };
-      }) || [];
-
-      return out;
+          return {
+            label,
+            value: s.name,
+          };
+        }) || [];
     },
 
     storageClassName: {
