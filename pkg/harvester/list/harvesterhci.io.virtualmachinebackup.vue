@@ -97,8 +97,8 @@ export default {
     },
 
     changeRows(filteredRows, searchSchedule) {
-      this[searchSchedule] = searchSchedule;
-      this[backups] = filteredRows;
+      this['searchSchedule'] = searchSchedule;
+      this['backups'] = filteredRows;
     },
 
     sortGenerationFn() {
@@ -119,7 +119,7 @@ export default {
         NAMESPACE,
         {
           name:      'targetVM',
-          labelKey:  'tableHeaders.targetVm',
+          labelKey:  'harvester.tableHeaders.targetVm',
           value:     'attachVM',
           align:     'left',
           formatter: 'AttachVMWithName'

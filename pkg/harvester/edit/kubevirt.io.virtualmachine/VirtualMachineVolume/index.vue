@@ -8,10 +8,10 @@ import { LabeledInput } from '@components/Form/LabeledInput';
 import LabeledSelect from '@shell/components/form/LabeledSelect';
 import ModalWithCard from '@shell/components/ModalWithCard';
 
-import { PVC, STORAGE_CLASS } from '@shell/config/types';
+import { PVC } from '@shell/config/types';
 import { clone } from '@shell/utils/object';
+import { ucFirst, randomStr } from '@shell/utils/string';
 import { removeObject } from '@shell/utils/array';
-import { randomStr } from '@shell/utils/string';
 import { _VIEW, _EDIT, _CREATE } from '@shell/config/query-params';
 import { PLUGIN_DEVELOPER, DEV } from '@shell/store/prefs';
 import { SOURCE_TYPE } from '../../../config/harvester-map';
@@ -82,11 +82,12 @@ export default {
 
   data() {
     return {
+      ucFirst,
       SOURCE_TYPE,
       rows:    clone(this.value),
       nameIdx: 1,
       vol:     null,
-      isOpen:  false,
+      isOpen:  false
     };
   },
 
@@ -175,10 +176,7 @@ export default {
       };
 
       if (type === SOURCE_TYPE.NEW) {
-        const inStore = this.$store.getters['currentProduct'].inStore;
-        const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find( O => O.isDefault);
-
-        neu.storageClassName = defaultStorage?.metadata?.name || 'longhorn';
+        neu.storageClassName = this.defaultStorageClass?.metadata?.name || 'longhorn';
       }
 
       this.rows.push(neu);
@@ -258,6 +256,10 @@ export default {
 
     getImageDisplayName(id) {
       return this.$store.getters['harvester/all'](HCI.IMAGE).find(image => image.id === id)?.spec?.displayName;
+    },
+
+    isLonghornV2(volume) {
+      return volume?.pvc?.storageClass?.isLonghornV2;
     }
   },
 };
@@ -371,12 +373,24 @@ export default {
               </div>
             </div>
 
-            <Banner
-              v-if="volume.volumeStatus && !isCreate"
-              class="mt-15 volume-status"
-              color="warning"
-              :label="volume.volumeStatus"
-            />
+            <div class="mt-15">
+              <Banner
+                v-if="volume.volumeStatus && !isCreate"
+                class="volume-status"
+                color="warning"
+                :label="ucFirst(volume.volumeStatus)"
+              />
+              <Banner
+                v-if="value.volumeBackups && value.volumeBackups.error && value.volumeBackups.error.message"
+                color="error"
+                :label="ucFirst(value.volumeBackups.error.message)"
+              />
+              <Banner
+                v-if="isLonghornV2(volume) && !isView"
+                color="warning"
+                :label="t('harvester.volume.longhorn.disableResize')"
+              />
+            </div>
           </InfoBox>
         </div>
       </template>
@@ -496,5 +510,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .banner {
+    margin: 10px 0;
   }
 </style>

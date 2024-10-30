@@ -6,6 +6,8 @@ import { Banner } from '@components/Banner';
 import HarvesterDisk from '../../mixins/harvester-disk';
 import { RadioGroup } from '@components/Form/Radio';
 
+import { LONGHORN_VERSION_V1 } from '@shell/config/types';
+
 export default {
   emits: ['update:value'],
   
@@ -85,6 +87,20 @@ export default {
       } else {
         return '';
       }
+    },
+
+    provisioner() {
+      let labelKey = `harvester.host.disk.storage.longhorn.${ LONGHORN_VERSION_V1 }.label`;
+
+      if (this.value?.blockDevice?.spec?.provisioner.longhorn) {
+        labelKey = `harvester.host.disk.storage.longhorn.${ this.value.blockDevice.spec.provisioner.longhorn.engineVersion }.label`;
+      }
+
+      if (this.value?.blockDevice?.spec?.provisioner.lvm) {
+        labelKey = 'harvester.host.disk.storage.lvm.label';
+      }
+
+      return this.t(labelKey);
     },
   },
   methods: {
@@ -198,10 +214,16 @@ export default {
           :value="value.displayName"
         />
       </div>
-      <div class="col span-4">
+      <div v-if="value.path" class="col span-4">
         <LabelValue
           :name="t('harvester.host.disk.path.label')"
           :value="value.path"
+        />
+      </div>
+      <div class="col span-4">
+        <LabelValue
+          :name="t('harvester.host.disk.provisioner')"
+          :value="provisioner"
         />
       </div>
     </div>

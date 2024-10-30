@@ -114,6 +114,10 @@ export default {
       return allPVCs.find((P) => {
         return this.namespace ? P.id === `${ this.namespace }/${ this.value.volumeName }` : true;
       });
+    },
+
+    isLonghornV2() {
+      return this.value.pvc?.storageClass?.isLonghornV2;
     }
   },
 
@@ -279,6 +283,7 @@ export default {
             :label="t('harvester.fields.size')"
             :mode="mode"
             :required="validateRequired"
+            :disable="isLonghornV2"
             suffix="GiB"
             @update:value="update"
           />

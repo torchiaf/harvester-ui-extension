@@ -267,7 +267,7 @@ export default {
         :label="t('workload.container.titles.nodeScheduling')"
         :weight="-3"
       >
-        <template #default="{active}">
+        <template #default>
           <NodeScheduling
             :mode="mode"
             :value="spec.template.spec"
@@ -277,7 +277,7 @@ export default {
       </Tab>
 
       <Tab :label="t('harvester.tab.vmScheduling')" name="vmScheduling" :weight="-4">
-        <template #default="{active}">
+        <template #default>
           <PodAffinity
             :mode="mode"
             :value="spec.template.spec"

@@ -5,7 +5,7 @@ import InfoBox from '@shell/components/InfoBox';
 import { allHash } from '@shell/utils/promise';
 import { CSI_DRIVER, VOLUME_SNAPSHOT_CLASS } from '../../types';
 
-const LONGHORN_DRIVER = 'driver.longhorn.io';
+import { LONGHORN_DRIVER } from '@shell/config/types';
 
 export default {
   name: 'HarvesterCsiDriver',

@@ -206,7 +206,7 @@ export default {
 
           <Banner
             v-if="errors.length"
-            color="warning"
+            color="error"
           >
             {{ errors }}
           </Banner>

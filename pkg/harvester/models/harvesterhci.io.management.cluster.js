@@ -4,6 +4,7 @@ import { HARVESTER_NAME, HARVESTER_NAME as VIRTUAL } from '@shell/config/feature
 import { SETTING } from '@shell/config/settings';
 
 export default class HciCluster extends ProvCluster {
+
   get stateObj() {
     return this._stateObj;
   }
@@ -28,10 +29,6 @@ export default class HciCluster extends ProvCluster {
   get canEdit() {
     return false;
   }
-
-  cachedHarvesterClusterVersion = '';
-
-  _uiInfo = undefined;
 
   /**
    * Fetch and cache the response for /ui-info

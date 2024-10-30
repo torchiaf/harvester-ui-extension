@@ -145,7 +145,7 @@ harvester:
       name: 'New Volume Name'
       success: 'New Volume { name } restored successfully.'
     vmSnapshot:
-      title: Take VM Snapshot
+      title: Take Virtual Machine Snapshot
       name: Name
       success: 'Take virtual machine Snapshot { name } successfully.'
     restart:
@@ -171,7 +171,7 @@ harvester:
     encryptImage: Encrypt Image
     decryptImage: Decrypt Image
     ejectCDROM: Eject CD-ROM
-    editVMQuota: Edit VM Quota
+    editVMQuota: Edit Virtual Machine Quota
     launchFormTemplate: Launch instance from template
     modifyTemplate: Modify template (Create new version)
     setDefaultVersion: Set default version
@@ -236,7 +236,7 @@ harvester:
     retain: Retain
     scheduleType: Type
     maxFailure: Max Failure
-    sourceVm: Source VM
+    sourceVm: Source Virtual Machine
     vmSchedule: Virtual Machine Schedule
     hostIp: Host IP
     vm:
@@ -319,14 +319,14 @@ harvester:
     goSetting:
       prefix: The pcidevices-controller add-on is not enabled, click
       middle: here
-      suffix: to enable it to manage your PCI devices.
+      suffix: to enable the add-on to successfully manage your PCI devices.
     noPCIPermission: Please contact your system administrator to enable the PCI devices first.
     enablePassthroughWarning: Please be careful not to use host-owned PCI devices (e.g., management and VLAN NICs). Incorrect device allocation may cause damage to your cluster, including node failure.
 
   devices:
     matrixHostName: Host Name
     matrixDeviceClaimName: Device Claim Name
-  
+
   generic:
     close: Close
     open: Open
@@ -508,6 +508,18 @@ harvester:
         label: Storage Scheduled
       storageMaximum:
         label: Storage Maximum
+      provisioner: Provisioner
+      lvmVolumeGroup:
+        label: Volume Group
+        create: Create New...
+      storage:
+        longhorn:
+          LonghornV1:
+            label: Longhorn V1 (CSI)
+          LonghornV2:
+            label: Longhorn V2 (CSI)
+        lvm:
+          label: LVM
     tags:
       label: Host Tags
       addLabel: Add Host Tag
@@ -576,7 +588,7 @@ harvester:
         Shutdown: Shutdown
     cpuPinning:
       label: Enable CPU Pinning
-      tooltip: Enable CPU Pinning brings better performance and reduce latency for the virtual machine 
+      tooltip: Enable CPU Pinning brings better performance and reduce latency for the virtual machine
       restartVMMessage: Changing the CPU Pinning setting requires a virtual machine reboot for the change to take effect
       migrationMessage: This virtual machine can only be migrated to a target node that has CPU Manager enabled, as CPU Pinning is configured.
     restartNow: |-
@@ -591,7 +603,7 @@ harvester:
       tpm: Enable TPM
       cpuManager:
         prefix: You must enable CPU Manager for at least one node in
-        middle: 'host page' 
+        middle: 'host page'
         suffix: to enable CPU Pinning for VM
     usbTip: Provides an absolute pointer device which often helps with getting a consistent mouse cursor position in VNC.
     sshTitle: Add Public SSH Key
@@ -634,7 +646,7 @@ harvester:
       addNetwork: Add Network
       addPort:  Add Port
     cloudConfig:
-      title: Cloud Config
+      title: Cloud Configuration
       createTemplateTitle: 'Create {name}.'
       createNew: Create new...
       cloudInit:
@@ -694,7 +706,7 @@ harvester:
         instance: Virtual Machines
         monitor: Monitor Data
         keypairs: SSH Keys
-        cloudConfig: Cloud Config
+        cloudConfig: Cloud Configuration
         metrics: Virtual Machine Metrics
       details:
         title:
@@ -786,6 +798,8 @@ harvester:
     externalLink:
       tips: Check volume details
     rebuildingMessage: 'Rebuilding: {percentage}%'
+    longhorn:
+      disableResize: 'Longhorn V2 volumes cannot be resized.'
 
   image:
     label: Images
@@ -915,7 +929,7 @@ harvester:
       viewSetting:
         prefix: Click
         middle: here
-        suffix: to view the backup config.
+        suffix: to view the backup configuration.
       testConnect:
         actionLabel: Test connection
         waitingLabel: Testing connection...
@@ -987,6 +1001,7 @@ harvester:
       cert: Upload a self-signed SSL certificate
     vlanChangeTip: The newly modified default network interface only applies to newly added nodes, not existing ones.
     defaultPhysicalNIC: Default Network Interface
+    modifiedMessage: Settings that have been customized from default settings are tagged with 'Modified'.
     percentTip: The value in parentheses represents the distribution percentage of the network interface on all hosts. If an interface less than 100% is selected, the user needs to manually specify the network interface on the host where the vlan network configuration fails.
     message:
       ca:
@@ -1036,7 +1051,7 @@ harvester:
           addRewrite: Add Rewrite
         addMirror: Add Mirror
       configs:
-        configs: Configs
+        configs: Configurations
         registryEDQNorIP: Registry FDQN or IP
         registryPlaceholder: myregistry.local:5000
         username: Username
@@ -1044,7 +1059,7 @@ harvester:
         auth: Auth
         identityToken: Identity Token
         insecureSkipVerify: InsecureSkipVerify
-        addConfig: Add Config
+        addConfig: Add Configuration
 
     upgrade:
       selectExitImage: Please select the OS image to upgrade.
@@ -1116,7 +1131,7 @@ harvester:
     configuration:
       label: Configuration
     alertmanagerConfig:
-      label: Alertmanager Configs
+      label: Alertmanager Configurations
       diabledMonitoringTips:
         prefix: 'Enable the'
         middle: 'monitoring'
@@ -1136,13 +1151,13 @@ harvester:
         fluentbit: Fluentbit
         fluentd: Fluentd
     clusterFlow:
-      label: Cluster Flow
+      label: Cluster Flows
     clusterOutput:
-      label: Cluster Output
+      label: Cluster Outputs
     flow:
-      label: Flow
+      label: Flows
     output:
-      label: Output
+      label: Outputs
     diabledTips:
         prefix: 'Enable'
         middle: 'logging'
@@ -1177,6 +1192,14 @@ harvester:
       label: Disk Selector
     storageClass:
       label: Storage Class
+      longhorn:
+        v1:
+          label: Longhorn V1 (CSI)
+        v2:
+          label: Longhorn V2 (CSI)
+        versionTooltip: Longhorn V2 is disabled for this node.
+      lvm:
+        label: LVM
     title: Storage Classes
     customize:
       volumeBindingMode:
@@ -1194,6 +1217,13 @@ harvester:
         no-options: No available tags, please add in the `Host > Storage` page
       migratable:
         label: Migratable
+      lvmVolumeGroupType:
+        label: Volume Group Type
+      lvmVolumeGroup:
+        label: Volume Group Name
+        no-options: No available Volume Groups, please add in the `Host > Storage` page
+      node:
+        label: Node
     allowedTopologies:
       title: Allowed Topologies
       tooltip: Allowed Topologies helps scheduling virtual machines on hosts which match all of below expressions.
@@ -1229,7 +1259,7 @@ harvester:
           label: Mode
         miimon:
           label: Miimon
-          tooltip: <Code>-1</Code> means to keep the original value
+          tooltip: Miimon specifies the MII link monitoring frequency in milliseconds. <Code>-1</Code> means to keep the original value.
     nodeSelector:
       matchingNodes:
         matchesSome: |-
@@ -1435,9 +1465,9 @@ harvester:
 
   usb:
     label: USB Devices
-    noPermission: Please contact system admin to add Harvester addons first
+    noPermission: Please contact system admin to add Harvester add-ons first
     goSetting:
-      prefix: The pcidevices-controller addon is not enabled, click
+      prefix: The pcidevices-controller add-on is not enabled, click
       middle: here
       suffix: to enable it to manage your USB devices.
     enableGroup: Enable Group
@@ -1499,7 +1529,7 @@ harvester:
       placeholder: 'topology.kubernetes.io/zone'
 
 advancedSettings:
-  technicalPreview: 'Technical Previews allow users to test and evaluate early-access functionality prior to official supported releases'
+  experimental: 'Experimental features allow users to test and evaluate early-access functionality prior to official supported releases'
   descriptions:
     'harv-vlan': Default Network Interface name of the VLAN network.
     'harv-backup-target': Custom backup target to store virtual machine backups.
@@ -1557,8 +1587,8 @@ typeLabel:
     }
   harvesterhci.io.networkattachmentdefinition: |-
     {count, plural,
-      one { Virtual Machines Network }
-      other { Virtual Machines Networks }
+      one { Virtual Machine Network }
+      other { Virtual Machine Networks }
     }
   harvesterhci.io.volume: |-
     {count, plural,
@@ -1587,8 +1617,8 @@ typeLabel:
     }
   harvesterhci.io.virtualmachinebackup: |-
     {count, plural,
-      one { Virtual Machines Backup }
-      other { Virtual Machines Backups }
+      one { Virtual Machine Backup }
+      other { Virtual Machine Backups }
     }
   harvesterhci.io.cloudtemplate: |-
     {count, plural,
@@ -1602,8 +1632,8 @@ typeLabel:
     }
   harvesterhci.io.vmsnapshot: |-
     {count, plural,
-      one { Virtual Machines Snapshot }
-      other { Virtual Machines Snapshots }
+      one { Virtual Machine Snapshot }
+      other { Virtual Machine Snapshots }
     }
   network.harvesterhci.io.vlanconfig: |-
     {count, plural,
@@ -1654,6 +1684,11 @@ typeLabel:
     {count, plural,
       one { Cluster Network }
       other { Cluster Networks }
+    }
+  harvesterhci.io.addon: |-
+    {count, plural,
+      one { Add-on }
+      other { Add-ons }
     }
   devices.harvesterhci.io.sriovnetworkdevice: |-
     {count, plural,
