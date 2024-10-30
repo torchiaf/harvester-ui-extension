@@ -11,8 +11,5 @@ node_modules/
 dist
 dist-pkg
 .DS_Store
-dynamic-importer.js
-ksconfig.json
-nuxt.config.js
-shell/utils/dynamic-importer.js
-shell/assets/fonts
+pkg/harvester/index.ts
+pkg/harvester/store/*
