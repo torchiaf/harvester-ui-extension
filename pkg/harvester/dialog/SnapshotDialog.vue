@@ -6,7 +6,7 @@ import { Banner } from '@components/Banner';
 import AsyncButton from '@shell/components/AsyncButton';
 import { LabeledInput } from '@components/Form/LabeledInput';
 export default {
-  name:       'HarvesterSnapshotDialog',
+  name: 'HarvesterSnapshotDialog',
 
   emits: ['close'],
 
@@ -84,7 +84,10 @@ export default {
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button class="btn role-secondary mr-10" @click="close">
+          <button
+            class="btn role-secondary mr-10"
+            @click="close"
+          >
             {{ t('generic.cancel') }}
           </button>
           <AsyncButton
@@ -93,7 +96,12 @@ export default {
             @click="save"
           />
         </div>
-        <Banner v-for="(err, i) in errors" :key="i" color="error" :label="err" />
+        <Banner
+          v-for="(err, i) in errors"
+          :key="i"
+          color="error"
+          :label="err"
+        />
       </div>
     </template>
   </Card>

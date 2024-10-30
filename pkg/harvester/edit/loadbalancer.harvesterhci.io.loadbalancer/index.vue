@@ -105,7 +105,7 @@ export default {
     ipPoolOptions() {
       const ipPools = this.$store.getters['harvester/all'](HCI.IP_POOL);
 
-      const out = ipPools.map(ipPool => ipPool.id);
+      const out = ipPools.map((ipPool) => ipPool.id);
 
       return [{
         label: this.t('harvester.loadBalancer.ipPool.options.none'),
@@ -116,13 +116,13 @@ export default {
     projectOptions() {
       const projects = this.$store.getters['harvester/all'](MANAGEMENT.PROJECT);
 
-      return projects.map(project => project.id);
+      return projects.map((project) => project.id);
     },
 
     namespaceOptions() {
       const namespaces = this.$store.getters['harvester/all'](NAMESPACE);
 
-      return namespaces.map(n => n.id);
+      return namespaces.map((n) => n.id);
     },
 
     backendServerSelector: {
@@ -166,7 +166,7 @@ export default {
 
     healthCheckPortInUseWarning() {
       const healthCheckPort = this.value?.spec?.healthCheck?.port;
-      const portInUse = this.value?.spec?.listeners?.find(l => l.backendPort === healthCheckPort);
+      const portInUse = this.value?.spec?.listeners?.find((l) => l.backendPort === healthCheckPort);
 
       if (healthCheckPort && portInUse) {
         return this.t('harvester.loadBalancer.healthCheck.warning.portInUse', { port: portInUse.backendPort }, true);
@@ -191,7 +191,7 @@ export default {
 
     updateMatchingVMs: throttle(function() {
       const backendServerSelector = this.value.spec.backendServerSelector;
-      const allVMs = this.$store.getters['harvester/all'](HCI.VM).filter(vm => vm.metadata.namespace === this.value.metadata.namespace);
+      const allVMs = this.$store.getters['harvester/all'](HCI.VM).filter((vm) => vm.metadata.namespace === this.value.metadata.namespace);
 
       if (isEmpty(backendServerSelector)) {
         this.matchingVMs = {
@@ -238,9 +238,9 @@ export default {
   >
     <NameNsDescription
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :namespaced="true"
       :mode="mode"
+      @update:value="$emit('update:value', $event)"
     />
 
     <ResourceTabs

@@ -14,7 +14,7 @@ const _NEW = '_NEW';
 
 export default {
   emits: ['updateUserData', 'updateNetworkData', 'updateDataTemplateId'],
-  
+
   components: {
     DataTemplate, YamlEditor, LabeledInput, ModalWithCard
   },

@@ -8,7 +8,7 @@ import { NETWORK_HEADERS } from '@pkg/harvester/list/harvesterhci.io.networkatta
 
 export default {
   emits: ['input'],
-  
+
   components: {
     ResourceTabs,
     Tab,
@@ -37,7 +37,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const networks = this.$store.getters[`${ inStore }/all`](NETWORK_ATTACHMENT);
 
-      return networks.filter(n => n?.id === this.value?.spec?.selector?.network);
+      return networks.filter((n) => n?.id === this.value?.spec?.selector?.network);
     },
 
     networkHeaders() {
@@ -74,8 +74,8 @@ export default {
 <template>
   <ResourceTabs
     :value="value"
-    @update:value="$emit('input', $event)"
     :need-related="false"
+    @update:value="$emit('input', $event)"
   >
     <Tab
       name="network"

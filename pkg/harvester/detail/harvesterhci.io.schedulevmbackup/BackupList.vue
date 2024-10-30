@@ -84,14 +84,14 @@ export default {
     },
 
     hasBackupProgresses() {
-      return !!this.rows.find(R => R.status?.progress !== undefined);
+      return !!this.rows.find((R) => R.status?.progress !== undefined);
     },
 
     filteredRows() {
-      let r = this.rows.filter(row => row.spec?.type === BACKUP_TYPE.BACKUP);
+      let r = this.rows.filter((row) => row.spec?.type === BACKUP_TYPE.BACKUP);
 
       if (this.id) {
-        r = r.filter(backup => backup.metadata.annotations?.[HCI_ANNOTATIONS.SVM_BACKUP_ID] === this.id);
+        r = r.filter((backup) => backup.metadata.annotations?.[HCI_ANNOTATIONS.SVM_BACKUP_ID] === this.id);
       }
 
       return r;

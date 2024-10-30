@@ -3,7 +3,7 @@ import SSHKey from '../../VirtualMachineSSHKey';
 import AccessCredentialsUsers from '../AccessCredentialsUsers';
 
 export default {
-  name:       'HarvesterEditVolume',
+  name: 'HarvesterEditVolume',
 
   emits: ['update', 'update:newUser'],
 
@@ -65,7 +65,7 @@ export default {
       <div class="col span-6">
         <AccessCredentialsUsers
           v-model:value="value.users"
-          :resourceType="resourceType"
+          :resource-type="resourceType"
           :user-options="userOptions"
           :mode="mode"
           :multiple="true"

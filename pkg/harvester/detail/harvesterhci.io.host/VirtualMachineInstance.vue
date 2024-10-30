@@ -94,7 +94,11 @@ export default {
 
 <template>
   <Loading v-if="$fetchState.pending" />
-  <div v-else id="host-instances" class="row">
+  <div
+    v-else
+    id="host-instances"
+    class="row"
+  >
     <div class="col span-12">
       <SortableTable
         v-bind="$attrs"
@@ -102,11 +106,17 @@ export default {
         default-sort-by="age"
         :rows="rows"
         key-field="_key"
-        
       >
-        <template #cell:state="scope" class="state-col">
+        <template
+          #cell:state="scope"
+          class="state-col"
+        >
           <div class="state">
-            <HarvesterVmState class="vmstate" :row="scope.row" :all-cluster-network="allClusterNetwork" />
+            <HarvesterVmState
+              class="vmstate"
+              :row="scope.row"
+              :all-cluster-network="allClusterNetwork"
+            />
           </div>
         </template>
       </Sortabletable>

@@ -10,7 +10,7 @@ import { LONGHORN_VERSION_V1 } from '@shell/config/types';
 
 export default {
   emits: ['update:value'],
-  
+
   components: {
     LabelValue,
     BadgeState,
@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     targetDisk() {
-      return this.disks.find(disk => disk.name === this.value.name);
+      return this.disks.find((disk) => disk.name === this.value.name);
     },
     schedulableTooltipMessage() {
       const { name, path } = this.value;
@@ -124,7 +124,10 @@ export default {
 </script>
 
 <template>
-  <div class="disk" @update:value="update">
+  <div
+    class="disk"
+    @update:value="update"
+  >
     <Banner
       v-if="mountedMessage"
       color="error"
@@ -139,7 +142,10 @@ export default {
           >
             <template #value>
               <div class="mt-5">
-                <Tag v-for="(prop, key) in value.tags" :key="key">
+                <Tag
+                  v-for="(prop, key) in value.tags"
+                  :key="key"
+                >
                   {{ prop }}
                 </Tag>
               </div>
@@ -185,7 +191,10 @@ export default {
           </div>
         </div>
       </div>
-      <div v-if="!value.isNew" class="row mt-30">
+      <div
+        v-if="!value.isNew"
+        class="row mt-30"
+      >
         <div class="col span-4">
           <LabelValue
             :name="t('harvester.host.disk.storageAvailable.label')"
@@ -214,7 +223,10 @@ export default {
           :value="value.displayName"
         />
       </div>
-      <div v-if="value.path" class="col span-4">
+      <div
+        v-if="value.path"
+        class="col span-4"
+      >
         <LabelValue
           :name="t('harvester.host.disk.path.label')"
           :value="value.path"

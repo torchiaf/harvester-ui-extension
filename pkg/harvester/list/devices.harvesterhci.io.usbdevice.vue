@@ -30,7 +30,7 @@ export default {
           addons:     this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.ADD_ONS }),
         });
 
-        this.hasPCIAddon = hash.addons.find(addon => addon.name === ADD_ONS.PCI_DEVICE_CONTROLLER)?.spec?.enabled === true;
+        this.hasPCIAddon = hash.addons.find((addon) => addon.name === ADD_ONS.PCI_DEVICE_CONTROLLER)?.spec?.enabled === true;
       } catch (e) {}
     }
   },
@@ -79,5 +79,9 @@ export default {
       />
     </Banner>
   </div>
-  <DeviceList v-else-if="hasSchema" :devices="devices" :schema="schema" />
+  <DeviceList
+    v-else-if="hasSchema"
+    :devices="devices"
+    :schema="schema"
+  />
 </template>

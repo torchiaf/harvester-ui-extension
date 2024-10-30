@@ -90,12 +90,21 @@ export default {
       ref="nd"
       :key="randomString"
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
+      @update:value="$emit('update:value', $event)"
     />
 
-    <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true">
-      <Tab name="basic" :label="t('harvester.sshKey.tabs.basics')" :weight="1" class="bordered-table">
+    <Tabbed
+      v-bind="$attrs"
+      class="mt-15"
+      :side-tabs="true"
+    >
+      <Tab
+        name="basic"
+        :label="t('harvester.sshKey.tabs.basics')"
+        :weight="1"
+        class="bordered-table"
+      >
         <LabeledInput
           v-model:value="publicKey"
           type="multiline"

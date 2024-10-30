@@ -57,7 +57,9 @@ export default {
   <div>
     <div v-if="inventory.warningMessages.length > 0">
       <Banner
-         v-for="(msg, i) in inventory.warningMessages" :key="i" color="error"
+        v-for="(msg, i) in inventory.warningMessages"
+        :key="i"
+        color="error"
         :label="msg.text"
       />
     </div>

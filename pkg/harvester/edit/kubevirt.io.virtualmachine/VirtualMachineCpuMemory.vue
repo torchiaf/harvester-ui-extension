@@ -3,10 +3,10 @@ import UnitInput from '@shell/components/form/UnitInput';
 import InputOrDisplay from '@shell/components/InputOrDisplay';
 
 export default {
-  name:       'HarvesterEditCpuMemory',
+  name: 'HarvesterEditCpuMemory',
 
   emits: ['updateCpuMemory'],
-  
+
   components: { UnitInput, InputOrDisplay },
 
   props: {
@@ -78,7 +78,11 @@ export default {
 <template>
   <div class="row">
     <div class="col span-6 mb-10">
-      <InputOrDisplay name="CPU" :value="cupDisplay" :mode="mode">
+      <InputOrDisplay
+        name="CPU"
+        :value="cupDisplay"
+        :mode="mode"
+      >
         <UnitInput
           v-model:value="localCpu"
           label="CPU"
@@ -94,7 +98,11 @@ export default {
     </div>
 
     <div class="col span-6 mb-10">
-      <InputOrDisplay :name="t('harvester.virtualMachine.input.memory')" :value="memoryDisplay" :mode="mode">
+      <InputOrDisplay
+        :name="t('harvester.virtualMachine.input.memory')"
+        :value="memoryDisplay"
+        :mode="mode"
+      >
         <UnitInput
           v-model:value="localMemory"
           :label="t('harvester.virtualMachine.input.memory')"

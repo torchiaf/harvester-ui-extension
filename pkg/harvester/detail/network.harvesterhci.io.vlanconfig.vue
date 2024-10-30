@@ -12,7 +12,7 @@ import { HCI } from '@pkg/harvester/config/labels-annotations';
 
 export default {
   emits: ['input'],
-  
+
   components: {
     ResourceTabs,
     Tab,
@@ -64,7 +64,7 @@ export default {
       if (!isEmpty(selector)) {
         return matching(nodes, selector);
       } else if (matchedNodes && matchedNodes.length > 0) {
-        return nodes.filter(node => matchedNodes.includes(node.id));
+        return nodes.filter((node) => matchedNodes.includes(node.id));
       } else {
         return nodes;
       }
@@ -76,8 +76,8 @@ export default {
 <template>
   <ResourceTabs
     :value="value"
-    @update:value="$emit('input', $event)"
     :need-related="false"
+    @update:value="$emit('input', $event)"
   >
     <Tab
       name="node"

@@ -11,7 +11,7 @@ const _NEW = '_NEW';
 
 export default {
   emits: ['update:user', 'update:newUser'],
-  
+
   components: {
     LabeledInput,
     LabeledSelect,

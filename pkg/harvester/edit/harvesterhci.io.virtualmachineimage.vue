@@ -61,7 +61,7 @@ export default {
       storageClasses: this.$store.dispatch(`${ inStore }/findAll`, { type: STORAGE_CLASS }),
     });
 
-    const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find(s => s.isDefault);
+    const defaultStorage = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS).find((s) => s.isDefault);
 
     this['storageClassName'] = this.storageClassName || defaultStorage?.metadata?.name || 'longhorn';
     this.images = this.$store.getters[`${ inStore }/all`](HCI.IMAGE);
@@ -73,7 +73,7 @@ export default {
       // image ns/name = image.id
       const sourceImage = `${ securityParameters.sourceImageNamespace }/${ securityParameters.sourceImageName }`;
 
-      this.selectedImage = this.images.find(image => image.id === sourceImage);
+      this.selectedImage = this.images.find((image) => image.id === sourceImage);
     }
   },
 
@@ -88,11 +88,11 @@ export default {
     if (image && cryptoOperation) {
       const imageObject = JSON.parse(image);
 
-      this.value.spec.securityParameters =  {
+      this.value.spec.securityParameters = {
         cryptoOperation,
         sourceImageName:      imageObject.metadata.name,
         sourceImageNamespace: imageObject.metadata.namespace
-      }
+      };
     }
 
     if (!this.value.metadata.name) {
@@ -140,7 +140,7 @@ export default {
       const storages = this.$store.getters[`${ inStore }/all`](STORAGE_CLASS);
 
       return storages
-        .filter(s => !s.parameters?.backingImage && s.provisioner !== LVM_DRIVER) // Lvm storage is not supported.
+        .filter((s) => !s.parameters?.backingImage && s.provisioner !== LVM_DRIVER) // Lvm storage is not supported.
         .map((s) => {
           const label = s.isDefault ? `${ s.name } (${ this.t('generic.default') })` : s.name;
 
@@ -167,12 +167,12 @@ export default {
         return options;
       }
       if (this.value.spec.securityParameters.cryptoOperation === ENCRYPT) {
-        options = this.images.filter(image => !image.isEncrypted);
+        options = this.images.filter((image) => !image.isEncrypted);
       } else {
-        options = this.images.filter(image => image.isEncrypted);
+        options = this.images.filter((image) => image.isEncrypted);
       }
 
-      return options.map(image => image.displayNameWithNamespace);
+      return options.map((image) => image.displayNameWithNamespace);
     },
     sourceImage: {
       get() {
@@ -183,7 +183,7 @@ export default {
         return '';
       },
       set(neu) {
-        this.selectedImage = this.images.find(i => i.displayNameWithNamespace === neu);
+        this.selectedImage = this.images.find((i) => i.displayNameWithNamespace === neu);
         // sourceImageName should bring the name of the image
         this.value.spec.securityParameters.sourceImageName = this.selectedImage?.metadata.name || '';
         this.value.spec.securityParameters.sourceImageNamespace = this.selectedImage?.metadata.namespace || '';
@@ -322,7 +322,7 @@ export default {
     internalAnnotations(option) {
       const optionKeys = [HCI_ANNOTATIONS.OS_TYPE, HCI_ANNOTATIONS.IMAGE_SUFFIX];
 
-      return optionKeys.find(O => O === option.key);
+      return optionKeys.find((O) => O === option.key);
     },
 
     calculateOptions(keyName) {
@@ -352,7 +352,7 @@ export default {
 
       return OS.find( (os) => {
         if (os.match) {
-          return os.match.find(matchValue => str.toLowerCase().includes(matchValue)) ? os.value : false;
+          return os.match.find((matchValue) => str.toLowerCase().includes(matchValue)) ? os.value : false;
         } else {
           return str.toLowerCase().includes(os.value.toLowerCase()) ? os.value : false;
         }
@@ -376,13 +376,17 @@ export default {
     <NameNsDescription
       ref="nd"
       :value="value"
-      @update:value="$emit('update:value', $event)"
       :mode="mode"
       :label="t('generic.name')"
       name-key="spec.displayName"
+      @update:value="$emit('update:value', $event)"
     />
 
-    <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true">
+    <Tabbed
+      v-bind="$attrs"
+      class="mt-15"
+      :side-tabs="true"
+    >
       <Tab
         name="basic"
         :label="t('harvester.image.tabs.basics')"
@@ -503,7 +507,12 @@ export default {
         </div>
       </Tab>
 
-      <Tab name="labels" :label="t('labels.labels.title')" :weight="2" class="bordered-table">
+      <Tab
+        name="labels"
+        :label="t('labels.labels.title')"
+        :weight="2"
+        class="bordered-table"
+      >
         <KeyValue
           key="labels"
           ref="labels"

@@ -35,7 +35,11 @@ export default {
 </script>
 
 <template>
-  <Card ref="modal" name="modal" :show-highlight-border="false">
+  <Card
+    ref="modal"
+    name="modal"
+    :show-highlight-border="false"
+  >
     <template #title>
       <h4 class="text-default-text">
         {{ t('generic.tip') }}
@@ -49,7 +53,11 @@ export default {
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button type="button" class="btn role-secondary mr-10" @click="ok">
+          <button
+            type="button"
+            class="btn role-secondary mr-10"
+            @click="ok"
+          >
             {{ t('generic.ok') }}
           </button>
         </div>

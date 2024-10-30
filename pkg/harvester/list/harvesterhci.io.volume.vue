@@ -55,7 +55,7 @@ export default {
 
     const pvcSchema = this.$store.getters[`${ inStore }/schemaFor`](PVC);
 
-    if (!pvcSchema?.collectionMethods.find(x => x.toLowerCase() === 'post')) {
+    if (!pvcSchema?.collectionMethods.find((x) => x.toLowerCase() === 'post')) {
       this.$store.dispatch('type-map/configureType', { match: HCI.VOLUME, isCreatable: false });
     }
 
@@ -152,12 +152,18 @@ export default {
   >
     <template #cell:state="{row}">
       <div class="state">
-        <HarvesterVolumeState class="vmstate" :row="row" />
+        <HarvesterVolumeState
+          class="vmstate"
+          :row="row"
+        />
       </div>
     </template>
     <template #cell:AttachedVM="{row}">
       <div>
-        <router-link v-if="getVMName(row)" :to="goTo(row)">
+        <router-link
+          v-if="getVMName(row)"
+          :to="goTo(row)"
+        >
           {{ getVMName(row) }}
         </router-link>
       </div>
@@ -170,7 +176,10 @@ export default {
             :to="row.detailLocation"
           >
             {{ row.nameDisplay }}
-            <i v-if="row.isEncrypted" class="icon icon-lock" />
+            <i
+              v-if="row.isEncrypted"
+              class="icon icon-lock"
+            />
           </router-link>
           <span v-else>
             {{ row.nameDisplay }}

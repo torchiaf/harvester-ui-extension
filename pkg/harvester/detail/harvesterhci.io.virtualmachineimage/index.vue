@@ -75,7 +75,7 @@ export default {
       if (sourceImageNamespace && sourceImageName) {
         const imageId = `${ sourceImageNamespace }/${ sourceImageName }`;
 
-        return this.images.find(image => image.id === imageId);
+        return this.images.find((image) => image.id === imageId);
       }
 
       return null;
@@ -105,7 +105,7 @@ export default {
       return this.value.encryptionSecret;
     },
     secretLink() {
-      return this.secrets.find(sc => sc.id === this.value.encryptionSecret)?.detailLocation;
+      return this.secrets.find((sc) => sc.id === this.value.encryptionSecret)?.detailLocation;
     },
 
     isEncryptedString() {
@@ -120,7 +120,11 @@ export default {
 </script>
 
 <template>
-  <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true">
+  <Tabbed
+    v-bind="$attrs"
+    class="mt-15"
+    :side-tabs="true"
+  >
     <Tab
       name="detail"
       :label="t('harvester.virtualMachine.detail.tabs.basics')"
@@ -155,63 +159,100 @@ export default {
 
       <div class="row">
         <div class="col span-12">
-          <LabelValue :name="t('harvester.image.size')" :value="formattedValue" class="mb-20" />
+          <LabelValue
+            :name="t('harvester.image.size')"
+            :value="formattedValue"
+            class="mb-20"
+          />
         </div>
       </div>
 
       <div class="row">
         <div class="col span-12">
-          <LabelValue :name="t('harvester.image.virtualSize')" :value="virtualSize" class="mb-20" />
+          <LabelValue
+            :name="t('harvester.image.virtualSize')"
+            :value="virtualSize"
+            class="mb-20"
+          />
         </div>
       </div>
 
       <div class="row">
         <div class="col span-12">
-          <LabelValue :name="t('nameNsDescription.description.label')" :value="description" class="mb-20" />
+          <LabelValue
+            :name="t('nameNsDescription.description.label')"
+            :value="description"
+            class="mb-20"
+          />
         </div>
       </div>
 
       <div class="row">
         <div class="col span-12">
-          <LabelValue :name="t('harvester.image.isEncryption')" :value="isEncryptedString" class="mb-20" />
+          <LabelValue
+            :name="t('harvester.image.isEncryption')"
+            :value="isEncryptedString"
+            class="mb-20"
+          />
         </div>
       </div>
 
-      <div v-if="value.isEncrypted" class="row mb-20">
+      <div
+        v-if="value.isEncrypted"
+        class="row mb-20"
+      >
         <div class="col span-12">
           <div class="text-label">
             {{ t('harvester.image.encryptionSecret') }}
           </div>
-          <router-link v-if="encryptionSecret && secretLink" :to="secretLink">
+          <router-link
+            v-if="encryptionSecret && secretLink"
+            :to="secretLink"
+          >
             {{ encryptionSecret }}
           </router-link>
           <span v-else-if="encryptionSecret">
             {{ encryptionSecret }}
           </span>
-          <span v-else class="text-muted">
+          <span
+            v-else
+            class="text-muted"
+          >
             &mdash;
           </span>
         </div>
       </div>
 
-      <div v-if="isEncryptedOrDecrypted" class="row mb-20">
+      <div
+        v-if="isEncryptedOrDecrypted"
+        class="row mb-20"
+      >
         <div class="col span-12">
           <div class="text-label">
             {{ t('harvester.image.sourceImage') }}
           </div>
-          <router-link v-if="sourceImageId && sourceImageLink" :to="sourceImageLink">
+          <router-link
+            v-if="sourceImageId && sourceImageLink"
+            :to="sourceImageLink"
+          >
             {{ sourceImageId }}
           </router-link>
           <span v-else-if="sourceImageId">
             {{ sourceImageId }}
           </span>
-          <span v-else class="text-muted">
+          <span
+            v-else
+            class="text-muted"
+          >
             &mdash;
           </span>
         </div>
       </div>
 
-      <div v-if="errorMessage !== '-'" class="row">
+      <div
+        v-if="errorMessage !== '-'"
+        class="row"
+      >
         <div class="col span-12">
           <div>
             {{ t('tableHeaders.message') }}

@@ -18,7 +18,9 @@ import {
 import { HOSTNAME } from '@shell/config/labels-annotations';
 import { HCI as HCI_ANNOTATIONS } from '@pkg/harvester/config/labels-annotations';
 import { uniq } from '@shell/utils/array';
-import { ADD_ONS, SOURCE_TYPE, ACCESS_CREDENTIALS, maintenanceStrategies, runStrategies } from '../../config/harvester-map';
+import {
+  ADD_ONS, SOURCE_TYPE, ACCESS_CREDENTIALS, maintenanceStrategies, runStrategies
+} from '../../config/harvester-map';
 import { HCI_SETTING } from '../../config/settings';
 import { HCI } from '../../types';
 import { parseVolumeClaimTemplates } from '../../utils/vm';
@@ -200,7 +202,7 @@ export default {
     },
 
     filteredNamespaces() {
-      return this.$store.getters['harvester/all'](NAMESPACE).filter(namespace => !namespace.isSystem);
+      return this.$store.getters['harvester/all'](NAMESPACE).filter((namespace) => !namespace.isSystem);
     },
 
     nodes() {
@@ -210,12 +212,12 @@ export default {
     nodesIdOptions() {
       const nodes = this.$store.getters[`${ this.inStore }/all`](NODE);
 
-      const networkNames = this.networkRows.map(n => n.networkName);
+      const networkNames = this.networkRows.map((n) => n.networkName);
       const vmNetworks = this.$store.getters[`${ this.inStore }/all`](NETWORK_ATTACHMENT);
-      const selectedVMNetworks = networkNames.map(name => vmNetworks.find(n => n.id === name)).filter(n => n?.id);
-      const clusterNetworks = uniq(selectedVMNetworks.map(n => n.clusterNetworkResource?.id));
+      const selectedVMNetworks = networkNames.map((name) => vmNetworks.find((n) => n.id === name)).filter((n) => n?.id);
+      const clusterNetworks = uniq(selectedVMNetworks.map((n) => n.clusterNetworkResource?.id));
 
-      return nodes.filter(N => !N.isUnSchedulable).map((node) => {
+      return nodes.filter((N) => !N.isUnSchedulable).map((node) => {
         const requireLabelKeys = [];
         let isNetworkSchedule = true;
 
@@ -240,14 +242,14 @@ export default {
     },
 
     defaultStorageClass() {
-      const defaultStorage = this.$store.getters[`${ this.inStore }/all`](STORAGE_CLASS).find( O => O.isDefault);
+      const defaultStorage = this.$store.getters[`${ this.inStore }/all`](STORAGE_CLASS).find( (O) => O.isDefault);
 
       return defaultStorage;
     },
 
     storageClassSetting() {
       try {
-        const storageClassValue = this.$store.getters[`${ this.inStore }/all`](HCI.SETTING).find( O => O.id === HCI_SETTING.DEFAULT_STORAGE_CLASS)?.value;
+        const storageClassValue = this.$store.getters[`${ this.inStore }/all`](HCI.SETTING).find( (O) => O.id === HCI_SETTING.DEFAULT_STORAGE_CLASS)?.value;
 
         return JSON.parse(storageClassValue);
       } catch (e) {
@@ -273,7 +275,7 @@ export default {
     },
 
     defaultTerminationSetting() {
-      const setting = this.$store.getters[`${ this.inStore }/all`](HCI.SETTING).find( O => O.id === HCI_SETTING.VM_TERMINATION_PERIOD) || {};
+      const setting = this.$store.getters[`${ this.inStore }/all`](HCI.SETTING).find( (O) => O.id === HCI_SETTING.VM_TERMINATION_PERIOD) || {};
 
       return Number(setting?.value || setting?.default);
     },
@@ -422,12 +424,12 @@ export default {
         let type = HARD_DISK;
         let size = '10Gi';
 
-        const imageResource = this.images.find( I => this.imageId === I.id);
+        const imageResource = this.images.find( (I) => this.imageId === I.id);
 
         const isIsoImage = /iso$/i.test(imageResource?.imageSuffix);
         const imageSize = Math.max(imageResource?.status?.size, imageResource?.status?.virtualSize);
         const isEncrypted = imageResource?.isEncrypted || false;
-        const volumeBackups = volBackups?.find(vBackup => vBackup.volumeName === 'disk-0') || null ;
+        const volumeBackups = volBackups?.find((vBackup) => vBackup.volumeName === 'disk-0') || null ;
 
         if (isIsoImage) {
           bus = 'sata';
@@ -460,7 +462,7 @@ export default {
         });
       } else {
         out = _disks.map( (DISK, index) => {
-          const volume = _volumes.find( V => V.name === DISK.name );
+          const volume = _volumes.find( (V) => V.name === DISK.name );
 
           let size = '';
           let image = '';
@@ -483,7 +485,7 @@ export default {
 
           if (volume.persistentVolumeClaim && volume.persistentVolumeClaim?.claimName) {
             volumeName = volume.persistentVolumeClaim.claimName;
-            const DVT = _volumeClaimTemplates.find( T => T.metadata.name === volumeName);
+            const DVT = _volumeClaimTemplates.find( (T) => T.metadata.name === volumeName);
 
             realName = volumeName;
             // If the DVT can be found, it cannot be an existing volume
@@ -507,7 +509,7 @@ export default {
               // SOURCE_TYPE.ATTACH_VOLUME
               // Compatible with VMS that have been created before, Because they're not saved in the annotation
               const allPVCs = this.$store.getters['harvester/all'](PVC);
-              const pvcResource = allPVCs.find( O => O.id === `${ namespace }/${ volume?.persistentVolumeClaim?.claimName }`);
+              const pvcResource = allPVCs.find( (O) => O.id === `${ namespace }/${ volume?.persistentVolumeClaim?.claimName }`);
 
               source = SOURCE_TYPE.ATTACH_VOLUME;
               accessMode = pvcResource?.spec?.accessModes?.[0] || 'ReadWriteMany';
@@ -533,12 +535,12 @@ export default {
             minExponent: 3,
           });
 
-          const pvc = this.pvcs.find(P => P.id === `${ this.value.metadata.namespace }/${ volumeName }`);
+          const pvc = this.pvcs.find((P) => P.id === `${ this.value.metadata.namespace }/${ volumeName }`);
 
           const volumeStatus = pvc?.relatedPV?.metadata?.annotations?.[HCI_ANNOTATIONS.VOLUME_ERROR];
 
           const isEncrypted = pvc?.isEncrypted || false;
-          const volumeBackups = volBackups?.find(vBackup => vBackup.volumeName === DISK.name) || null;
+          const volumeBackups = volBackups?.find((vBackup) => vBackup.volumeName === DISK.name) || null;
 
           return {
             id:         randomStr(5),
@@ -567,7 +569,7 @@ export default {
 
       out = sortBy(out, 'bootOrder');
 
-      return out.filter( O => O.name !== 'cloudinitdisk');
+      return out.filter( (O) => O.name !== 'cloudinitdisk');
     },
 
     getNetworkRows(vm, config) {
@@ -577,7 +579,7 @@ export default {
       const interfaces = vm.spec.template.spec.domain.devices.interfaces || [];
 
       const out = interfaces.map( (I, index) => {
-        const network = networks.find( N => I.name === N.name);
+        const network = networks.find( (N) => I.name === N.name);
 
         const type = I.sriov ? 'sriov' : I.bridge ? 'bridge' : 'masquerade';
 
@@ -669,7 +671,7 @@ export default {
         this.secretName = this.generateSecretName(this.secretNamePrefix);
       }
 
-      if (!disks.find( D => D.name === 'cloudinitdisk') && (this.userData || this.networkData)) {
+      if (!disks.find( (D) => D.name === 'cloudinitdisk') && (this.userData || this.networkData)) {
         if (!this.isWindows) {
           disks.push({
             name: 'cloudinitdisk',
@@ -738,13 +740,17 @@ export default {
           spec = this.multiVMScheduler(spec);
         }
 
-        this.value.metadata['annotations'] = {...this.value.metadata.annotations,
+        this.value.metadata['annotations'] = {
+          ...this.value.metadata.annotations,
           [HCI_ANNOTATIONS.VOLUME_CLAIM_TEMPLATE]: JSON.stringify(volumeClaimTemplates),
-          [HCI_ANNOTATIONS.NETWORK_IPS]:           JSON.stringify(this.value.networkIps)};
+          [HCI_ANNOTATIONS.NETWORK_IPS]:           JSON.stringify(this.value.networkIps)
+        };
 
-        this.value.metadata['labels'] = {...this.value.metadata.labels,
+        this.value.metadata['labels'] = {
+          ...this.value.metadata.labels,
           [HCI_ANNOTATIONS.CREATOR]: 'harvester',
-          [HCI_ANNOTATIONS.OS]:      this.osType};
+          [HCI_ANNOTATIONS.OS]:      this.osType
+        };
 
         this.value['spec'] = spec;
         this['spec'] = spec;
@@ -754,8 +760,10 @@ export default {
           ...this.value.spec.vm.metadata.annotations,
           [HCI_ANNOTATIONS.VOLUME_CLAIM_TEMPLATE]: JSON.stringify(volumeClaimTemplates),
         };
-        this.value.spec.vm.metadata['labels'] = {...this.value.spec.vm.metadata.labels,
-          [HCI_ANNOTATIONS.OS]: this.osType,};
+        this.value.spec.vm.metadata['labels'] = {
+          ...this.value.spec.vm.metadata.labels,
+          [HCI_ANNOTATIONS.OS]: this.osType
+        };
         this['spec'] = spec;
       }
     },
@@ -983,7 +991,7 @@ export default {
         out.spec.storageClassName = R.storageClassName;
         break;
       case SOURCE_TYPE.IMAGE: {
-        const image = this.images.find( I => R.image === I.id);
+        const image = this.images.find( (I) => R.image === I.id);
 
         if (image) {
           out.spec.storageClassName = image.storageClassName;
@@ -1000,7 +1008,7 @@ export default {
     },
 
     getSSHListValue(arr) {
-      return arr.map( id => this.getSSHValue(id)).filter( O => O !== undefined);
+      return arr.map( (id) => this.getSSHValue(id)).filter( (O) => O !== undefined);
     },
 
     parseInterface(R) {
@@ -1092,7 +1100,7 @@ export default {
 
       if (Array.isArray(runcmd)) {
         let findIndex = -1;
-        const hasSameRuncmd = runcmd.find( S => Array.isArray(S) && S.join('-') === _QGA_JSON.runcmd[0].join('-'));
+        const hasSameRuncmd = runcmd.find( (S) => Array.isArray(S) && S.join('-') === _QGA_JSON.runcmd[0].join('-'));
 
         const hasSimilarRuncmd = runcmd.find( (S, index) => {
           if (Array.isArray(S) && S.join('-') === this.getSimilarRuncmd(osType).join('-')) {
@@ -1265,7 +1273,7 @@ export default {
 
         if (row.source === ACCESS_CREDENTIALS.INJECT_SSH) {
           for (const secretId of row.sshkeys) {
-            const keypair = (this.$store.getters['harvester/all'](HCI.SSH) || []).find(s => s.id === secretId);
+            const keypair = (this.$store.getters['harvester/all'](HCI.SSH) || []).find((s) => s.id === secretId);
 
             secretRef.setData(`${ keypair.metadata.namespace }-${ keypair.metadata.name }`, keypair.spec.publicKey);
           }
@@ -1364,7 +1372,7 @@ export default {
           });
         }
       } else if (!val) {
-        const index = inputs.findIndex(O => isEqual(O, USB_TABLET[0]));
+        const index = inputs.findIndex((O) => isEqual(O, USB_TABLET[0]));
 
         if (hasExist && inputs.length === 1) {
           delete this.spec.template.spec.domain.devices['inputs'];
@@ -1417,7 +1425,7 @@ export default {
       const sshAuthorizedKeys = this.getSSHFromUserData(this.userScript);
 
       ssh.map((id) => {
-        const index = sshAuthorizedKeys.findIndex(value => value === this.getSSHValue(id));
+        const index = sshAuthorizedKeys.findIndex((value) => value === this.getSSHValue(id));
 
         if (index >= 0) {
           sshAuthorizedKeys.splice(index, 1);
@@ -1486,7 +1494,7 @@ export default {
       handler(neu, old) {
         if (Array.isArray(neu)) {
           const imageId = neu[0]?.image;
-          const image = this.images.find( I => imageId === I.id);
+          const image = this.images.find( (I) => imageId === I.id);
           const osType = image?.imageOSType;
 
           const oldImageId = old[0]?.image;

@@ -4,7 +4,7 @@ import { HCI } from '../types';
 
 export default {
   emits: ['state-changed'],
-  
+
   components: { BadgeState },
 
   props: {
@@ -46,7 +46,10 @@ export default {
 <template>
   <div v-if="migrationState">
     <span v-if="!showSuccess">/</span>
-    <BadgeState :label="migrationState" :color="migrationBackground" />
+    <BadgeState
+      :label="migrationState"
+      :color="migrationBackground"
+    />
   </div>
 </template>
 

@@ -53,7 +53,7 @@ export default {
       };
       const inStore = this.$store.getters['currentProduct'].inStore;
       const node = this.$store.getters[`${ inStore }/byId`](LONGHORN.NODES, `longhorn-system/${ this.row.id }`) || {};
-      const storageOverProvisioningPercentageSetting = this.longhornSettings.find(s => s.id === 'longhorn-system/storage-over-provisioning-percentage');
+      const storageOverProvisioningPercentageSetting = this.longhornSettings.find((s) => s.id === 'longhorn-system/storage-over-provisioning-percentage');
       const disks = node?.spec?.disks || {};
       const diskStatus = node?.status?.diskStatus || {};
 

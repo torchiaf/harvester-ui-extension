@@ -73,7 +73,7 @@ export default {
           cron:       '',
           retain:     8,
           maxFailure: 4,
-          vmbackup: {
+          vmbackup:   {
             source: {
               apiGroup: 'kubevirt.io',
               kind:     'VirtualMachine',
@@ -90,7 +90,7 @@ export default {
 
   computed: {
     backupTargetResource() {
-      return this.settings.find( O => O.id === 'backup-target');
+      return this.settings.find( (O) => O.id === 'backup-target');
     },
     isEmptyValue() {
       return this.getBackupTargetValueIsEmpty(this.backupTargetResource);
@@ -112,8 +112,8 @@ export default {
       return this.value.spec.vmbackup.type === BACKUP_TYPE.BACKUP && (this.errorMessage || this.isEmptyValue) && this.canUpdate;
     },
     vmOptions() {
-      const nsVmList = this.$store.getters['harvester/all'](HCI.VM).filter(vm => vm.metadata.namespace === this.value.metadata.namespace);
-      const vmObjectLists = nsVmList.map(obj => ({
+      const nsVmList = this.$store.getters['harvester/all'](HCI.VM).filter((vm) => vm.metadata.namespace === this.value.metadata.namespace);
+      const vmObjectLists = nsVmList.map((obj) => ({
         label: obj.nameDisplay,
         value: obj.name,
       }));
@@ -196,7 +196,7 @@ export default {
     :mode="mode"
     :errors="errors"
     :apply-hooks="applyHooks"
-    :validationPassed="canSave"
+    :validation-passed="canSave"
     @finish="save"
     @error="e=>errors = e"
   >
@@ -258,8 +258,17 @@ export default {
         </div>
       </div>
     </div>
-    <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true">
-      <Tab name="basics" :label="t('harvester.network.tabs.basics')" :weight="99" class="bordered-table">
+    <Tabbed
+      v-bind="$attrs"
+      class="mt-15"
+      :side-tabs="true"
+    >
+      <Tab
+        name="basics"
+        :label="t('harvester.network.tabs.basics')"
+        :weight="99"
+        class="bordered-table"
+      >
         <LabeledInput
           v-model:value="value.spec.cron"
           class="mb-30"

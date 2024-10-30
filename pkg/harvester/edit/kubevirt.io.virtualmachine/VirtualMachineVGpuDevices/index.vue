@@ -50,7 +50,7 @@ export default {
       ...(this.value?.domain?.devices?.gpus || []).map(({ name }) => name),
       ...Object.values(this.vm?.provisionedVGpus).reduce((acc, gpus) => [...acc, ...gpus], [])
     ]).forEach((name) => {
-      if (this.enabledDevices.find(device => device?.metadata?.name === name)) {
+      if (this.enabledDevices.find((device) => device?.metadata?.name === name)) {
         this.selectedDevices.push(name);
       }
     });
@@ -68,7 +68,7 @@ export default {
   watch: {
     selectedDevices(neu) {
       const formatted = neu.map((selectedDevice) => {
-        const deviceCRD = this.enabledDevices.find(device => device.metadata.name === selectedDevice);
+        const deviceCRD = this.enabledDevices.find((device) => device.metadata.name === selectedDevice);
         const deviceName = `nvidia.com/${ deviceCRD?.status?.configureVGPUTypeName?.replace(/\s+/g, '_') }`;
 
         return {
@@ -125,7 +125,7 @@ export default {
 
       this.selectedDevices.forEach((deviceUid) => {
         remove(out, (nodeName) => {
-          const device = this.enabledDevices.find(deviceCRD => deviceCRD.metadata.name === deviceUid);
+          const device = this.enabledDevices.find((deviceCRD) => deviceCRD.metadata.name === deviceUid);
 
           return device.spec.nodeName !== nodeName;
         });
@@ -137,7 +137,7 @@ export default {
     deviceOpts() {
       const filteredOptions = this.enabledDevices.filter((deviceCRD) => {
         if (this.selectedDevices.length > 0) {
-          const selectedDevice = this.enabledDevices.find(device => device.metadata.name === this.selectedDevices[0]);
+          const selectedDevice = this.enabledDevices.find((device) => device.metadata.name === this.selectedDevices[0]);
 
           return !this.devicesInUse[deviceCRD?.metadata.name] && deviceCRD.spec.nodeName === selectedDevice.spec.nodeName;
         }
@@ -163,7 +163,10 @@ export default {
         <Banner color="info">
           <t k="harvester.vgpu.howToUseDevice" />
         </Banner>
-        <Banner v-if="selectedDevices.length > 0" color="info">
+        <Banner
+          v-if="selectedDevices.length > 0"
+          color="info"
+        >
           <t k="harvester.vgpu.deviceInTheSameHost" />
         </Banner>
       </div>
@@ -186,20 +189,33 @@ export default {
           </LabeledSelect>
         </div>
       </div>
-      <div v-if="compatibleNodes.length && selectedDevices.length" class="row">
+      <div
+        v-if="compatibleNodes.length && selectedDevices.length"
+        class="row"
+      >
         <div class="col span-12 text-muted">
           Compatible hosts:
           <!-- eslint-disable-next-line vue/no-parsing-error -->
-          <span v-for="(node, idx) in compatibleNodes" :key="idx">{{ node }}{{ idx < compatibleNodes.length-1 ? ', ' : '' }}</span>
+          <span
+            v-for="(node, idx) in compatibleNodes"
+            :key="idx"
+          >{{ node }}{{ idx < compatibleNodes.length-1 ? ', ' : '' }}</span>
         </div>
       </div>
-      <div v-else-if="selectedDevices.length" class="text-error">
+      <div
+        v-else-if="selectedDevices.length"
+        class="text-error"
+      >
         {{ t('harvester.vgpu.impossibleSelection') }}
       </div>
     </template>
     <div class="row mt-20">
       <div class="col span-12">
-        <VGpuDeviceList :schema="deviceSchema" :devices="devices" @submit.prevent />
+        <VGpuDeviceList
+          :schema="deviceSchema"
+          :devices="devices"
+          @submit.prevent
+        />
       </div>
     </div>
   </div>

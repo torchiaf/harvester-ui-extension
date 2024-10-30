@@ -43,7 +43,7 @@ export default {
     ...mapGetters({ t: 'i18n/t' }),
 
     PVCs() {
-      return this.allPVCs.filter(P => this.actionResource.metadata.namespace === P.metadata.namespace) || [];
+      return this.allPVCs.filter((P) => this.actionResource.metadata.namespace === P.metadata.namespace) || [];
     },
 
     actionResource() {
@@ -111,7 +111,11 @@ export default {
 </script>
 
 <template>
-  <Card ref="modal" name="modal" :show-highlight-border="false">
+  <Card
+    ref="modal"
+    name="modal"
+    :show-highlight-border="false"
+  >
     <template #title>
       <h4
         v-clean-html="t('harvester.modal.hotplug.title')"
@@ -138,7 +142,11 @@ export default {
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button type="button" class="btn role-secondary mr-10" @click="close">
+          <button
+            type="button"
+            class="btn role-secondary mr-10"
+            @click="close"
+          >
             {{ t('generic.cancel') }}
           </button>
 
@@ -149,7 +157,10 @@ export default {
           />
         </div>
 
-        <Banner v-for="(err, i) in errors" :key="i"/>
+        <Banner
+          v-for="(err, i) in errors"
+          :key="i"
+        />
       </div>
     </template>
   </Card>

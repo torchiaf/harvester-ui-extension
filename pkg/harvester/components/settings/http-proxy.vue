@@ -54,10 +54,16 @@ export default {
 <template>
   <div>
     <Banner color="warning">
-      <t k="harvester.setting.httpProxy.warning" :raw="true" />
+      <t
+        k="harvester.setting.httpProxy.warning"
+        :raw="true"
+      />
     </Banner>
 
-    <div class="row" @update:value="update">
+    <div
+      class="row"
+      @update:value="update"
+    >
       <div class="col span-12">
         <LabeledInput
           v-model:value="parseDefaultValue.httpProxy"

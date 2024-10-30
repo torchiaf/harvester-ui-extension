@@ -98,20 +98,36 @@ export default {
     </template>
 
     <template #body>
-      <LabeledInput v-model:value="backUpName" :label="t('generic.name')" required />
+      <LabeledInput
+        v-model:value="backUpName"
+        :label="t('generic.name')"
+        required
+      />
     </template>
 
     <template #actions>
       <div class="actions">
         <div class="buttons">
-          <button class="btn role-secondary mr-10" @click="close">
+          <button
+            class="btn role-secondary mr-10"
+            @click="close"
+          >
             {{ t('generic.cancel') }}
           </button>
 
-          <AsyncButton mode="create" :disabled="!backUpName" @click="save" />
+          <AsyncButton
+            mode="create"
+            :disabled="!backUpName"
+            @click="save"
+          />
         </div>
 
-        <Banner v-for="(err, i) in errors" :key="i" color="error" :label="err" />
+        <Banner
+          v-for="(err, i) in errors"
+          :key="i"
+          color="error"
+          :label="err"
+        />
       </div>
     </template>
   </Card>

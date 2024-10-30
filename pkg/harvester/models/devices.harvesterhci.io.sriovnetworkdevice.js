@@ -90,7 +90,7 @@ export default class SRIOVGpuDevice extends SteveModel {
     const inStore = this.$rootGetters['currentProduct'].inStore;
     const nodeName = this.spec?.nodeName;
     const nodes = this.$rootGetters[`${ inStore }/all`](NODE);
-    const node = nodes.find(N => N.id === nodeName);
+    const node = nodes.find((N) => N.id === nodeName);
 
     return node?.nameDisplay || '';
   }

@@ -5,7 +5,7 @@ import RadioGroup from '@components/Form/Radio/RadioGroup';
 
 export default {
   emits: ['enabled'],
-  
+
   components: {
     LabeledInput,
     LabeledSelect,
@@ -42,7 +42,7 @@ export default {
     portOptions() {
       const ports = this.model?.spec?.listeners || [];
 
-      return ports.filter(p => p.port && p.protocol === 'TCP').map(p => p.backendPort) || [];
+      return ports.filter((p) => p.port && p.protocol === 'TCP').map((p) => p.backendPort) || [];
     },
   },
 
@@ -71,7 +71,10 @@ export default {
     </div>
     <div v-if="healthCheckEnabled">
       <div class="row mt-10">
-        <div v-if="healthCheckEnabled" class="col span-6">
+        <div
+          v-if="healthCheckEnabled"
+          class="col span-6"
+        >
           <LabeledSelect
             v-model:value="value.port"
             :mode="mode"

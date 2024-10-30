@@ -47,7 +47,11 @@ export default {
 </script>
 
 <template>
-  <Tabbed v-bind="$attrs" class="mt-15" :side-tabs="true">
+  <Tabbed
+    v-bind="$attrs"
+    class="mt-15"
+    :side-tabs="true"
+  >
     <Tab
       name="basic"
       :label="t('harvester.virtualMachine.detail.tabs.basics')"

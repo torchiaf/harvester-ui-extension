@@ -22,7 +22,7 @@ function isReady() {
   function getStatusConditionOfType(type, defaultValue = []) {
     const conditions = Array.isArray(get(this, 'status.conditions')) ? this.status.conditions : defaultValue;
 
-    return conditions.find( cond => cond.type === type);
+    return conditions.find( (cond) => cond.type === type);
   }
 
   const initialized = getStatusConditionOfType.call(this, 'Initialized');
@@ -40,12 +40,12 @@ export default class HciVmImage extends HarvesterResource {
     let out = super._availableActions;
     const toFilter = ['goToEditYaml'];
 
-    out = out.filter( A => !toFilter.includes(A.action));
+    out = out.filter( (A) => !toFilter.includes(A.action));
 
     const schema = this.$getters['schemaFor'](HCI.VM);
     let canCreateVM = true;
 
-    if ( schema && !schema?.collectionMethods.find(x => ['post'].includes(x.toLowerCase())) ) {
+    if ( schema && !schema?.collectionMethods.find((x) => ['post'].includes(x.toLowerCase())) ) {
       canCreateVM = false;
     }
 
@@ -88,7 +88,7 @@ export default class HciVmImage extends HarvesterResource {
       name:   `${ HARVESTER_PRODUCT }-c-cluster-resource-create`,
       params: { resource: HCI.IMAGE },
       query:  {
-        image:           JSON.stringify({metadata: { name: this.metadata.name, namespace: this.metadata.namespace }}),
+        image:           JSON.stringify({ metadata: { name: this.metadata.name, namespace: this.metadata.namespace } }),
         fromPage:        HCI.IMAGE,
         sourceType:      'clone',
         cryptoOperation: 'encrypt'
@@ -103,7 +103,7 @@ export default class HciVmImage extends HarvesterResource {
       name:   `${ HARVESTER_PRODUCT }-c-cluster-resource-create`,
       params: { resource: HCI.IMAGE },
       query:  {
-        image:           JSON.stringify({metadata: { name: this.metadata.name, namespace: this.metadata.namespace }}),
+        image:           JSON.stringify({ metadata: { name: this.metadata.name, namespace: this.metadata.namespace } }),
         fromPage:        HCI.IMAGE,
         sourceType:      'clone',
         cryptoOperation: 'decrypt'
@@ -205,9 +205,9 @@ export default class HciVmImage extends HarvesterResource {
     }
 
     const conditions = this?.status?.conditions || [];
-    const initialized = conditions.find( cond => cond.type === 'Initialized');
-    const imported = conditions.find( cond => cond.type === 'Imported');
-    const retryLimitExceeded = conditions.find( cond => cond.type === 'RetryLimitExceeded');
+    const initialized = conditions.find( (cond) => cond.type === 'Initialized');
+    const imported = conditions.find( (cond) => cond.type === 'Imported');
+    const retryLimitExceeded = conditions.find( (cond) => cond.type === 'RetryLimitExceeded');
     const message = initialized?.message || imported?.message || retryLimitExceeded?.message;
 
     return ucFirst(message);
@@ -262,7 +262,7 @@ export default class HciVmImage extends HarvesterResource {
   getStatusConditionOfType(type, defaultValue = []) {
     const conditions = Array.isArray(get(this, 'status.conditions')) ? this.status.conditions : defaultValue;
 
-    return conditions.find( cond => cond.type === type);
+    return conditions.find( (cond) => cond.type === type);
   }
 
   get stateObj() {

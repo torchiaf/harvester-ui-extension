@@ -30,8 +30,8 @@ export default {
           addons:      this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.ADD_ONS }),
         });
 
-        this.hasPCIAddon = hash.addons.find(addon => addon.name === ADD_ONS.PCI_DEVICE_CONTROLLER)?.spec?.enabled === true;
-        this.hasSriovgpuAddon = hash.addons.find(addon => addon.name === ADD_ONS.NVIDIA_DRIVER_TOOLKIT_CONTROLLER)?.spec?.enabled === true;
+        this.hasPCIAddon = hash.addons.find((addon) => addon.name === ADD_ONS.PCI_DEVICE_CONTROLLER)?.spec?.enabled === true;
+        this.hasSriovgpuAddon = hash.addons.find((addon) => addon.name === ADD_ONS.NVIDIA_DRIVER_TOOLKIT_CONTROLLER)?.spec?.enabled === true;
 
         this.hasSRIOVGPUSchema = !!this.$store.getters[`${ inStore }/schemaFor`](HCI.SR_IOVGPU_DEVICE);
         if (this.hasSRIOVGPUSchema) {
@@ -64,7 +64,7 @@ export default {
       const srioVGpuDevices = this.$store.getters[`${ inStore }/all`](HCI.SR_IOVGPU_DEVICE) || [];
 
       if (this.hasSRIOVGPUSchema) {
-        return vGpuDevices.filter(device => !!srioVGpuDevices.find(s => s.isEnabled && s.spec?.nodeName === device.spec?.nodeName));
+        return vGpuDevices.filter((device) => !!srioVGpuDevices.find((s) => s.isEnabled && s.spec?.nodeName === device.spec?.nodeName));
       }
 
       return vGpuDevices;
@@ -108,5 +108,9 @@ export default {
       />
     </Banner>
   </div>
-  <VGpuDeviceList v-else-if="hasSchema" :devices="rows" :schema="schema" />
+  <VGpuDeviceList
+    v-else-if="hasSchema"
+    :devices="rows"
+    :schema="schema"
+  />
 </template>

@@ -52,7 +52,7 @@ export default {
   },
 
   data() {
-    const node = (this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).find(t => t.key === LVM_TOPOLOGY_LABEL)?.values[0];
+    const node = (this.value.allowedTopologies?.[0]?.matchLabelExpressions || []).find((t) => t.key === LVM_TOPOLOGY_LABEL)?.values[0];
 
     return {
       volumeGroupTypes: ['striped', 'dm-thin'],
@@ -77,7 +77,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const nodes = this.$store.getters[`${ inStore }/all`](NODE) || [];
 
-      return nodes.filter(n => n.labels[LVM_TOPOLOGY_LABEL] === n.name).map(n => n.name);
+      return nodes.filter((n) => n.labels[LVM_TOPOLOGY_LABEL] === n.name).map((n) => n.name);
     },
 
     volumeGroups() {
@@ -85,8 +85,8 @@ export default {
       const lvmVolumeGroups = this.$store.getters[`${ inStore }/all`](HCI.LVM_VOLUME_GROUP) || [];
 
       return lvmVolumeGroups
-        .filter(group => group.spec.nodeName === this.node)
-        .map(g => g.spec.vgName);
+        .filter((group) => group.spec.nodeName === this.node)
+        .map((g) => g.spec.vgName);
     },
 
     parameters: {
@@ -119,7 +119,10 @@ export default {
           :required="true"
         >
           <template #no-options="{ searching }">
-            <span v-if="!searching" class="text-muted">
+            <span
+              v-if="!searching"
+              class="text-muted"
+            >
               {{ t('harvester.storage.parameters.diskSelector.no-options', null, true) }}
             </span>
           </template>
@@ -136,7 +139,10 @@ export default {
           :required="true"
         >
           <template #no-options="{ searching }">
-            <span v-if="!searching" class="text-muted">
+            <span
+              v-if="!searching"
+              class="text-muted"
+            >
               {{ t('harvester.storage.parameters.lvmVolumeGroup.no-options', null, true) }}
             </span>
           </template>

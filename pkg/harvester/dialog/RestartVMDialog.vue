@@ -8,7 +8,7 @@ import AppModal from '@shell/components/AppModal';
 
 export default {
   emits: ['close'],
-  
+
   components: {
     AppModal,
     Card,
@@ -75,7 +75,9 @@ export default {
       <template #actions>
         <div class="bottom">
           <Banner
-            v-for="(err, i) in errors" :key="i" color="error"
+            v-for="(err, i) in errors"
+            :key="i"
+            color="error"
             :label="err"
           />
           <div class="buttons">

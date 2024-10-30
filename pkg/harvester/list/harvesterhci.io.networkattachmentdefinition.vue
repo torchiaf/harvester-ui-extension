@@ -125,9 +125,9 @@ export default {
     },
 
     abnormalNetwork() {
-      const notReadyCrd = this.hostNetworks.filter( O => !O.isReady);
+      const notReadyCrd = this.hostNetworks.filter( (O) => !O.isReady);
 
-      return notReadyCrd.map( O => O.linkMessage);
+      return notReadyCrd.map( (O) => O.linkMessage);
     },
 
     filterRows() {
@@ -148,7 +148,9 @@ export default {
   <div v-else>
     <template v-if="abnormalNetwork.length">
       <Banner
-         v-for="(item, i) in abnormalNetwork" :key="i" color="error"
+        v-for="(item, i) in abnormalNetwork"
+        :key="i"
+        color="error"
       >
         <router-link :to="item.to">
           {{ item.name }}:
@@ -165,7 +167,6 @@ export default {
       :groupable="true"
       :rows="filterRows"
       key-field="_key"
-      
     >
       <template #cell:state="{row}">
         <div class="state">
