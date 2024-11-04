@@ -20,10 +20,6 @@ export default function (plugin: IPlugin) {
 
   const isSingleVirtualCluster = process.env.rancherEnv === PRODUCT_NAME;
 
-  if (!isSingleVirtualCluster) {
-    plugin.addProduct(require('./config/harvester-manager'));
-  }
-
   plugin.addProduct(require('./config/harvester-cluster'));
 
   plugin.addDashboardStore(harvesterCommonStore.config.namespace, harvesterCommonStore.specifics, harvesterCommonStore.config);
