@@ -11,6 +11,7 @@
       "catalog.cattle.io/ui-extensions-version": ">= 1.0.0-0"
     }
   },
+  "icon": "https://raw.githubusercontent.com/harvester/harvester-ui-extension/main/pkg/harvester/icon.svg",
   "scripts": {
     "dev": "./node_modules/.bin/nuxt dev",
     "nuxt": "./node_modules/.bin/nuxt"
