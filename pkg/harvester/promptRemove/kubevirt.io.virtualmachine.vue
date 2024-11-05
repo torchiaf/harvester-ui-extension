@@ -126,7 +126,7 @@ export default {
         resource.remove({ url: `${ parsed.pathname }?${ removedDisks }propagationPolicy=Foreground` });
       })).then((_results) => {
         if ( goTo && !isEmpty(goTo) ) {
-          this.value?.[0]?.currentRouter().push(goTo)
+          this.value?.[0]?.currentRouter().push(goTo);
         }
         this.close();
       }).catch((err) => {
