@@ -1,5 +1,5 @@
 <script>
-import ResourceList from '@shell/components/ResourceList/index.vue';
+import ResourceList from '@pkg/harvester/components/ResourceList/index.vue';
 
 export default {
   name:       'HarvesterResourcedList',

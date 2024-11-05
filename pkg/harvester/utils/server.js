@@ -9,9 +9,8 @@ export function serverVersion(getters) {
   try {
     const v = getters['harvester/byId'](HCI.SETTING, 'server-version')?.value;
 
-    return `v-${semver.major(v)}.${semver.minor(v)}.${semver.patch(v)}`;
+    return `v-${ semver.major(v) }.${ semver.minor(v) }.${ semver.patch(v) }`;
   } catch (error) {}
 
   return '';
 }
-

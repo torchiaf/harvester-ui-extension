@@ -141,4 +141,107 @@ export default {
   
     return lookup(state.config.namespace, obj?.type, obj?.metadata?.name, rootState) || Resource;
   },
+
+  getCustomList(state, getters, rootState, rootGetters) {
+    return (resource) => {
+
+      const version = serverVersion(rootGetters);
+
+      if (version) {
+        const componentVersion = `${ resource }-${ version }`;
+
+        const hasVersionComponent = rootGetters['type-map/hasCustomList'](componentVersion);
+
+        if (hasVersionComponent) {
+          return componentVersion;
+        }
+      }
+
+      if (rootGetters['type-map/hasCustomList'](resource)) {
+        return resource;
+      }
+
+      return null;
+    }
+  },
+
+  hasCustomDetail(state, getters, rootState, rootGetters) {
+    return (resource, id) => {
+
+      const version = serverVersion(rootGetters);
+
+      if (version) {
+        const componentVersion = `${ resource }-${ version }`;
+
+        const hasVersionComponent = rootGetters['type-map/hasCustomDetail'](componentVersion, id);
+
+        if (hasVersionComponent) {
+          return componentVersion;
+        }
+      }
+
+      if (rootGetters['type-map/hasCustomDetail'](resource, id)) {
+        return resource;
+      }
+
+      return null;
+    }
+  },
+
+  hasCustomEdit(state, getters, rootState, rootGetters) {
+    return (resource, id) => {
+
+      const version = serverVersion(rootGetters);
+
+      if (version) {
+        const componentVersion = `${ resource }-${ version }`;
+
+        const hasVersionComponent = rootGetters['type-map/hasCustomEdit'](componentVersion, id);
+
+        if (hasVersionComponent) {
+          return componentVersion;
+        }
+      }
+
+      if (rootGetters['type-map/hasCustomEdit'](resource, id)) {
+        return resource;
+      }
+
+      return null;
+    }
+  },
+
+  importDetail(state, getters, rootState, rootGetters) {
+    return (resource, id) => {
+
+      const version = serverVersion(rootGetters);
+
+      if (version) {
+        const componentVersion = `${ resource }-${ version }`;
+
+        if (rootGetters['type-map/hasCustomDetail'](componentVersion, id)) {
+          return rootGetters['type-map/importDetail'](componentVersion, id);
+        }
+      }
+
+      return rootGetters['type-map/importDetail'](resource, id);
+    }
+  },
+
+  importEdit(state, getters, rootState, rootGetters) {
+    return (resource, id) => {
+
+      const version = serverVersion(rootGetters);
+
+      if (version) {
+        const componentVersion = `${ resource }-${ version }`;
+
+        if (rootGetters['type-map/hasCustomEdit'](componentVersion, id)) {
+          return rootGetters['type-map/importEdit'](componentVersion, id);
+        }
+      }
+
+      return rootGetters['type-map/importEdit'](resource, id);
+    }
+  },
 };

@@ -1,5 +1,5 @@
 <script>
-import ResourceDetail from '@shell/components/ResourceDetail/index.vue';
+import ResourceDetail from '@pkg/harvester/components/ResourceDetail/index.vue';
 
 export default {
   name:       'HarvesterResourcedId',
