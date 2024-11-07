@@ -1,9 +1,7 @@
 <script>
 import ResourceTable from '@shell/components/ResourceTable';
 import { STATE, AGE, NAME, NAMESPACE } from '@shell/config/table-headers';
-import {
-  PVC, PV, NODE, POD, STORAGE_CLASS
-} from '@shell/config/types';
+import { PVC, PV, NODE, POD } from '@shell/config/types';
 
 import { allHash } from '@shell/utils/promise';
 import Loading from '@shell/components/Loading';
@@ -11,7 +9,6 @@ import { clone } from '@shell/utils/object';
 import { HCI } from '../types';
 import HarvesterVmState from '../formatters/HarvesterVmState';
 import ConsoleBar from '../components/VMConsoleBar';
-import VersionSwitch from '../components/VersionSwitch';
 
 export const VM_HEADERS = [
   STATE,
@@ -62,8 +59,7 @@ export default {
     Loading,
     HarvesterVmState,
     ConsoleBar,
-    ResourceTable,
-    VersionSwitch
+    ResourceTable
   },
 
   props: {
@@ -83,7 +79,6 @@ export default {
       images:  this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.IMAGE }),
       restore: this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.RESTORE }),
       backups: this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.BACKUP }),
-      storage: this.$store.dispatch(`${ inStore }/findAll`, { type: STORAGE_CLASS }),
     };
 
     if (this.$store.getters[`${ inStore }/schemaFor`](HCI.RESOURCE_QUOTA)) {
@@ -199,53 +194,7 @@ export default {
 <template>
   <Loading v-if="$fetchState.pending" />
   <div v-else>
-    <ResourceTable
-      v-bind="$attrs"
-      :headers="headers"
-      default-sort-by="age"
-      :rows="rows"
-      :schema="schema"
-      :groupable="true"
-      key-field="_key"
-    >
-      <template
-        #cell:state="scope"
-        class="state-col"
-      >
-        <div class="state">
-          <HarvesterVmState
-            class="vmstate"
-            :row="scope.row"
-            :all-node-network="allNodeNetworks"
-            :all-cluster-network="allClusterNetworks"
-          />
-        </div>
-      </template>
-
-      <template #cell:name="scope">
-        <div class="name-console">
-          <router-link
-            v-if="scope.row.type !== HCI.VMI"
-            :to="scope.row.detailLocation"
-          >
-            {{ scope.row.metadata.name }}
-            <i
-              v-if="lockIconTooltipMessage(scope.row)"
-              v-tooltip="lockIconTooltipMessage(scope.row)"
-              class="icon icon-lock"
-              :class="{'green-icon': scope.row.encryptedVolumeType === 'all', 'yellow-icon': scope.row.encryptedVolumeType === 'partial'}"
-            />
-          </router-link>
-          <span v-else>
-            {{ scope.row.metadata.name }}
-          </span>
-          <ConsoleBar
-            :resource-type="scope.row"
-            class="console mr-10 ml-10"
-          />
-        </div>
-      </template>
-    </ResourceTable>
+    PIPPO
   </div>
 </template>
 
