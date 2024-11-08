@@ -3,7 +3,7 @@ import StorageClass from '@shell/models/storage.k8s.io.storageclass';
 import { HCI } from '../../types';
 import { PRODUCT_NAME as HARVESTER_PRODUCT } from '../../config/harvester';
 import { LONGHORN_DRIVER } from '@shell/config/types';
-import { DATA_ENGINE_V1, DATA_ENGINE_V2 } from '../../edit/harvesterhci.io.storage/index.vue';
+import { DATA_ENGINE_V1, DATA_ENGINE_V2 } from '../../models/harvester/persistentvolumeclaim';
 
 export const LVM_DRIVER = 'lvm.driver.harvesterhci.io';
 
@@ -55,7 +55,7 @@ export default class HciStorageClass extends StorageClass {
       key = `harvester.storage.storageClass.lvm.label`;
     }
 
-    return this.$rootGetters['i18n/t'](key);
+    return key ? this.$rootGetters['i18n/t'](key) : null;
   }
 
   get isLonghornV2() {
