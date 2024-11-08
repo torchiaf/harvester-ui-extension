@@ -9,9 +9,7 @@ import ArrayListGrouped from '@shell/components/form/ArrayListGrouped';
 import ButtonDropdown from '@shell/components/ButtonDropdown';
 import CreateEditView from '@shell/mixins/create-edit-view';
 import { HCI as HCI_LABELS_ANNOTATIONS } from '@pkg/harvester/config/labels-annotations';
-import {
-  LONGHORN, SECRET, LONGHORN_DRIVER, LONGHORN_VERSION_V1, LONGHORN_VERSION_V2
-} from '@shell/config/types';
+import { LONGHORN, SECRET, LONGHORN_DRIVER, LONGHORN_VERSION_V1 } from '@shell/config/types';
 import { allHash } from '@shell/utils/promise';
 import { formatSi } from '@shell/utils/units';
 import { findBy } from '@shell/utils/array';
@@ -75,9 +73,12 @@ export default {
       longhornNodes:        this.$store.dispatch(`${ inStore }/findAll`, { type: LONGHORN.NODES }),
       blockDevices:         this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.BLOCK_DEVICE }),
       addons:               this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.ADD_ONS }),
-      secrets:              this.$store.dispatch(`${ inStore }/findAll`, { type: SECRET }),
-      longhornV2DataEngine: this.$store.dispatch(`${ inStore }/find`, { type: LONGHORN.SETTINGS, id: LONGHORN_V2_DATA_ENGINE }),
+      secrets:              this.$store.dispatch(`${ inStore }/findAll`, { type: SECRET })
     };
+
+    if (this.longhornV2LVMSupport) {
+      hash.longhornV2DataEngine = this.$store.dispatch(`${ inStore }/find`, { type: LONGHORN.SETTINGS, id: LONGHORN_V2_DATA_ENGINE });
+    }
 
     if (this.$store.getters[`${ inStore }/schemaFor`](HCI.INVENTORY)) {
       hash.inventories = this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.INVENTORY });
@@ -161,19 +162,16 @@ export default {
   computed: {
     ...mapGetters({ t: 'i18n/t' }),
 
+    longhornV2LVMSupport() {
+      return this.$store.getters['harvester-common/getFeatureEnabled']('longhornV2LVMSupport');
+    },
+
     removedDisks() {
       const out = this.disks.filter((d) => {
         return !findBy(this.newDisks, 'name', d.name);
       }) || [];
 
       return out;
-    },
-
-    longhornSystemVersion() {
-      const inStore = this.$store.getters['currentProduct'].inStore;
-      const v2DataEngine = this.$store.getters[`${ inStore }/byId`](LONGHORN.SETTINGS, LONGHORN_V2_DATA_ENGINE) || {};
-
-      return v2DataEngine.value === 'true' ? LONGHORN_VERSION_V2 : LONGHORN_VERSION_V1;
     },
 
     longhornDisks() {
