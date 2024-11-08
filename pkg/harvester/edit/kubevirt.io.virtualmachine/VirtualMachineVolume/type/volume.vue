@@ -65,6 +65,10 @@ export default {
   },
 
   computed: {
+    longhornV2LVMSupport() {
+      return this.$store.getters['harvester-common/getFeatureEnabled']('longhornV2LVMSupport');
+    },
+
     encryptionValue() {
       return ucFirst(String(this.value.isEncrypted));
     },
@@ -146,6 +150,10 @@ export default {
 
   methods: {
     getAccessMode(storageClassName) {
+      if (!this.longhornV2LVMSupport) {
+        return 'ReadWriteMany';
+      }
+
       const storageClass = this.storageClasses.find((sc) => sc.name === storageClassName);
 
       let readWriteOnce = this.value.pvc?.isLvm || this.value.pvc?.isLonghornV2;

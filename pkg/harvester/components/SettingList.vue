@@ -56,6 +56,10 @@ export default {
   methods: {
     filterCategorySettings() {
       return this.settings.filter((s) => {
+        if (!this.getFeatureEnabled(s.featureFlag)) {
+          return false;
+        }
+
         if (this.category !== 'advanced') {
           return (CATEGORY[this.category] || []).find((item) => item === s.id);
         } else if (this.category === 'advanced') {
@@ -65,6 +69,11 @@ export default {
         }
       }) || [];
     },
+
+    getFeatureEnabled(id) {
+      return id ? this.$store.getters['harvester-common/getFeatureEnabled'](id) : true;
+    },
+
     showActionMenu(e, setting) {
       const actionElement = e.srcElement;
 
