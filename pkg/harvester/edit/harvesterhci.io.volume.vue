@@ -106,6 +106,10 @@ export default {
       return this.source === 'url';
     },
 
+    longhornV2LVMSupport() {
+      return this.$store.getters['harvester-common/getFeatureEnabled']('longhornV2LVMSupport');
+    },
+
     sourceOption() {
       return [{
         value: 'blank',
@@ -233,6 +237,10 @@ export default {
 
   methods: {
     getAccessMode() {
+      if (!this.longhornV2LVMSupport) {
+        return ['ReadWriteMany'];
+      }
+
       const storageClassName = this.value.spec.storageClassName;
       const storageClass = this.storageClasses.find((sc) => sc.name === storageClassName);
 
