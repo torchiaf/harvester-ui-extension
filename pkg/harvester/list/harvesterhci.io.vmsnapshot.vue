@@ -58,7 +58,7 @@ export default {
 
   computed: {
     headers() {
-      return [
+      const cols = [
         STATE,
         NAME,
         NAMESPACE,
@@ -70,13 +70,19 @@ export default {
           sort:      'attachVM',
           formatter: 'AttachVMWithName'
         },
-        {
+      ];
+
+      if (this.schedulingVMBackupFeatureEnabled) {
+        cols.push({
           name:      'backupCreatedFrom',
           labelKey:  'harvester.tableHeaders.vmSchedule',
           value:     'sourceSchedule',
           sort:      'sourceSchedule',
           formatter: 'BackupCreatedFrom',
-        },
+        });
+      }
+
+      cols.push(...[
         {
           name:      'readyToUse',
           labelKey:  'tableHeaders.readyToUse',
@@ -86,7 +92,13 @@ export default {
           formatter: 'Checked',
         },
         AGE
-      ];
+      ]);
+
+      return cols;
+    },
+
+    schedulingVMBackupFeatureEnabled() {
+      return this.$store.getters['harvester-common/getFeatureEnabled']('schedulingVMBackup');
     },
 
     getRawRows() {
@@ -142,7 +154,10 @@ export default {
       key-field="_key"
       default-sort-by="age"
     >
-      <template #more-header-middle>
+      <template
+        v-if="schedulingVMBackupFeatureEnabled"
+        #more-header-middle
+      >
         <FilterVMSchedule
           :rows="getRawRows"
           @change-rows="changeRows"

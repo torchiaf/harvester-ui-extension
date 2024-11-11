@@ -124,12 +124,18 @@ export default {
           align:     'left',
           formatter: 'AttachVMWithName'
         },
-        {
+      ];
+
+      if (this.schedulingVMBackupFeatureEnabled) {
+        cols.push({
           name:      'backupCreatedFrom',
           labelKey:  'harvester.tableHeaders.vmSchedule',
           value:     'sourceSchedule',
           formatter: 'BackupCreatedFrom',
-        },
+        });
+      }
+
+      cols.push(...[
         {
           name:      'backupTarget',
           labelKey:  'tableHeaders.backupTarget',
@@ -144,7 +150,7 @@ export default {
           align:     'center',
           formatter: 'Checked',
         },
-      ];
+      ]);
 
       if (this.hasBackupProgresses) {
         cols.push({
@@ -155,9 +161,14 @@ export default {
           formatter: 'HarvesterBackupProgressBar',
         });
       }
+
       cols.push(AGE);
 
       return cols;
+    },
+
+    schedulingVMBackupFeatureEnabled() {
+      return this.$store.getters['harvester-common/getFeatureEnabled']('schedulingVMBackup');
     },
 
     hasBackupProgresses() {
@@ -244,7 +255,10 @@ export default {
       key-field="_key"
       default-sort-by="age"
     >
-      <template #more-header-middle>
+      <template
+        v-if="schedulingVMBackupFeatureEnabled"
+        #more-header-middle
+      >
         <FilterVMSchedule
           :rows="getRawRows"
           @change-rows="changeRows"
