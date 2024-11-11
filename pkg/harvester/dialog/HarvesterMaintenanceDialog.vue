@@ -37,6 +37,10 @@ export default {
   computed: {
     ...mapGetters({ t: 'i18n/t' }),
 
+    improveMaintenanceModeFeatureEnabled() {
+      return this.$store.getters['harvester-common/getFeatureEnabled']('improveMaintenanceMode');
+    },
+
     actionResource() {
       return this.resources[0];
     },
@@ -73,8 +77,14 @@ export default {
         } else if (res._status === 200 || res._status === 204) {
           const res = await this.actionResource.doAction('listUnhealthyVM');
 
-          if (res?.length) {
-            this.unhealthyVMs = res;
+          let data = res;
+
+          if (!this.improveMaintenanceModeFeatureEnabled) {
+            data = res.message ? [res] : [];
+          }
+
+          if (data?.length) {
+            this.unhealthyVMs = data;
             buttonCb(false);
           } else {
             await this.actionResource.doAction('enableMaintenanceMode', { force: 'false' });
