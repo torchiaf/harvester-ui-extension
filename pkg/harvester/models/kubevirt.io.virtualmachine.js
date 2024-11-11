@@ -168,7 +168,7 @@ export default class VirtVm extends HarvesterResource {
       },
       {
         action:  'createSchedule',
-        enabled: true,
+        enabled: this.schedulingVMBackupFeatureEnabled,
         icon:    'icon icon-history',
         label:   this.t('harvester.action.createSchedule')
       },
@@ -1145,6 +1145,10 @@ export default class VirtVm extends HarvesterResource {
     } catch (error) {
       return {};
     }
+  }
+
+  get schedulingVMBackupFeatureEnabled() {
+    return this.$rootGetters['harvester-common/getFeatureEnabled']('schedulingVMBackup');
   }
 
   setInstanceLabels(val) {
