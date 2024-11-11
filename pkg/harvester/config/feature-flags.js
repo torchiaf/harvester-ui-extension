@@ -12,6 +12,7 @@ const featuresV132 = [
   'autoRotateRke2CertsSetting',
   'supportBundleNodeCollectionTimeoutSetting',
   'kubeconfigDefaultTokenTTLMinutesSetting',
+  'improveMaintenanceMode',
 ];
 
 // TODO: change to https://github.com/harvester/dashboard/releases/tag/v1.4.0 after v1.4.0 release
@@ -30,7 +31,7 @@ const featuresV140 = [
   'schedulingVMBackup',
   'vmSnapshotQuota',
   'longhornV2LVMSupport',
-  'improveMaintainMode',
+  'improveMaintenanceMode',
 ];
 
 export const RELEASE_FEATURES = {
