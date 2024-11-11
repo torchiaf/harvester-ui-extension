@@ -9,6 +9,9 @@ import { PRODUCT_NAME } from './config/harvester';
 
 // Init the package
 export default function (plugin: IPlugin) {
+  const isDev = process.env.NODE_ENV !== 'production';
+  const isSingleVirtualCluster = process.env.rancherEnv === PRODUCT_NAME;
+
   // Auto-import model, detail, edit from the folders
   importTypes(plugin);
 
@@ -18,7 +21,9 @@ export default function (plugin: IPlugin) {
   // Built-in icon
   plugin.metadata.icon = require('./icon.svg');
 
-  const isSingleVirtualCluster = process.env.rancherEnv === PRODUCT_NAME;
+  if (isDev && !isSingleVirtualCluster) {
+    plugin.addProduct(require('./config/harvester-manager'));
+  }
 
   plugin.addProduct(require('./config/harvester-cluster'));
 
