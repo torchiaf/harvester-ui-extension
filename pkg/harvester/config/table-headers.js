@@ -77,3 +77,14 @@ export const VM_SCHEDULE_TYPE = {
   sort:     'spec.vmbackup.type',
   align:    'center',
 };
+
+// The MACHINE_POOLS column in Virtualization Management list page
+export const MACHINE_POOLS = {
+  name:     'summary',
+  labelKey: 'tableHeaders.machines',
+  sort:     false,
+  search:   false,
+  value:    'nodes.length',
+  align:    'center',
+  width:    100,
+};

@@ -1,22 +1,11 @@
 import { HCI, MANAGEMENT, CAPI } from '@shell/config/types';
 import { HARVESTER, MULTI_CLUSTER } from '@shell/store/features';
-import { STATE, NAME as NAME_COL, AGE, VERSION } from '@shell/config/table-headers';
 import { allHash } from '@shell/utils/promise';
 import { BLANK_CLUSTER } from '@shell/store/store-types.js';
 
 export const PRODUCT_NAME = 'harvester-manager';
 
 export const NAME = 'harvesterManager';
-
-const MACHINE_POOLS = {
-  name:     'summary',
-  labelKey: 'tableHeaders.machines',
-  sort:     false,
-  search:   false,
-  value:    'nodes.length',
-  align:    'center',
-  width:    100,
-};
 
 const harvesterClustersLocation = {
   name:   'c-cluster-product-resource',
@@ -31,7 +20,6 @@ export function init($plugin, store) {
   const {
     product,
     basicType,
-    headers,
     spoofedType,
     configureType
   } = $plugin.DSL(store, NAME);
@@ -49,31 +37,7 @@ export function init($plugin, store) {
   });
 
   configureType(HCI.CLUSTER, { showListMasthead: false });
-  headers(HCI.CLUSTER, [
-    STATE,
-    NAME_COL,
-    {
-      name:     'harvesterVersion',
-      sort:     'harvesterVersion',
-      labelKey: 'harvesterManager.tableHeaders.harvesterVersion',
-      value:    'HarvesterVersion',
-      getValue: (row) => row.harvesterVersion
-    },
-    {
-      ...VERSION,
-      labelKey: 'harvesterManager.tableHeaders.kubernetesVersion',
-      value:    'kubernetesVersion',
-      getValue: (row) => row.kubernetesVersion
-    },
-    MACHINE_POOLS,
-    AGE,
-    {
-      name:  'harvester',
-      label: ' ',
-      align: 'right',
-      width: 65,
-    },
-  ]);
+
   basicType([HCI.CLUSTER]);
   spoofedType({
     labelKey:   'harvesterManager.cluster.label',
