@@ -1,22 +1,13 @@
 import { HCI, MANAGEMENT, CAPI } from '@shell/config/types';
 import { HARVESTER, MULTI_CLUSTER } from '@shell/store/features';
 import { STATE, NAME as NAME_COL, AGE, VERSION } from '@shell/config/table-headers';
+import { MACHINE_POOLS } from '../config/table-headers';
 import { allHash } from '@shell/utils/promise';
 import { BLANK_CLUSTER } from '@shell/store/store-types.js';
 
 export const PRODUCT_NAME = 'harvester-manager';
 
 export const NAME = 'harvesterManager';
-
-const MACHINE_POOLS = {
-  name:     'summary',
-  labelKey: 'tableHeaders.machines',
-  sort:     false,
-  search:   false,
-  value:    'nodes.length',
-  align:    'center',
-  width:    100,
-};
 
 const harvesterClustersLocation = {
   name:   'c-cluster-product-resource',
@@ -56,7 +47,7 @@ export function init($plugin, store) {
       name:     'harvesterVersion',
       sort:     'harvesterVersion',
       labelKey: 'harvesterManager.tableHeaders.harvesterVersion',
-      value:    'HarvesterVersion',
+      value:    'harvesterVersion',
       getValue: (row) => row.harvesterVersion
     },
     {

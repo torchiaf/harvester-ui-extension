@@ -8,6 +8,8 @@ import { HARVESTER_NAME as VIRTUAL } from '@shell/config/features';
 import { CAPI, HCI, MANAGEMENT } from '@shell/config/types';
 import { isHarvesterCluster } from '@shell/utils/cluster';
 import { allHash } from '@shell/utils/promise';
+import { STATE, NAME as NAME_COL, AGE, VERSION } from '@shell/config/table-headers';
+import { MACHINE_POOLS } from '../config/table-headers';
 
 export default {
   components: {
@@ -56,6 +58,34 @@ export default {
   },
 
   computed: {
+    headers() {
+      return [
+        STATE,
+        NAME_COL,
+        {
+          name:     'harvesterVersion',
+          sort:     'harvesterVersion',
+          labelKey: 'harvesterManager.tableHeaders.harvesterVersion',
+          value:    'harvesterVersion',
+          getValue: (row) => row.harvesterVersion
+        },
+        {
+          ...VERSION,
+          labelKey: 'harvesterManager.tableHeaders.kubernetesVersion',
+          value:    'kubernetesVersion',
+          getValue: (row) => row.kubernetesVersion
+        },
+        MACHINE_POOLS,
+        AGE,
+        {
+          name:  'harvester',
+          label: ' ',
+          align: 'right',
+          width: 65,
+        },
+      ];
+    },
+
     importLocation() {
       return {
         name:   'c-cluster-product-resource-create',
@@ -144,6 +174,7 @@ export default {
     <ResourceTable
       v-if="rows && rows.length"
       :schema="schema"
+      :headers="headers"
       :rows="rows"
       :is-creatable="true"
       :namespaced="false"
