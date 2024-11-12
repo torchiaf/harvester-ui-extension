@@ -1,7 +1,5 @@
 import { HCI, MANAGEMENT, CAPI } from '@shell/config/types';
 import { HARVESTER, MULTI_CLUSTER } from '@shell/store/features';
-import { STATE, NAME as NAME_COL, AGE, VERSION } from '@shell/config/table-headers';
-import { MACHINE_POOLS } from '../config/table-headers';
 import { allHash } from '@shell/utils/promise';
 import { BLANK_CLUSTER } from '@shell/store/store-types.js';
 
@@ -22,7 +20,6 @@ export function init($plugin, store) {
   const {
     product,
     basicType,
-    headers,
     spoofedType,
     configureType
   } = $plugin.DSL(store, NAME);
@@ -40,31 +37,7 @@ export function init($plugin, store) {
   });
 
   configureType(HCI.CLUSTER, { showListMasthead: false });
-  headers(HCI.CLUSTER, [
-    STATE,
-    NAME_COL,
-    {
-      name:     'harvesterVersion',
-      sort:     'harvesterVersion',
-      labelKey: 'harvesterManager.tableHeaders.harvesterVersion',
-      value:    'harvesterVersion',
-      getValue: (row) => row.harvesterVersion
-    },
-    {
-      ...VERSION,
-      labelKey: 'harvesterManager.tableHeaders.kubernetesVersion',
-      value:    'kubernetesVersion',
-      getValue: (row) => row.kubernetesVersion
-    },
-    MACHINE_POOLS,
-    AGE,
-    {
-      name:  'harvester',
-      label: ' ',
-      align: 'right',
-      width: 65,
-    },
-  ]);
+
   basicType([HCI.CLUSTER]);
   spoofedType({
     labelKey:   'harvesterManager.cluster.label',
