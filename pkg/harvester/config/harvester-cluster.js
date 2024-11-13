@@ -474,6 +474,7 @@ export function init($plugin, store) {
     },
     exact: false
   });
+  configureType(TEMPLATE, { canYaml: false });
 
   configureType(HCI.SCHEDULE_VM_BACKUP, {
     showListMasthead: false, showConfigView: false, canYaml: false
