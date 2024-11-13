@@ -433,6 +433,7 @@ export default {
 
         <div class="spacer"></div>
         <Checkbox
+          v-if="value.cpuPinningFeatureEnabled"
           v-model="cpuPinning"
           class="check"
           type="checkbox"
