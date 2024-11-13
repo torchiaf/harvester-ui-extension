@@ -51,6 +51,10 @@ export default class HciVmTemplate extends HarvesterResource {
     });
   }
 
+  get cpuPinningFeatureEnabled() {
+    return this.$rootGetters['harvester-common/getFeatureEnabled']('cpuPinning');
+  }
+
   addVersion(moreQuery = {}) {
     const router = this.currentRouter();
 
