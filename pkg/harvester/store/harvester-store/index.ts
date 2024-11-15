@@ -8,7 +8,7 @@ import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
 
-const harvesterFactory = (): CoreStoreSpecifics => {
+const harvesterFactory = (config): CoreStoreSpecifics => {
   SteveSchema.reset(config.namespace);
 
   const steveFactory = SteveFactory(null, null);
