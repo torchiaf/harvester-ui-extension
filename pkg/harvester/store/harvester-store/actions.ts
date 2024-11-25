@@ -12,6 +12,8 @@ export default {
   }: any, { id }: any) {
     // This is a workaround for a timing issue where the mgmt cluster schema may not be available
     // Try and wait until the schema exists before proceeding
+
+    console.log('loadCluster', id)
     await dispatch('management/waitForSchema', { type: MANAGEMENT.CLUSTER }, { root: true });
 
     // See if it really exists
