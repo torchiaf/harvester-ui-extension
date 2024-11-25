@@ -6,11 +6,40 @@ const VirtualModulesPlugin = require('webpack-virtual-modules');
 const { generateTypeImport } = require('./auto-import');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
+/**
+ * Paths to the shell folder when it is included as a node dependency
+ */
+const getShellPaths = (dir) => {
+  let SHELL_ABS = path.join(dir, 'node_modules/@rancher/shell');
+  let COMPONENTS_DIR = path.join(SHELL_ABS, 'rancher-components');
+
+  if (fs.existsSync(SHELL_ABS)) {
+    const stat = fs.lstatSync(SHELL_ABS);
+
+    // If @rancher/shell is a symlink, then use the components folder for it
+    if (stat.isSymbolicLink()) {
+      const REAL_SHELL_ABS = fs.realpathSync(SHELL_ABS); // In case the shell is being linked via 'yarn link'
+
+      COMPONENTS_DIR = path.join(REAL_SHELL_ABS, '..', 'pkg', 'rancher-components', 'src', 'components');
+    }
+  }
+
+  // If we have a local folder named 'shell' then use that rather than the one in node_modules
+  // This will be the case in the main dashboard repository.
+  if (fs.existsSync(path.join(dir, 'shell'))) {
+    SHELL_ABS = path.join(dir, 'shell');
+    COMPONENTS_DIR = path.join(dir, 'pkg', 'rancher-components', 'src', 'components');
+  }
+
+  return { SHELL_ABS, COMPONENTS_DIR };
+};
+
 module.exports = function(dir) {
+  const { SHELL_ABS, COMPONENTS_DIR } = getShellPaths(dir);
+
   const maindir = path.resolve(dir, '..', '..');
   // The shell code must be sym-linked into the .shell folder
   const SHELL = path.join(dir, '.shell');
-  let COMPONENTS_DIR = path.join(SHELL, 'rancher-components');
 
   const stat = fs.lstatSync(SHELL);
 
@@ -49,8 +78,8 @@ module.exports = function(dir) {
       const pkgName = dir.replace(`${ path.dirname(dir) }/`, '');
 
       // Alias updates
-      config.resolve.alias['@shell'] = path.join(dir, '.shell');
-      config.resolve.alias['~shell'] = path.join(dir, '.shell');
+      config.resolve.alias['~shell'] = SHELL_ABS;
+      config.resolve.alias['@shell'] = SHELL_ABS;
       // This should be udpated once we move to rancher-components as a dependency
       config.resolve.alias['@components'] = COMPONENTS_DIR;
       config.resolve.alias['./node_modules'] = path.join(maindir, 'node_modules');
