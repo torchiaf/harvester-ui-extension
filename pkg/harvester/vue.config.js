@@ -1,1 +1,1 @@
-module.exports = require('@rancher/shell/pkg/vue.config')(__dirname);
+module.exports = require('@rancher/shell/vue.config')(__dirname);
