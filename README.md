@@ -27,6 +27,11 @@ To install the Harvester UI Extension in Rancher 2.10.0 and newer:
 
 This is what you probably want to get started.
 
+### Prerequisite
+
+Nodejs version >= 20
+
+
 ### Standalone Mode
 
 For development, serve with hot reload at https://localhost:8005
@@ -54,6 +59,9 @@ In this mode, you need to have Rancher and run Harvester UI Extension as Rancher
 
 ```bash
 API=https://your-rancher-ip yarn dev
+
+# Example
+API=https://192.168.1.123 yarn dev
 ```
 
 ## Contributing
