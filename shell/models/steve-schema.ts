@@ -245,7 +245,7 @@ export default class SteveSchema extends Schema {
    * The name (namespace) of the vuex store this schema lives in (i.e. cluster, management, etc)
    */
   private get store(): string {
-    return this.$ctx.state?.config?.namespace;
+    return this.$ctx?.state?.config?.namespace;
   }
 
   private get schemaDefinitionsIds(): SchemaId | undefined {
