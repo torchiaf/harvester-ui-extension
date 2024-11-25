@@ -2,7 +2,9 @@
 
 Rancher Extension used in [rancher/dashboard](https://github.com/rancher/dashboard) for [Harvester](https://harvesterhci.io) Dashboard UI.
 
+`
 From Rancher 2.10.0, Harvester integration is provided by this new Harvester UI Extension.
+`
 
 ## Installation
 
@@ -46,16 +48,12 @@ RANCHER_ENV=harvester VUE_APP_SERVER_VERSION=your-harvester-server-version API=h
 RANCHER_ENV=harvester VUE_APP_SERVER_VERSION=v1.4.0 API=https://192.168.1.123 yarn dev
 ```
 
-### Integration Mode
+### Rancher Integration Mode
 
-In this mode, you need to have Rancher and import Harvester, more detail in [Harvester Integration | Rancher](https://ranchermanager.docs.rancher.com/v2.6/integrations-in-rancher/harvester).
+In this mode, you need to have Rancher and run Harvester UI Extension as Rancher extension, see more detail in [Rancher UI extension](https://extensions.rancher.io/extensions/next/extensions-getting-started#running-the-app).
 
 ```bash
-# build harvester plugin
-yarn build-pkg harvester && yarn serve-pkgs
-
-# Open another terminal window
-HARVESTER_PKG_URL=http://127.0.0.1:4500/harvester-${version}/harvester-${version}.umd.min.js API=https://your-rancher-ip RANCHER_ENV=harvester yarn mem-dev
+API=https://your-rancher-ip yarn dev
 ```
 
 ## Contributing
