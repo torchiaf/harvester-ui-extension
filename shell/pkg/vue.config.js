@@ -35,7 +35,7 @@ const getShellPaths = (dir) => {
 };
 
 module.exports = function(dir) {
-  const { SHELL_ABS, COMPONENTS_DIR } = getShellPaths(dir);
+  let { SHELL_ABS, COMPONENTS_DIR } = getShellPaths(dir);
 
   const maindir = path.resolve(dir, '..', '..');
   // The shell code must be sym-linked into the .shell folder
