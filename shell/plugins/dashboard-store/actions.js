@@ -42,7 +42,11 @@ export async function loadSchemas(ctx, watch = true) {
   const {
     getters, dispatch, commit, rootGetters
   } = ctx;
+
+  console.log('ctx', ctx)
   const res = await dispatch('findAll', { type: SCHEMA, opt: { url: 'schemas', load: false } });
+
+  console.log('SHEMAS', res);
   const spoofedTypes = rootGetters['type-map/allSpoofedSchemas'] ;
 
   if (Array.isArray(res.data)) {
