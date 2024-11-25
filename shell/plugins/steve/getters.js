@@ -189,11 +189,16 @@ export default {
   classify: (state, getters, rootState) => (obj) => {
     const customModel = lookup(state.config.namespace, obj?.type, obj?.metadata?.name, rootState);
 
+    console.log('customModel 1', customModel, state)
     if (customModel) {
+
+      console.log('return customModel 1')
       return customModel;
     }
 
     const which = state.config.modelBaseClass || BY_TYPE;
+
+    console.log('customModel which', which)
 
     if ( which === BY_TYPE ) {
       if ( obj?.type?.startsWith('management.cattle.io.') || obj?.type?.startsWith('project.cattle.io.')) {
