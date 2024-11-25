@@ -12,6 +12,8 @@ export function classify(ctx, obj, isClone = false) {
 
   const customModel = ctx.getters['classify'](obj);
 
+  console.log('customModel', customModel , obj);
+
   const out = new customModel(obj, ctx, null, isClone);
 
   return out;
