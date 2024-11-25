@@ -564,6 +564,7 @@ export default class Resource {
     Object.defineProperty(this, '$ctx', {
       value:      markRaw(ctx),
       enumerable: false,
+      configurable: true,
     });
 
     if ( rehydrateNamespace ) {
