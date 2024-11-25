@@ -1013,9 +1013,9 @@ export const actions = {
     commit('cluster/applyConfig',
       { baseUrl: clusterBase });
 
-    await Promise.all([
-      dispatch('cluster/loadSchemas', true),
-    ]);
+    // await Promise.all([
+    //   dispatch('cluster/loadSchemas', true),
+    // ]);
 
     dispatch('cluster/subscribe');
 
