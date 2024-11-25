@@ -12,10 +12,10 @@ import { steveCleanForDownload } from '@shell/plugins/steve/resource-utils';
 
 export default {
 
-  // // Need to override this, so that the 'this' context is correct (this class not the base class)
-  // async loadSchemas(ctx, watch = true) {
-  //   return await loadSchemas(ctx, watch);
-  // },
+  // Need to override this, so that the 'this' context is correct (this class not the base class)
+  async loadSchemas(ctx, watch = true) {
+    return await loadSchemas(ctx, watch);
+  },
 
   async request({ state, dispatch, rootGetters }, pOpt ) {
     const opt = pOpt.opt || pOpt;
