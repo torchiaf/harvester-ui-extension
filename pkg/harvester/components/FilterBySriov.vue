@@ -81,7 +81,7 @@ export default {
     </span>
 
     <v-dropdown
-      popper-class="filter-label"
+      popper-class="filter-parent-sriov"
       trigger="click"
       placement="bottom-end"
       :distance="20"
@@ -143,5 +143,12 @@ export default {
 
 .required {
   color: var(--error);
+}
+
+</style>
+
+<style lang="scss">
+.filter-parent-sriov .v-popper__arrow-container {
+  display: none;
 }
 </style>
