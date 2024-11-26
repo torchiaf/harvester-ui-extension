@@ -10,6 +10,8 @@ import { ADD_ONS } from '../config/harvester-map';
 export default {
   name: 'ListVGpuDevices',
 
+  inheritAttrs: false,
+
   components: {
     Banner,
     Loading,
