@@ -724,7 +724,7 @@ export function init($plugin, store) {
   configureType(HCI.PCI_DEVICE, {
     isCreatable:                false,
     hiddenNamespaceGroupButton: true,
-    canYaml:                    false,
+    canYaml:                    true,
     listGroups:                 [
       {
         icon:       'icon-list-grouped',

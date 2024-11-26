@@ -81,8 +81,10 @@ export default {
     </span>
 
     <v-dropdown
+      popper-class="filter-label"
       trigger="click"
       placement="bottom-end"
+      :distance="20"
     >
       <slot name="header">
         <button
