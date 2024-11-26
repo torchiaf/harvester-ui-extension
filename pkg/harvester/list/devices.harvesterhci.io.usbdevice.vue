@@ -10,6 +10,8 @@ import DeviceList from '../edit/kubevirt.io.virtualmachine/VirtualMachineUSBDevi
 export default {
   name: 'ListUsbDevicePage',
 
+  inheritAttrs: false,
+
   components: {
     Banner,
     DeviceList,
