@@ -12,6 +12,8 @@ import { HCI } from '../types';
 export default {
   name: 'ListSriovGpuDevices',
 
+  inheritAttrs: false,
+
   components: {
     Banner,
     Loading,
