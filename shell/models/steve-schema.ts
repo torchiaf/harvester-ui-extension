@@ -50,7 +50,7 @@ export default class SteveSchema extends Schema {
   id?: string;
   type?: string;
   links?: any;
-  $ctx?: any;
+  // $ctx?: any;
 
   /**
    * This should match the root Schema ctor (...args throws ts error)
