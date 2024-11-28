@@ -1,14 +1,3 @@
-import Resource from '@shell/plugins/dashboard-store/resource-class';
-
-/**
- * For types see schema.d.ts
- */
-export default class Schema extends Resource {
-  get groupName() {
-    return this.attributes.namespaced ? 'ns' : 'cluster';
-  }
-}
-
 /**
  * Handles
  * - no subtype { type: 'io.cattle.provisioning.v1.Cluster.status' }

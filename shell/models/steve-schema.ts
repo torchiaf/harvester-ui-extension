@@ -1,5 +1,5 @@
 import { STEVE } from '@shell/config/types';
-import Schema from './schema';
+import Resource from '@shell/plugins/dashboard-store/resource-class';
 import { wait } from '@shell/utils/async';
 
 interface ResourceField {
@@ -34,7 +34,12 @@ const SchemaDefinitionCache: { [store: string]: {
 /**
  * Steve Schema specific functionality
  */
-export default class SteveSchema extends Schema {
+export default class SteveSchema extends Resource {
+
+  get groupName() {
+    return this.schema.attributes.namespaced ? 'ns' : 'cluster';
+  }
+
   static reset(store: string): void {
     delete SchemaDefinitionCache[store];
   }

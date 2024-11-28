@@ -12,7 +12,7 @@ import pAndNFiltering from '@shell/plugins/steve/projectAndNamespaceFiltering.ut
 import stevePaginationUtils from '@shell/plugins/steve/steve-pagination-utils';
 import { parse } from '@shell/utils/url';
 import { splitObjectPath } from '@shell/utils/string';
-import { parseType } from '@shell/models/schema';
+import { parseType } from '@shell/models/schema-temp';
 import {
   STEVE_AGE_COL,
   STEVE_ID_COL, STEVE_LIST_GROUPS, STEVE_NAMESPACE_COL, STEVE_STATE_COL

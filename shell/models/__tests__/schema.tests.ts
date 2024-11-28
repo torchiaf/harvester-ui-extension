@@ -1,4 +1,4 @@
-import { parseType } from '@shell/models/schema';
+import { parseType } from '@shell/models/schema-temp';
 
 describe('class: schema:', () => {
   describe('parseType', () => {

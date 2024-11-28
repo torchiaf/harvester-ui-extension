@@ -2,7 +2,7 @@ import { indent as _indent } from '@shell/utils/string';
 import { addObject, findBy, removeObject, removeObjects } from '@shell/utils/array';
 import jsyaml from 'js-yaml';
 import { cleanUp, isEmpty } from '@shell/utils/object';
-import { parseType } from '@shell/models/schema';
+import { parseType } from '@shell/models/schema-temp';
 
 export const SIMPLE_TYPES = [
   'string',
