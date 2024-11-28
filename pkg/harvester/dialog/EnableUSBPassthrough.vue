@@ -93,7 +93,10 @@ export default {
     </template>
 
     <template #body>
-      {{ t('harvester.usb.enablePassthroughWarning') }}
+      <t
+        k="harvester.usb.enablePassthroughWarning"
+        :raw="true"
+      />
     </template>
 
     <template #actions>
