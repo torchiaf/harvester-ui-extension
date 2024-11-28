@@ -12,6 +12,11 @@ export function classify(ctx, obj, isClone = false) {
 
   const customModel = ctx.getters['classify'](obj);
 
+  if (obj?.type === 'schema' && obj?.id === 'node.harvesterhci.io.nodeconfig') {
+    console.log(customModel, obj)
+  }
+
+
   const out = new customModel(obj, ctx, null, isClone);
 
   return out;

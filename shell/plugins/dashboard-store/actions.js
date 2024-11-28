@@ -615,10 +615,10 @@ export default {
   batchChanges(ctx, batch) {
     const { commit } = ctx;
 
-    commit('batchChanges', {
-      ctx,
-      batch
-    });
+    // commit('batchChanges', {
+    //   ctx,
+    //   batch
+    // });
   },
 
   loadAll(ctx, { type, data }) {
