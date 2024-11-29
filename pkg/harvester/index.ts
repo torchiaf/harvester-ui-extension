@@ -20,10 +20,6 @@ export default function (plugin: IPlugin) {
 
   // Built-in icon
   plugin.metadata.icon = require('./icon.svg');
-
-  if (isDev && !isSingleVirtualCluster) {
-    plugin.addProduct(require('./config/harvester-manager'));
-  }
   
   plugin.addProduct(require('./config/harvester-cluster'));
 
