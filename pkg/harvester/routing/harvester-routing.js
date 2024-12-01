@@ -24,7 +24,7 @@ const routes = [
       path:      `/:product`,
       component: HarvesterUnsupported
     },
-    parent: 'blank'
+    parent: 'plain'
   },
   {
     name:      `${ PRODUCT_NAME }-c-cluster-support`,
