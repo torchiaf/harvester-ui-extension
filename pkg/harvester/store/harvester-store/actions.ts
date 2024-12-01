@@ -10,6 +10,19 @@ export default {
   async loadCluster({
     state, commit, dispatch, getters, rootGetters, rootState
   }: any, { id }: any) {
+    const isHarvesterVersionSupported = rootGetters['harvester-common/getFeatureEnabled']('supportHarvesterClusterVersion');
+
+    if (!isHarvesterVersionSupported) {
+      const product = rootGetters['productId'];
+
+      this.$router?.push({
+        name:   `${ product }-c-cluster-unsupported`,
+        params: { product }
+      });
+
+      return;
+    }
+
     // This is a workaround for a timing issue where the mgmt cluster schema may not be available
     // Try and wait until the schema exists before proceeding
     await dispatch('management/waitForSchema', { type: MANAGEMENT.CLUSTER }, { root: true });
