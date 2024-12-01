@@ -15,8 +15,25 @@ import HarvesterAirgapUpdgrade from '../pages/c/_cluster/airgapupgrade/index.vue
 import HarvesterMembers from '../pages/c/_cluster/members/index.vue';
 import ProjectNamespaces from '../pages/c/_cluster/projectsnamespaces.vue';
 import HarvesterAlertmanagerReceiver from '../pages/c/_cluster/alertmanagerconfig/_alertmanagerconfigid/receiver.vue';
+import HarvesterUnsupported from '../pages/c/_cluster/unsupported/index.vue';
 
 const routes = [
+  {
+    route: {
+      name:      `${ PRODUCT_NAME }-c-cluster-unsupported-standalone`,
+      path:      `/:product`,
+      component: HarvesterUnsupported
+    },
+    parent: 'blank'
+  },
+  {
+    route: {
+      name:      `${ PRODUCT_NAME }-c-cluster-unsupported`,
+      path:      `/:product`,
+      component: HarvesterUnsupported
+    },
+    parent: 'plain'
+  },
   {
     name:      `${ PRODUCT_NAME }-c-cluster-support`,
     path:      `/:product/c/:cluster/support`,
