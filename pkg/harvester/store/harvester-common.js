@@ -80,6 +80,8 @@ const getters = {
   getFeatureEnabled: (_state, _getters, _rootState, rootGetters) => (feature, version) => {
     const serverVersion = version || rootGetters['harvester/byId'](HCI.SETTING, 'server-version')?.value;
 
+    console.log('server version ------------', serverVersion);
+
     return featureEnabled(feature, serverVersion);
   },
 
