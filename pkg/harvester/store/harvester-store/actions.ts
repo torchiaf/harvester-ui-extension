@@ -101,6 +101,19 @@ export default {
 
     const res: any = await allHash(hash);
 
+    const isHarvesterVersionSupported = rootGetters['harvester-common/getFeatureEnabled']('supportHarvesterClusterVersion');
+
+    if (!isHarvesterVersionSupported) {
+      const product = rootGetters['productId'];
+
+      this.$router?.push({
+        name:   `${ product }-c-cluster-unsupported${ id === 'local' ? '-standalone' : '' }`,
+        params: { product }
+      });
+
+      return;
+    }
+
     await dispatch('cleanNamespaces', null, { root: true });
 
     commit('updateNamespaces', {
