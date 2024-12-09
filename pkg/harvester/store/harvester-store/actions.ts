@@ -37,7 +37,7 @@ export default {
     commit('applyConfig', { baseUrl: virtualBase });
 
     await Promise.all([
-      dispatch('harvester/loadSchemas', true),
+      dispatch('harvester-common/loadSchemas', true),
     ]);
 
     dispatch('subscribe');
