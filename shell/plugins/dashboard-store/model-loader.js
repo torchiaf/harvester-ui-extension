@@ -12,8 +12,6 @@ function find(cache, type, rootState) {
 
   if ( impl ) {
     return impl;
-  } else if ( typeof impl !== 'undefined' ) {
-    return null;
   }
 
   try {
