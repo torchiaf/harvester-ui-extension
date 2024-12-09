@@ -63,7 +63,7 @@ export function lookup(store, type, _name, rootState) {
   for ( const t of tries ) {
     out = find(cache, t, rootState);
 
-    console.log(t, out);
+    console.log(t, out, cache);
 
     if ( out ) {
       return out;
