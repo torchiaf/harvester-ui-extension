@@ -2,6 +2,8 @@ import { STEVE } from '@shell/config/types';
 import Schema from './schema';
 import { wait } from '@shell/utils/async';
 
+const SchemaDefinitionCache = {};
+
 /**
  * Steve Schema specific functionality
  */
