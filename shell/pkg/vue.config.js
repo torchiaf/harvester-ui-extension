@@ -65,6 +65,7 @@ module.exports = function(dir) {
       const dynamicImporterOverride = new webpack.NormalModuleReplacementPlugin(/dynamic-importer$/, (resource) => {
         resource.request = path.join(__dirname, 'dynamic-importer.lib.js');
       });
+      // here
       const modelLoaderImporterOverride = new webpack.NormalModuleReplacementPlugin(/model-loader-require$/, (resource) => {
         const fileName = 'model-loader-require.lib.js';
         const pkgModelLoaderRequire = path.join(dir, fileName);
