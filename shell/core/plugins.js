@@ -216,6 +216,7 @@ export default function(context, inject, vueApp) {
             this.unregister(typ, name);
 
             if (typ === MODEL_TYPE) {
+              console.log('--- clearModelCache(name) ---', name, typ);
               clearModelCache(name);
             }
           });
