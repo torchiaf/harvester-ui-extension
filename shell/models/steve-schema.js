@@ -2,60 +2,31 @@ import { STEVE } from '@shell/config/types';
 import Schema from './schema';
 import { wait } from '@shell/utils/async';
 
-interface ResourceField {
-  type: string,
-  description: string,
-}
-type ResourceFields = { [id: string]: ResourceField }
-
-interface SchemaDefinition {
-  type: string,
-  description: string,
-  resourceFields: ResourceFields
-}
-type SchemaDefinitions = { [definitionId: string]: SchemaDefinition }
-
-type SchemaId = {
-  self: string;
-  others: string[];
-}
-type SchemaIds = { [schemaId: string]: SchemaId }
-
-interface SchemaDefinitionResponse {
-  definitions: SchemaDefinitions,
-  definitionType: string,
-}
-
-const SchemaDefinitionCache: { [store: string]: {
-  ids: SchemaIds,
-  definitions: SchemaDefinitions,
-} } = {};
-
 /**
  * Steve Schema specific functionality
  */
 export default class SteveSchema extends Schema {
-  static reset(store: string): void {
+  static reset(store) {
     delete SchemaDefinitionCache[store];
   }
 
-  _resourceFields?: ResourceFields;
+  _resourceFields;
 
   /**
    * If resourceFields have not been provided, they are required to be fetched aka schemaDefinition world
    */
-  requiresResourceFields: boolean;
+  requiresResourceFields;
 
   // These are just for typing, eventually we'll get them when Schema is fully converted to typescript
-  id?: string;
-  type?: string;
-  links?: any;
-  $ctx?: any;
+  id;
+  type;
+  links;
+  $ctx;
 
   /**
    * This should match the root Schema ctor (...args throws ts error)
    */
-  constructor(data: unknown, ctx: unknown, rehydrateNamespace?: null | undefined, setClone?: boolean) {
+  constructor(data, ctx, rehydrateNamespace, setClone) {
     super(data, ctx, rehydrateNamespace, setClone);
 
     if (!SchemaDefinitionCache[this.store]) {
@@ -84,7 +55,7 @@ export default class SteveSchema extends Schema {
    *
    * This is a non-erroring request, unlike the resourceFields getter which will error if schema definition is required but missing
    */
-  get hasResourceFields(): boolean {
+  get hasResourceFields() {
     if (this.requiresResourceFields) {
       return !!this.schemaDefinition?.resourceFields;
     }
@@ -97,7 +68,7 @@ export default class SteveSchema extends Schema {
    *
    * This will either come directly from the schema or from the schema's definition
    */
-  get resourceFields(): ResourceFields {
+  get resourceFields() {
     if (this.requiresResourceFields) {
       if (!this.schemaDefinitionsIds) {
         throw new Error(`Cannot find resourceFields for Schema ${ this.id } (schemaDefinitions have not been fetched) `);
@@ -110,13 +81,13 @@ export default class SteveSchema extends Schema {
       return this.schemaDefinition.resourceFields;
     }
 
-    return this._resourceFields as ResourceFields;
+    return this._resourceFields;
   }
 
   /**
    * Apply the original `resourceFields` param (if it exists). If it does not then we'll need to fetch the schema definition
    */
-  set resourceFields(resourceFields: ResourceFields) {
+  set resourceFields(resourceFields) {
     this._resourceFields = resourceFields;
     this.requiresResourceFields = this._resourceFields === null;
   }
@@ -126,7 +97,7 @@ export default class SteveSchema extends Schema {
    *
    * This happens via making a request to fetch the schema definition
    */
-  async fetchResourceFields(depth = 0): Promise<SchemaDefinition | null | undefined> {
+  async fetchResourceFields(depth = 0) {
     if (!this.requiresResourceFields) {
       // Not needed, no-op
       return;
@@ -159,7 +130,7 @@ export default class SteveSchema extends Schema {
         type: STEVE.SCHEMA_DEFINITION,
         url
       });
-    } catch (e: any) {
+    } catch (e) {
       if (e?._status === 500 || e?._status === 503) {
         // Rancher could be updating it's definition cache, attempt a few times
         await wait(2000);
@@ -182,11 +153,11 @@ export default class SteveSchema extends Schema {
    *
    * Split out for unit testing purposes
    */
-  private cacheSchemaDefinitionResponse(res: SchemaDefinitionResponse): void {
+  cacheSchemaDefinitionResponse(res) {
     const { [res.definitionType]: self, ...others } = res.definitions;
     const store = this.store;
 
-    SchemaDefinitionCache[store].ids[this.id as string] = { self: self.type, others: Object.keys(others) };
+    SchemaDefinitionCache[store].ids[this.id] = { self: self.type, others: Object.keys(others) };
     Object.entries(res.definitions).forEach(([type, sd]) => {
       SchemaDefinitionCache[store].definitions[type] = sd;
     });
@@ -203,7 +174,7 @@ export default class SteveSchema extends Schema {
   /**
    * The schema definition for this schema
    */
-  get schemaDefinition(): SchemaDefinition | null {
+  get schemaDefinition() {
     if (!this.schemaDefinitionsIds) {
       return null;
     }
@@ -214,7 +185,7 @@ export default class SteveSchema extends Schema {
   /**
    * The schema definitions for this schema definition's resourceFields
    */
-  get schemaDefinitions(): SchemaDefinitions | null {
+  get schemaDefinitions() {
     if (!this.schemaDefinitionsIds) {
       return null;
     }
@@ -223,13 +194,13 @@ export default class SteveSchema extends Schema {
       res[d] = SchemaDefinitionCache[this.store].definitions[d];
 
       return res;
-    }, {} as SchemaDefinitions);
+    }, {});
   }
 
   /**
    * URL to fetch this schema's definition
    */
-  get schemaDefinitionUrl(): string {
+  get schemaDefinitionUrl() {
     return this.links?.self?.replace('/schemas/', '/schemaDefinitions/');
   }
 
@@ -244,11 +215,11 @@ export default class SteveSchema extends Schema {
   /**
    * The name (namespace) of the vuex store this schema lives in (i.e. cluster, management, etc)
    */
-  private get store(): string {
+  get store() {
     return this.$ctx.state?.config?.namespace;
   }
 
-  private get schemaDefinitionsIds(): SchemaId | undefined {
-    return SchemaDefinitionCache[this.store]?.ids[this.id as string];
+  get schemaDefinitionsIds() {
+    return SchemaDefinitionCache[this.store]?.ids[this.id];
   }
 }
