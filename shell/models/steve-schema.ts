@@ -34,7 +34,7 @@ const SchemaDefinitionCache: { [store: string]: {
 /**
  * Steve Schema specific functionality
  */
-export default class SteveSchema extends Schema {
+export class SteveSchema extends Schema {
   static reset(store: string): void {
     delete SchemaDefinitionCache[store];
   }
