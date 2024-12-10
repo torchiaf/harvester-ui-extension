@@ -231,6 +231,7 @@ export default function(context, inject, vueApp) {
         // Ask the Steve stores to forget any data it has for models that we are removing
           promises.push(...this.removeTypeFromStore(store, 'rancher', Object.keys(plugin.types.models)));
           promises.push(...this.removeTypeFromStore(store, 'management', Object.keys(plugin.types.models)));
+          promises.push(...this.removeTypeFromStore(store, 'harvester', Object.keys(plugin.types.models)));
         }
 
         // Call plugin uninstall hooks
