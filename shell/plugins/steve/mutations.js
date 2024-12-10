@@ -12,7 +12,7 @@ import {
 } from '@shell/plugins/dashboard-store/mutations';
 import { perfLoadAll } from '@shell/plugins/steve/performanceTesting';
 import { classify } from '@shell/plugins/dashboard-store/classify';
-import SteveSchema from '@shell/models/steve-schema';
+import { SteveSchema } from '@shell/models/steve-schema';
 import { deepToRaw } from '@shell/utils/object';
 
 function registerNamespace(state, namespace) {
