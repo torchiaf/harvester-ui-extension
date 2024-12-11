@@ -2940,10 +2940,10 @@
   resolved "https://registry.yarnpkg.com/@rancher/icons/-/icons-2.0.29.tgz#6546d69768c706bebd66bfa73b36aef3d105987a"
   integrity sha512-qBBqfazS9y5VjV7fJDPNXmxd9AP/2uiE05mKFWP41kpbO+tEb62RnUBXCm14XLeScDZQcOuiAKVHMmvCFzF0BA==
 
-"@rancher/shell@3.0.1-rc.3":
-  version "3.0.1-rc.3"
-  resolved "https://registry.yarnpkg.com/@rancher/shell/-/shell-3.0.1-rc.3.tgz#0c6d68ec77c659f954dd1a302c3ef40369b56f37"
-  integrity sha512-05jGdQxJHbNmP6VoukhQ1WqY326irGOgrv6oVSm3FoTPST2zHH3F8WbEuHtlG4rhU/siV4MfXPOHE9Zozgw7jQ==
+"@rancher/shell@3.0.1-rc.4":
+  version "3.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@rancher/shell/-/shell-3.0.1-rc.4.tgz#d5b57a0184a89be09e7d4d21472545b3306d23d5"
+  integrity sha512-cTBLjn7iysSi86XgptWDi8ErarVyPh6yRrRfBefQrxhMeCJNy3aH40neO37zJO/0e99/YBe4bRsr6Z2NV9TqBA==
   dependencies:
     "@aws-sdk/client-ec2" "3.658.1"
     "@aws-sdk/client-eks" "3.1.0"
@@ -3049,7 +3049,6 @@
     vue-router "4.4.3"
     vue-select "4.0.0-beta.6"
     vue-server-renderer "2.7.16"
-    vue-template-compiler "2.7.16"
     vue3-resize "0.2.0"
     vue3-virtual-scroll-list "0.2.1"
     vuedraggable "4.1.0"
@@ -7106,11 +7105,6 @@ dayjs@^1.10.4, dayjs@^1.11.3:
   version "1.11.13"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.13.tgz#92430b0139055c3ebb60150aa13e860a4b5a366c"
   integrity sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==
-
-de-indent@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
-  integrity sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==
 
 debounce@^1.2.1:
   version "1.2.1"
@@ -13888,14 +13882,6 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.3:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
-
-vue-template-compiler@2.7.16:
-  version "2.7.16"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.16.tgz#c81b2d47753264c77ac03b9966a46637482bb03b"
-  integrity sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==
-  dependencies:
-    de-indent "^1.0.2"
-    he "^1.2.0"
 
 vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
