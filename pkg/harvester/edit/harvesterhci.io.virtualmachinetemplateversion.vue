@@ -205,6 +205,11 @@ export default {
       if (tab.name === 'advanced') {
         this.$refs.yamlEditor?.refresh();
       }
+    },
+
+    updateNameNsDescriptionValue(newValue) {
+      this.templateValue.metadata.name = newValue.metadata.name;
+      this.templateValue.metadata.namespace = newValue.metadata.namespace;
     }
   },
 };
@@ -226,7 +231,7 @@ export default {
       :mode="realTemplateMode"
       name-label="harvester.vmTemplate.nameNsDescription.name"
       :namespaced="true"
-      @update:value="$emit('update:value', $event)"
+      @update:value="updateNameNsDescriptionValue"
     />
 
     <Checkbox
