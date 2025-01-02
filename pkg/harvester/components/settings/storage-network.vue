@@ -192,7 +192,8 @@ export default {
 
     <div v-if="openVlan">
       <LabeledInput
-        v-model.number="parsedDefaultValue.vlan"
+        v-model:value.number="parsedDefaultValue.vlan"
+        type="number"
         class="mb-20"
         :mode="mode"
         required
