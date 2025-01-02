@@ -29,7 +29,7 @@ import SSHKey from './kubevirt.io.virtualmachine/VirtualMachineSSHKey';
 export default {
   name: 'HarvesterEditVMTemplate',
 
-  emits: ['update:value'],
+  emits: ['update:templateValue'],
 
   components: {
     Tab,
@@ -206,11 +206,6 @@ export default {
         this.$refs.yamlEditor?.refresh();
       }
     },
-
-    updateNameNsDescriptionValue(newValue) {
-      this.templateValue.metadata.name = newValue.metadata.name;
-      this.templateValue.metadata.namespace = newValue.metadata.namespace;
-    }
   },
 };
 </script>
@@ -227,11 +222,11 @@ export default {
     @finish="saveVMT"
   >
     <NameNsDescription
-      :value="value"
+      :value="templateValue"
       :mode="realTemplateMode"
       name-label="harvester.vmTemplate.nameNsDescription.name"
       :namespaced="true"
-      @update:value="updateNameNsDescriptionValue"
+      @update:value="$emit('update:templateValue', $event)"
     />
 
     <Checkbox
