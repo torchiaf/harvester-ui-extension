@@ -530,6 +530,7 @@ export default {
           :mode="mode"
           :pad-left="false"
           :read-allowed="false"
+          :value-can-be-empty="true"
           @focusKey="focusKey"
           @update:value="value.setLabels($event)"
         >
@@ -552,7 +553,7 @@ export default {
               autocorrect="off"
               autocapitalize="off"
               spellcheck="false"
-              @update:value="queueUpdate"
+              @input="queueUpdate"
             />
           </template>
         </KeyValue>
