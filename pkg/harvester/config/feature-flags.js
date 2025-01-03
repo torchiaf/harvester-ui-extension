@@ -17,12 +17,7 @@ const featuresV132 = [
   'improveMaintenanceMode',
 ];
 
-// TODO: change to https://github.com/harvester/dashboard/releases/tag/v1.4.0 after v1.4.0 release
-// https://github.com/harvester/dashboard/releases/tag/v1.4.0-rc5
-// https://github.com/harvester/dashboard/releases/tag/v1.4.0-rc4
-// https://github.com/harvester/dashboard/releases/tag/v1.4.0-rc3
-// https://github.com/harvester/dashboard/releases/tag/v1.4.0-rc2
-// https://github.com/harvester/dashboard/releases/tag/v1.4.0-rc1
+// https://github.com/harvester/dashboard/releases/tag/v1.4.0
 const featuresV140 = [
   ...featuresV132,
   'cpuPinning',
@@ -34,9 +29,16 @@ const featuresV140 = [
   'improveMaintenanceMode',
 ];
 
+// TODO: add v1.4.1 official release note
+// https://github.com/harvester/dashboard/releases/tag/v1.4.1-rc1
+const featuresV141 = [
+  ...featuresV140
+];
+
 export const RELEASE_FEATURES = {
   'v1.3.0': featuresV130,
   'v1.3.1': featuresV131,
   'v1.3.2': featuresV132,
   'v1.4.0': featuresV140,
+  'v1.4.1': featuresV141,
 };
