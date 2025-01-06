@@ -104,7 +104,7 @@ jobs:
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
           path: ${{steps.build-embedded.outputs.BUILD_EMBEDED_TGZ}}
-          destination: releases.rancher.com/harvester-ui/${{ env.REPO }}
+          destination: releases.rancher.com/harvester-ui/dashboard
           parent: false
           headers: |-
             cache-control: no-cache,must-revalidate

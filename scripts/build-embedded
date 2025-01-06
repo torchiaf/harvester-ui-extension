@@ -18,6 +18,10 @@ echo "BRANCH: ${COMMIT_BRANCH:-<none>}"
 echo "TAG: ${GIT_TAG:-<none>}"
 DIR=${GIT_TAG:-$COMMIT_BRANCH}
 
+if [[ "${DIR}" == "main" ]]; then
+  DIR="latest"
+fi
+
 OUTPUT_DIR=dist/${DIR}-embedded
 
 echo "Building..."
