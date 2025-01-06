@@ -4,8 +4,8 @@ yarn --pure-lockfile install
 
 source scripts/version
 
-if [[ $COMMIT_BRANCH == "master" ]]; then
-  VERSION="latest"
+if [[ $COMMIT_BRANCH == "main" ]]; then
+  VERSION="test-release"
 else
   VERSION=$COMMIT_BRANCH
 fi

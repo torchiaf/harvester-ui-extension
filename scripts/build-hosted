@@ -17,8 +17,8 @@ echo "BRANCH: ${COMMIT_BRANCH:-<none>}"
 echo "TAG: ${GIT_TAG:-<none>}"
 DIR=${GIT_TAG:-$COMMIT_BRANCH}
 
-if [[ "${DIR}" == "master" ]]; then
-  DIR="latest"
+if [[ "${DIR}" == "main" ]]; then
+  DIR="test-release"
 fi
 
 BASE=${BASE:-https://releases.rancher.com/harvester-ui/dashboard/${DIR}}
