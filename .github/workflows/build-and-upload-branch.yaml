@@ -9,6 +9,8 @@ on:
     branches:
       - main
       - 'release-harvester-v*'
+    types: 
+      - merged
 
 jobs:
   build-validation:
