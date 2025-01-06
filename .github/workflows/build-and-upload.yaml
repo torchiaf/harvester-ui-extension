@@ -200,9 +200,9 @@ jobs:
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
           #TODO: replace test-release with ${{steps.ci-build-pkg.outputs.PKG_NAME}}
-          path: dist-pkg/test-release
+          path: dist-pkg/harvester-test-release
           #TODO: replace test-release with ${{steps.ci-build-pkg.outputs.PKG_NAME}}
-          destination: releases.rancher.com/harvester-ui/plugin/test-release
+          destination: releases.rancher.com/harvester-ui/plugin/harvester-test-release
           parent: false
           headers: |-
             cache-control: no-cache,must-revalidate

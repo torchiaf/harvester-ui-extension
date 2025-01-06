@@ -31,8 +31,8 @@ if [ -n "$GIT_TAG" ]; then
   export PKG_NAME=${1}-${CI_BUILD_TAG}
   export PKG_TARBALL=${PKG_NAME}.tar.gz
 else
-  export PKG_NAME=${1}-${VERSION}
-  export PKG_TARBALL=${PKG_NAME}.tar.gz
+  export PKG_NAME=${1}-${VERSION} # harvester-test-release or harvester-latest
+  export PKG_TARBALL=${PKG_NAME}.tar.gz # harvester-test-release.tar.gz or harvester-latest.tar.gz
 fi
 
 echo "CI Build Artefacts"
