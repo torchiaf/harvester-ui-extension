@@ -5,7 +5,10 @@ on:
     branches:
       - main
       - 'release-harvester-v*'
-      - '*-dev'
+  pull_request:
+    branches:
+      - main
+      - 'release-harvester-v*'
 
 jobs:
   build-validation:
