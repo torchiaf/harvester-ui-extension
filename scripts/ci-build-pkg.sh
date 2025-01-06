@@ -20,9 +20,9 @@ echo "COMMIT_BRANCH: ${COMMIT_BRANCH}"
 echo "VERSION: ${VERSION}"
 
 if [ -n "$GIT_TAG" ]; then
-  COMMIT=$COMMIT COMMIT_BRANCH=$COMMIT_BRANCH VERSION=$CI_BUILD_TAG ./shell/scripts/build-pkg.sh ${1} "true"
+  COMMIT=$COMMIT COMMIT_BRANCH=$COMMIT_BRANCH VERSION=$CI_BUILD_TAG ./scripts/build-pkg.sh ${1} "true"
 else
-  COMMIT=$COMMIT COMMIT_BRANCH=$COMMIT_BRANCH VERSION=$VERSION ./shell/scripts/build-pkg.sh ${1} "true"
+  COMMIT=$COMMIT COMMIT_BRANCH=$COMMIT_BRANCH VERSION=$VERSION ./scripts/build-pkg.sh ${1} "true"
 fi
 
 EXIT_CODE=$?
