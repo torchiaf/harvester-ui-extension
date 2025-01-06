@@ -99,9 +99,10 @@ jobs:
       - name: Upload build
         uses: 'google-github-actions/upload-cloud-storage@v2'
         # https://github.com/google-github-actions/upload-cloud-storage
+        # TODO: replace test-release back to ${{ steps.build-hosted.outputs.BUILD_HOSTED_LOCATION }}
         with:
           path: ${{steps.build-hosted.outputs.BUILD_HOSTED_DIR}}
-          destination: releases.rancher.com/harvester-ui/dashboard/${{ steps.build-hosted.outputs.BUILD_HOSTED_LOCATION }}
+          destination: releases.rancher.com/harvester-ui/dashboard/test-release
           parent: false
           headers: |-
             cache-control: no-cache,must-revalidate
@@ -142,64 +143,65 @@ jobs:
 
       - name: Upload tar
         uses: 'google-github-actions/upload-cloud-storage@v2'
+        # TODO: replace test-release with ${{ env.REPO }}
         with:
           path: ${{steps.build-embedded.outputs.BUILD_EMBEDED_TGZ}}
-          destination: releases.rancher.com/harvester-ui/${{ env.REPO }}
+          destination: releases.rancher.com/harvester-ui/test-release
           parent: false
           headers: |-
             cache-control: no-cache,must-revalidate
           process_gcloudignore: false
 
-  build-and-upload-harvester-plugin:
-    name: Build & Upload Plugin
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
+  # build-and-upload-harvester-plugin:
+  #   name: Build & Upload Plugin
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 1
 
-        # Note - Cannot use the setup action here as it uses a different yarn install arg
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
+  #       # Note - Cannot use the setup action here as it uses a different yarn install arg
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version-file: '.nvmrc'
+  #         cache: 'yarn'
 
-      - id: ci-build-pkg
-        name: Build pkg
-        run: ./shell/scripts/ci-build-pkg.sh harvester
+  #     - id: ci-build-pkg
+  #       name: Build pkg
+  #       run: ./shell/scripts/ci-build-pkg.sh harvester
 
-      - id: upload-gate
-        name: Upload Gate
-        run: ./scripts/build-upload-gate
+  #     - id: upload-gate
+  #       name: Upload Gate
+  #       run: ./scripts/build-upload-gate
 
-      - name: Get gcs auth
-        uses: rancher-eio/read-vault-secrets@main
-        with:
-          secrets: |
-            secret/data/github/repo/${{ github.repository }}/googleauthkey/harvester/credentials credential | GOOGLE_AUTH ;
+  #     - name: Get gcs auth
+  #       uses: rancher-eio/read-vault-secrets@main
+  #       with:
+  #         secrets: |
+  #           secret/data/github/repo/${{ github.repository }}/googleauthkey/harvester/credentials credential | GOOGLE_AUTH ;
 
-      - name: Apply gcs auth
-        # https://github.com/google-github-actions/auth
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: "${{ env.GOOGLE_AUTH }}"
+  #     - name: Apply gcs auth
+  #       # https://github.com/google-github-actions/auth
+  #       uses: 'google-github-actions/auth@v2'
+  #       with:
+  #         credentials_json: "${{ env.GOOGLE_AUTH }}"
 
-      - name: Upload plugin tar
-        uses: 'google-github-actions/upload-cloud-storage@v2'
-        with:
-          path: dist-pkg/${{steps.ci-build-pkg.outputs.PKG_TARBALL}}
-          destination: releases.rancher.com/harvester-ui/plugin
-          parent: false
-          headers: |-
-            cache-control: no-cache,must-revalidate
-          process_gcloudignore: false
+  #     - name: Upload plugin tar
+  #       uses: 'google-github-actions/upload-cloud-storage@v2'
+  #       with:
+  #         path: dist-pkg/${{steps.ci-build-pkg.outputs.PKG_TARBALL}}
+  #         destination: releases.rancher.com/harvester-ui/plugin
+  #         parent: false
+  #         headers: |-
+  #           cache-control: no-cache,must-revalidate
+  #         process_gcloudignore: false
 
-      - name: Upload plugin directory
-        uses: 'google-github-actions/upload-cloud-storage@v2'
-        with:
-          path: dist-pkg/${{steps.ci-build-pkg.outputs.PKG_NAME}}
-          destination: releases.rancher.com/harvester-ui/plugin/${{steps.ci-build-pkg.outputs.PKG_NAME}}
-          parent: false
-          headers: |-
-            cache-control: no-cache,must-revalidate
-          process_gcloudignore: false
+  #     - name: Upload plugin directory
+  #       uses: 'google-github-actions/upload-cloud-storage@v2'
+  #       with:
+  #         path: dist-pkg/${{steps.ci-build-pkg.outputs.PKG_NAME}}
+  #         destination: releases.rancher.com/harvester-ui/plugin/${{steps.ci-build-pkg.outputs.PKG_NAME}}
+  #         parent: false
+  #         headers: |-
+  #           cache-control: no-cache,must-revalidate
+  #         process_gcloudignore: false
