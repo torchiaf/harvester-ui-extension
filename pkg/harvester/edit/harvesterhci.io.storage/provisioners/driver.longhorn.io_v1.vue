@@ -10,17 +10,6 @@ import { clone } from '@shell/utils/object';
 import { uniq } from '@shell/utils/array';
 import { DATA_ENGINE_V1 } from '../../../models/harvester/persistentvolumeclaim';
 
-// UI components for Longhorn storage class parameters
-const DEFAULT_PARAMETERS = [
-  'numberOfReplicas',
-  'staleReplicaTimeout',
-  'diskSelector',
-  'nodeSelector',
-  'migratable',
-  'encrypted',
-  'dataEngine',
-];
-
 const {
   CSI_PROVISIONER_SECRET_NAME,
   CSI_PROVISIONER_SECRET_NAMESPACE,
@@ -141,11 +130,17 @@ export default {
       get() {
         const parameters = clone(this.value?.parameters) || {};
 
-        DEFAULT_PARAMETERS.forEach((key) => {
-          delete parameters[key];
-        });
+        // UI components for Longhorn storage class parameters
+        const defaultParameters = [
+          'numberOfReplicas',
+          'staleReplicaTimeout',
+          'diskSelector',
+          'nodeSelector',
+          'migratable',
+          ...(this.value.volumeEncryptionFeatureEnabled ? ['encrypted', 'dataEngine'] : []),
+        ];
 
-        Object.values(CSI_SECRETS).forEach((key) => {
+        [...defaultParameters, ...Object.values(CSI_SECRETS)].forEach((key) => {
           delete parameters[key];
         });
 
@@ -311,16 +306,16 @@ export default {
         </LabeledSelect>
       </div>
     </div>
+    <div class="row mt-20">
+      <RadioGroup
+        v-model:value="value.parameters.migratable"
+        name="layer3NetworkMode"
+        :label="t('harvester.storage.parameters.migratable.label')"
+        :mode="mode"
+        :options="migratableOptions"
+      />
+    </div>
     <template v-if="value.volumeEncryptionFeatureEnabled">
-      <div class="row mt-20">
-        <RadioGroup
-          v-model:value="value.parameters.migratable"
-          name="layer3NetworkMode"
-          :label="t('harvester.storage.parameters.migratable.label')"
-          :mode="mode"
-          :options="migratableOptions"
-        />
-      </div>
       <div class="row mt-20">
         <RadioGroup
           v-model:value="volumeEncryption"
