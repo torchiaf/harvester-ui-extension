@@ -193,6 +193,11 @@ export default {
 <template>
   <Loading v-if="$fetchState.pending" />
   <div v-else>
+    <div
+      v-ui-context="{ icon: 'icon-folder', value: rows?.[0], tag: rows?.[0]?.kind.toLowerCase(), description: rows?.[0]?.kind }"
+    >
+      Context test
+    </div>
     <ResourceTable
       v-bind="$attrs"
       :headers="headers"

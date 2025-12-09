@@ -641,6 +641,7 @@ export default {
       <ResourceSummary
         v-for="(resource, i) in totalCountGaugeInput"
         :key="i"
+        v-ui-context="{ icon: 'icon-folder', value: resource, tag: resource.resource?.toLowerCase(), description: resource.resource }"
         :spoofed-counts="resource.isSpoofed ? resource : null"
         :resource="resource.resource"
       />
